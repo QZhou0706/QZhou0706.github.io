@@ -101,9 +101,9 @@ menu:
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
-  #schedule: /schedule/ || fa fa-calendar
+  schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
-  #commonweal: /404/ || fa fa-heartbeat
+  commonweal: /404/ || fa fa-heartbeat
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
@@ -320,8 +320,8 @@ tagcloud:
 # Google Calendar
 # Share your recent schedule to others via calendar page.
 calendar:
-  calendar_id: <required> # Your Google account E-Mail
-  api_key: <required>
+  calendar_id: qzhou0706@gmail.com # Your Google account E-Mail
+  api_key: AIzaSyBk8h76NCcFuBnXK-imQmod6YFK9rhIZsk
   orderBy: startTime
   showLocation: false
   offsetMax: 72 # Time Range
