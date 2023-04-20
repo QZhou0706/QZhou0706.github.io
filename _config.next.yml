@@ -287,15 +287,17 @@ follow_me:
 # Related popular posts
 # Dependencies: https://github.com/sergeyzwezdin/hexo-related-posts
 related_posts:
-  enable: false
+  enable: true
   icon: fa fa-signs-post
 
-# Post edit
-# Easily browse and edit blog source code online.
+# post edit
+# easily browse and edit blog source code online.
 post_edit:
-  enable: false
-  url: https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/ # Link for view source
-  #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork & edit
+  enable: true
+  #url: https://github.com/QZhou0706/QZhou0706.github.io/tree/blog/source/
+  # Link for view source
+  url: https://github.com/QZhou0706/QZhou0706.github.io/edit/blog/source/
+  # Link for fork & edit
 
 # Show previous post and next post in post footer if exists
 # Available values: left | right | false
