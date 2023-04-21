@@ -338,7 +338,7 @@ calendar:
 
 # Preload styles and preconnect CDN for fonts and plugins.
 # For more information: https://www.w3.org/TR/resource-hints/#preconnect
-preconnect: false
+preconnect: true
 
 # Set the text alignment in posts / pages.
 text_align:
@@ -347,7 +347,7 @@ text_align:
   mobile: justify
 
 # Reduce padding / margin indents on devices with narrow width.
-mobile_layout_economy: false
+mobile_layout_economy: true
 
 # Browser header panel color.
 theme_color:
@@ -365,23 +365,23 @@ codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: default
+    light: stackoverflow-light
     dark: stackoverflow-dark
   prism:
     light: prism
     dark: prism-dark
   # Add copy button on codeblock
   copy_button:
-    enable: false
+    enable: true
     # Available values: default | flat | mac
-    style:
+    style: flat
 
 back2top:
   enable: true
   # Back to top in sidebar.
   sidebar: false
   # Scroll percent label in b2t button.
-  scrollpercent: false
+  scrollpercent: true
 
 # Reading progress bar
 reading_progress:
@@ -392,7 +392,7 @@ reading_progress:
   position: top
   reversed: false
   color: "#37c6c0"
-  height: 3px
+  height: 2px
 
 # Bookmark Support
 bookmark:
@@ -422,7 +422,7 @@ github_banner:
 # ---------------------------------------------------------------
 
 font:
-  enable: false
+  enable: true
 
   # Uri of fonts host, e.g. https://fonts.googleapis.com (Default).
   host:
@@ -458,7 +458,7 @@ font:
   # Font settings for <code> and code blocks.
   codes:
     external: true
-    family:
+    family: Fira Code
 
 
 # ---------------------------------------------------------------
