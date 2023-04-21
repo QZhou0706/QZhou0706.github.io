@@ -8,7 +8,9 @@ subtitle: "and his fancy life"
 description: ''
 keywords:
 author: 'Q Zhou'
-language: en
+language: 
+  - en
+  - zh-CN
 timezone: ''
 
 # URL
@@ -49,7 +51,7 @@ highlight:
   auto_detect: false
   tab_replace: ''
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
   enable: false
   preprocess: true
