@@ -12,6 +12,7 @@
     "version": "6.3.0"
   },
   "dependencies": {
+    "@fancyapps/ui": "^5.0.16",
     "hexo": "^6.3.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
@@ -23,6 +24,10 @@
     "hexo-renderer-pandoc": "^0.3.1",
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-server": "^3.0.0",
-    "hexo-theme-landscape": "^0.0.3"
+    "hexo-theme-landscape": "^0.0.3",
+    "lozad": "^1.16.0",
+    "pangu": "^4.0.7",
+    "pjax": "^0.2.8",
+    "quicklink": "^2.3.0"
   }
 }
