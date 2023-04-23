@@ -107,3 +107,18 @@ deploy:
   type: 'git'
   repo: git@github.com:QZhou0706/QZhou0706.github.io.git
   branch: master
+
+# leanCloud(Chine) counting tools
+leancloud_counter_security:
+  enable_sync: true
+  app_id: W9yGE6ItCfXIsjd3xcYpPxJp-MdYXbMMI
+  app_key: A1Iz4a9n0Wmj8n2isds9Vzqy
+  username: # Will be asked while deploying if is left blank
+  password: # Recommmended to be left blank. Will be asked while deploying if is left blank
+
+# local search
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
