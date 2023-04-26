@@ -247,7 +247,7 @@ read_more_btn: true
 
 # Post meta display settings
 post_meta:
-  item_text: true
+  item_text: false
   created_at: true
   updated_at:
     enable: false
@@ -436,7 +436,7 @@ font:
   global:
     external: true
     family: Lato
-    size:
+    size: 1.15
 
   # Font settings for site title (.site-title).
   title:
