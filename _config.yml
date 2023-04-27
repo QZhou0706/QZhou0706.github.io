@@ -5,8 +5,8 @@
 # Site
 title: Aric
 subtitle: "and his fancy life"
-description: ''
-keywords:
+description: '记录我的学习和成长'
+keywords: 'arickkaa'
 author: 'Q Zhou'
 language: 
   - en
@@ -15,8 +15,10 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://QZhou0706.github.io
-permalink: :year/:month/:day/:title/
+# url: http://QZhou0706.github.io
+url: http://Arickkaa.com
+permalink: :title/
+#permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -122,3 +124,26 @@ search:
   field: post
   content: true
   format: html
+
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
+# express web code 
+neat_enable: true
+neat_html:
+  enable: true
+  exclude:
+neat_css:
+  enable: true
+  exclude:
+    - '**/*.min.css'
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '**/*.min.js'
+    - '**/index.js'
