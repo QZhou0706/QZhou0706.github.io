@@ -2,7 +2,9 @@
 title: 操作系统07. 并发控制互斥
 date: 2023-04-27 11:00:00
 categories:
-   - Operating System
+  - Operating System
+tags:
+  - 基础学习
 ---
 
 **背景回顾**：互斥 (Peterson 算法)：为了掌控并发程序的复杂行为，使程序退回到 “串行执行” 的 lock & unlock。
@@ -12,6 +14,8 @@ categories:
 - 互斥问题的定义和假设
 - 自旋锁
 - 互斥锁和Futex
+
+<!--more-->
 
 #### 回顾：并发编程
 
