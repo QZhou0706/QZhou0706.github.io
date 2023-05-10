@@ -13,6 +13,8 @@ tags:
 
 - 核心准则：编写可读代码
 
+<!--more-->
+
 #### 核心准则：编写可读代码
 
 [IOCCC'11 best self documenting program](https://www.ioccc.org/2011/hou/hou.c)

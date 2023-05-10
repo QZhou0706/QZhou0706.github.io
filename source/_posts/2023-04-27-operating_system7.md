@@ -106,7 +106,7 @@ int xchg(int volatile *ptr, int newval) {
 >
 > 在任何时候使用原子指令都是安全的，前提是原子指令是正确的。
 
-#### 自选锁(Spin Lock)
+#### 自旋锁(Spin Lock)
 
 ##### 实现互斥
 
@@ -269,3 +269,178 @@ __attribute__((destructor)) void cleanup() {
 
 可以验证，无论是O2优化还是O1优化都可以输出正确的结果，自旋锁目前为止是可以处理编译优化的。lock和unlock内没有compiler barrier里面的代码是可以优化的
 
+##### 无锁算法(了解)
+
+**更强大的原子指令**
+
+Compare and exchange("test and set")
+
+- (lock) compxchg SRC, DEST
+
+```c
+TEMP = DEST
+if accumulator == TEMP:
+    ZF = 1
+    DEST = SRC
+else:
+    ZF = 0
+    accumulator = TEMP
+```
+
+- 🤔 看起来没有复杂多少，又好像复杂了很多
+  - 学编程/操作系统”纸面理解“是不行的
+  - 一定要写代码加深印象
+    - 对于这个例子：我们可以列出“真值表”
+
+```c cmpoxchg.c
+#include <stdio.h>
+#include <assert.h>
+
+int cmpxchg(int old, int new, int volatile *ptr) {
+  asm volatile(
+    "lock cmpxchgl %[new], %[mem]"
+      : "+a"(old), [mem] "+m"(*ptr)
+      : [new] "S"(new)
+      : "memory"
+  );
+  return old;
+}
+
+int cmpxchg_ref(int old, int new, int volatile *ptr) {
+  int tmp = *ptr;  // Load
+  if (tmp == old) {
+    *ptr = new;  // Store (conditionally)
+  }
+  return tmp;
+}
+
+void run_test(int x, int old, int new) {
+  int val1 = x;
+  int ret1 = cmpxchg(old, new, &val1);
+
+  int val2 = x;
+  int ret2 = cmpxchg_ref(old, new, &val2);
+
+  assert(val1 == val2 && ret1 == ret2);
+  printf("x = %d -> (cmpxchg %d -> %d) -> x = %d\n", x, old, new, val1);
+}
+
+int main() {
+  for (int x = 0; x <= 2; x++)
+    for (int old = 0; old <= 2; old++)
+      for (int new = 0; new <= 2; new++)
+        run_test(x, old, new);
+}
+```
+
+![](https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510124338922.png)
+
+#### 在操作系统上实现互斥
+
+##### 自旋锁的缺陷
+
+性能问题(1)
+
+- 除了进入临界区的线程，其他处理器上的线程都在**空转**
+- 争抢锁的处理器越多，利用率越低
+  - 4 个 CPU 运行 4 个 sum-spinlock 和 1 个 OBS
+    - 人一时刻都只有一个 sum-atomic 在有效计算
+  - 均分 CPU, OBS 就分不到 100% 的 CPU 了
+
+性能问题(2)
+
+- 持有自选锁的线程**可能被操作系统切换出去**
+  - 操作系统不"感知"线程在做什么
+  - (但为什么不能呢？)
+- 实现 100% 的资源浪费
+
+##### Scalability: 性能的新维度
+
+>同一份计算任务，时间 (CPU cycles) 和空间 (mapped memory) 会随处理器数量的增长而变化。
+
+用自旋锁实现 sum++ 的性能问题
+
+- 严谨的统计很难
+  - CPU 动态功耗
+  - 系统的其他进程
+  - 超线程
+  - NUMA
+  - ......
+  - [Benchmarking crimes](https://gernot-heiser.org/benchmarking-crimes.html)
+
+![](https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/spinlock-scalability.jpg)
+
+![](https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510130507698.png)
+
+线程越多，效率越低，用本地代码去测试也有这种情况，为什么会发生这种情况？一个很重要的原因是现代的处理器是有缓存的，当我们想要读 sum 或者写 sum 都是从一级缓存中读出的，但是当另一个线程想要读不在这个处理器缓存中的 sum 时，就需要去另一个 CPU 的缓存中拉下来，传的过程就会产生时间，很有趣的 Scalability 的讨论
+
+##### 自旋锁的使用场景
+
+1. 临界区几乎不“拥堵”
+2. 持有自旋锁时禁止执行流切换
+
+使用场景**(唯一)**：**操作系统内和的并发数据结构（短临界区）**
+
+- 操作系统可以关闭中断和抢占(仔细读起来这个行为是不合理的)
+  - 保证自旋锁的持有者在很短的时间内可以释放锁
+- (如果是虚拟机呢...😂)
+  - PAUSE 指令会处罚 VM Exit
+- 但依旧很难做好
+  - [An analysis of Linux scalability to many cores](https://www.usenix.org/conference/osdi10/analysis-linux-scalability-many-cores) (OSDI'10)
+
+##### 实现线程 + 长临界区的互斥
+
+>作业那么多，与其干等作业发布，不如把自己 (CPU) 让给其他作业 (线程) 执行？
+
+“让”不是 C 语言代码可以做到的 (C 代码只能执行命令)
+
+- 但有一种特殊的指令：syscall
+- 把锁的实现放到操作系统里就好了
+  - syscall(SYSCALL_lock, &lk);
+    - 试图获得 1k，但如果失败，就切换到其他进程
+  - syscall(SYSCALL_unlock, &1k);
+    - 释放 1k，如果有等待锁的线程就唤醒
+
+操作系统 = 更衣室管理员
+
+![](https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/locker.jpg)
+
+- 先到的人(线程)
+  - 成功获得手环，进入游泳馆
+  - \*1k = 🔒，系统调用直接返回
+- 后到的人(线程)
+  - 不能进入游泳馆，排队等待
+  - 线程放入等待队列，执行线程切换(yield)
+- 洗完澡出来的人(线程)
+  - 交还手环给管理员；管理员把手环再交给排队的人
+  - 如果等待队列不空，从等待队列中取出一个线程允许执行
+  - 如果等待队列为空，\*1k = ✅
+- **管理员 (OS) 使用自旋锁确保自己处理手环的过程是原子的**
+
+#### 关于互斥的一些分析
+
+自旋锁(线程直接共享 locked)
+
+- 更快的 fast path
+  - xchg 成功→立即进入临界区，开小很小
+- 更慢的 slow path
+  - xchg 失败→浪费 CPU 自旋等待
+
+互斥锁(通过系统调用访问 locked)
+
+- 更经济的 slow path
+  - 上锁失败线程不再占用 CPU
+- 更慢的 fast path
+  - 即使上锁成功也需要进出内核 (syscall)
+
+---
+
+为了实现现代多处理器系统上的互斥，我们首先需要理解 “原子操作” (例如 `atomic_xchg`) 的假设：
+
+1. 操作本身是原子的、看起来无法被打断的，即它真的是一个 “原子操作”；
+2. 操作自带一个 compiler barrier，防止优化跨过函数调用。这一点很重要——例如我们今天的编译器支持 Link-time Optimization (LTO)，如果缺少 compiler barrier，编译优化可以穿过 volatile 标记的汇编指令；
+3. 操作自带一个 memory barrier，保证操作执行前指令的写入，能对其他处理器之后的 load 可见。
+
+在此假设的基础上，原子操作就成为了我们简化程序执行的基础机制。通过自旋 (spin)，可以很直观地实现 “轮询” 式的互斥。而为了节约共享内存线程在自旋上浪费的处理器，我们也可以通过系统调用请求操作系统来帮助现成完成互斥。
+
+以上就是本节的所有内容，中间因为各种原因隔了十多天才全部看完，这段间隔也让我发现了前导知识的缺陷，线程库的那一章被我跳过了，我感觉需要去把前面的多处理器编程补回来，然后这篇文章中的一些链接都看一下，大致就能更深入地理解并发了。
