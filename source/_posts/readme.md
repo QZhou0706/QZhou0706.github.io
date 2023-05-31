@@ -147,6 +147,10 @@ categories 同理
 - Body Scrollbar
 - Back to Top
 - Font Customization
+- Codeblock Style
+  - button
+  - theme 默认
+
 
 将 code.fontfamily 设置为 Fira Code
 
@@ -974,4 +978,86 @@ npm install hexo-renderer-swig
 {% endnote %}
 
 {% cq %}Something{% endcq %}
+
+#### Video
+
+```
+{% video url %}
+{% youtube  Kt7u5kr_P5o %}
+```
+
+{% youtube  gx1hEQSOAyg %}
+
+### Third party plugin
+
+#### Pjax 加速浏览
+
+``` shell Next config file
+# Easily enable fast Ajax navigation on your website.
+# For more information: https://github.com/next-theme/pjax
+pjax: true
+```
+
+```shell
+npm install pjax
+```
+
+#### Math Equations
+
+```shell Next file config
+math:
+  ...
+  mathjax:
+    enable: true
+```
+
+```shell
+$ npm un hexo-renderer-marked
+$ npm i hexo-renderer-pandoc
+```
+
+```shell
+$ hexo clean && hexo g -d
+# or hexo clean && hexo s
+```
+
+$$
+\begin{equation}
+E = mc^2
+\end{equation}
+$$
+
+$$
+\begin{equation*}
+e^{\pi i} + 1 = 0
+\end{equation*}
+$$
+
+
+
+In equation $\eqref{eq:tag_i}$, we find the value of an
+interesting integral:
+$$
+\begin{equation}
+  \int_0^\infty \frac{x^3} {e^x-1}\,dx = \frac{\pi^4}{15}
+  \tag{i}
+  \label{eq:tag_i}
+\end{equation}
+$$
+
+#### Comments
+
+Disqus is a global comment system that improves discussion on websites and connects conversations across the web.
+
+1. Create an account and log into [Disqus](https://disqus.com/). Once logged in, click the `GET STARTED` button on the homepage, then select `I want to install Disqus on my site` option and you will see the `Create a new site` interface.
+2. Enter your `Website Name`, which will serve as your Disqus shortname, and select a Category from the drop-down menu. Then click `Create Site` button.
+3. Choose `I don't see my platform listed, install manually with Universal Code`, configure Disqus for your site, and click `Complete Setup` button.
+4. Set the value `enable` to `true`, add the obtained Disqus shortname (`shortname`), and edit other configurations in `disqus` section in the NexT config file as following:
+
+```shell Next config file
+disqus:
+  enable: false
+  shortname: your-short-disqus-name
+  count: true
+```
 
