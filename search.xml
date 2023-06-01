@@ -1110,7 +1110,10 @@
 <p>在 Next config file 中修改</p>
 <figure class="highlight json"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">google_site_verification<span class="punctuation">:</span> XXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
 
-<h4 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h4><figure class="highlight shell"><figcaption><span>NexT config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Mermaid tag</span></span><br><span class="line">mermaid:</span><br><span class="line">  enable: true</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Available themes: default | dark | forest | neutral</span></span><br><span class="line">  theme:</span><br><span class="line">    light: default</span><br><span class="line">    dark: dark</span><br></pre></td></tr></table></figure>
+<h4 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h4><div class="note danger"><p>必须要用 hexo-renderer-marked 才能渲染</p>
+</div>
+
+<figure class="highlight shell"><figcaption><span>NexT config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Mermaid tag</span></span><br><span class="line">mermaid:</span><br><span class="line">  enable: true</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Available themes: default | dark | forest | neutral</span></span><br><span class="line">  theme:</span><br><span class="line">    light: default</span><br><span class="line">    dark: dark</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><figcaption><span>Hexo config file</span></figcaption><table><tr><td class="code"><pre><span class="line">highlight:</span><br><span class="line">  exclude_languages:</span><br><span class="line">    - mermaid</span><br></pre></td></tr></table></figure>
 
@@ -1123,6 +1126,14 @@ Note right of John: Rational thoughts!
 John--&gt;&gt;Alice: Great!
 John-&gt;&gt;Bob: How about you?
 Bob--&gt;&gt;John: Jolly good!</code></pre>
+
+<pre class="mermaid">
+graph TD
+A[Hard] --&gt;|Text| B(Round)
+B --&gt; C{Decision}
+C --&gt;|One| D[Result 1]
+C --&gt;|Two| E[Result 2]
+</pre>
 
 
 
