@@ -1061,3 +1061,140 @@ disqus:
   count: true
 ```
 
+#### Analytics
+
+前往 [Google analytics](https://analytics.google.com/) 获取 track id，填入 Next config file 中
+
+#### LeanCloud Counting
+
+```shell
+npm install hexo-leancloud-counter-security
+```
+
+登陆 LeanCloud 获取 AppID & APPKey， 在 Hexo config file 中加入
+
+```shell Hexo cinfig file
+leancloud_counter_security:
+  enable_sync: true
+  app_id: <your app id>
+  app_key: <your app key>
+  username: <your username> # Will be asked while deploying if is left blank
+  password: <your password> # Recommmended to be left blank. Will be asked while deploying if is left blank
+```
+
+在 Next config file 中修改
+
+```shell Next config file
+# Show number of visitors to each article.
+# You can visit https://www.leancloud.cn get AppID and AppKey.
+leancloud_visitors:
+  enable: true
+  app_id: #<app_id>
+  app_key: #<app_key>
+  # Required for apps from CN region
+  server_url: # <your server url>
+  # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
+  # If you don't care about security in lc counter and just want to use it directly
+  # (without hexo-leancloud-counter-security plugin), set the `security` to `false`.
+  security: true
+```
+
+#### Local Search
+
+```shell
+$ npm install hexo-generator-searchdb
+```
+
+Hexo config file 中添加
+
+```shell Hexo config file
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
+```
+
+```shell Next config file 
+# Local search
+# Dependencies: https://github.com/next-theme/hexo-generator-searchdb
+local_search:
+  enable: true
+  # If auto, trigger search by changing input.
+  # If manual, trigger search by pressing enter key or search button.
+  trigger: auto
+  # Show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # Unescape html strings to the readable one.
+  unescape: false
+  # Preload the search data when the page loads.
+  preload: false
+```
+
+#### Fancybox
+
+```shell Next config file
+fancybox: true
+```
+
+#### Pangu Autospace
+
+自动在中文和英文之间加上一个空格
+
+```shell Next config file 
+# Pangu Support
+pangu: true
+```
+
+#### Quicklink
+
+[Quicklink](https://github.com/GoogleChromeLabs/quicklink) is a JavaScript plugin that faster subsequent page-loads by prefetching in-viewport links during idle time. Chrome, Firefox, Edge are supported without polyfills.
+
+```shell Next config file
+...
+quicklink:
+  enable: true
+  home: true
+  archive: true
+  delay: true
+  timeout: 3000
+  priority: true
+...
+```
+
+#### Animation Effect
+
+加载动画
+
+```shell Next config file
+# Use Animate.css to animate everything.
+# For more information: https://animate.style
+motion:
+  enable: true
+  async: false
+  transition:
+    # All available Transition variants: https://theme-next.js.org/animate/
+    post_block: fadeIn
+    post_header: fadeInDown
+    post_body: fadeInDown
+    coll_header: fadeInLeft
+    # Only for Pisces | Gemini.
+    sidebar: fadeInUp
+```
+
+#### Progress Bar
+
+```shell Next config file
+pace:
+  enable: true
+  # All available colors:
+  # black | blue | green | orange | pink | purple | red | silver | white | yellow
+  color: black
+  # All available themes:
+  # big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple
+  # corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal
+  theme: big-counter
+```
+
+### Advanced Settings
+
