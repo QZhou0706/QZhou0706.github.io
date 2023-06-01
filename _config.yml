@@ -104,7 +104,9 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: 'git'
+  repo: git@github.com:QZhou0706/QZhou0706.github.io.git
+  branch: gh-pages
 
 leancloud_counter_security:
   enable_sync: true

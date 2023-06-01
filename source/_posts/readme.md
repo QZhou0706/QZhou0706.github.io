@@ -1221,3 +1221,19 @@ vendors:
   custom_cdn_url:
 ```
 
+### 部署
+
+一键部署
+
+```shell 
+$ npm install hexo-deployer-git
+```
+
+```shell Hexo config file
+deploy:
+  type: git
+  repo: https://github.com/<username>/<project>
+  # example, https://github.com/hexojs/hexojs.github.io
+  branch: gh-pages
+```
+
