@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="google-site-verification=9Q8muzhS2thviJB7_PE70he9WiXyWfnjenFEwEujD5o">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/pace-js@1.2.4/themes/black/pace-theme-big-counter.css">
+  <script src="https://unpkg.com/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"arickkaa.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Preface: 重载了系统，我的博客又无了，现在吸收了教训，从无到有开始记录以下创建博客的过程。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Init Blog">
+<meta property="og:url" content="https://arickkaa.com/readme/index.html">
+<meta property="og:site_name" content="Aric">
+<meta property="og:description" content="Preface: 重载了系统，我的博客又无了，现在吸收了教训，从无到有开始记录以下创建博客的过程。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-05-30T06:55:52.000Z">
+<meta property="article:modified_time" content="2023-06-01T03:09:49.793Z">
+<meta property="article:author" content="Q Zhou">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://arickkaa.com/readme/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://arickkaa.com/readme/","path":"readme/","title":"Init Blog"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Init Blog | Aric</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-59YMWEWNCJ"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-59YMWEWNCJ","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Aric</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">and his fancy life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">0</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">3</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-npm-%E4%B8%8B%E8%BD%BD-hexo-theme-next-%E6%9C%80%E6%96%B0%E7%89%88"><span class="nav-number">1.</span> <span class="nav-text">使用 npm 下载 hexo-theme-next 最新版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#next-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Next 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-hexo-%E4%BF%A1%E6%81%AF%E4%BB%A5%E5%8F%8A-next-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">配置 Hexo 信息以及 Next 主题配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sidebar"><span class="nav-number">3.1.</span> <span class="nav-text">Sidebar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#footer"><span class="nav-number">3.2.</span> <span class="nav-text">Footer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#posts"><span class="nav-number">3.3.</span> <span class="nav-text">Posts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#custom-pages"><span class="nav-number">3.4.</span> <span class="nav-text">Custom Pages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#misc-%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.5.</span> <span class="nav-text">Misc 设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#seo"><span class="nav-number">3.6.</span> <span class="nav-text">SEO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mermaid"><span class="nav-number">3.7.</span> <span class="nav-text">Mermaid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#note"><span class="nav-number">3.8.</span> <span class="nav-text">Note</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#header"><span class="nav-number">3.8.1.</span> <span class="nav-text">Header</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#default-header"><span class="nav-number">3.8.2.</span> <span class="nav-text">Default Header</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#primary-header"><span class="nav-number">3.8.3.</span> <span class="nav-text">Primary Header</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#info-header"><span class="nav-number">3.8.4.</span> <span class="nav-text">Info Header</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#success-header"><span class="nav-number">3.8.5.</span> <span class="nav-text">Success Header</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#warning-header"><span class="nav-number">3.8.6.</span> <span class="nav-text">Warning Header</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#danger-header"><span class="nav-number">3.8.7.</span> <span class="nav-text">Danger Header</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#no-icon-note"><span class="nav-number">3.8.8.</span> <span class="nav-text">No icon note</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#details-and-summary"><span class="nav-number">3.8.9.</span> <span class="nav-text">Details and summary</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#details-and-summary-no-icon"><span class="nav-number">3.8.10.</span> <span class="nav-text">Details and summary (No icon)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#codeblock-in-note"><span class="nav-number">3.8.11.</span> <span class="nav-text">Codeblock in note</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lists-in-note"><span class="nav-number">3.8.12.</span> <span class="nav-text">Lists in note</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#table-in-note"><span class="nav-number">3.8.13.</span> <span class="nav-text">Table in Note</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tabs"><span class="nav-number">3.9.</span> <span class="nav-text">Tabs</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#tabs-with-3rd-tab-selected"><span class="nav-number">3.9.1.</span> <span class="nav-text">Tabs with 3rd tab selected</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabs-with-no-tab-selected"><span class="nav-number">3.9.2.</span> <span class="nav-text">Tabs with no tab selected</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabs-with-custom-labels"><span class="nav-number">3.9.3.</span> <span class="nav-text">Tabs with custom labels</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabs-with-icons-only"><span class="nav-number">3.9.4.</span> <span class="nav-text">Tabs with icons only</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabs-with-icons-and-labels"><span class="nav-number">3.9.5.</span> <span class="nav-text">Tabs with icons and labels</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabs-permalinks-test"><span class="nav-number">3.9.6.</span> <span class="nav-text">Tabs permalinks test</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabs-with-other-tags"><span class="nav-number">3.9.7.</span> <span class="nav-text">Tabs with other tags</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#centered-quote"><span class="nav-number">3.10.</span> <span class="nav-text">Centered Quote</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#video"><span class="nav-number">3.11.</span> <span class="nav-text">Video</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#third-party-plugin"><span class="nav-number">4.</span> <span class="nav-text">Third party plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pjax-%E5%8A%A0%E9%80%9F%E6%B5%8F%E8%A7%88"><span class="nav-number">4.1.</span> <span class="nav-text">Pjax 加速浏览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#math-equations"><span class="nav-number">4.2.</span> <span class="nav-text">Math Equations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#comments"><span class="nav-number">4.3.</span> <span class="nav-text">Comments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#analytics"><span class="nav-number">4.4.</span> <span class="nav-text">Analytics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leancloud-counting"><span class="nav-number">4.5.</span> <span class="nav-text">LeanCloud Counting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#local-search"><span class="nav-number">4.6.</span> <span class="nav-text">Local Search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fancybox"><span class="nav-number">4.7.</span> <span class="nav-text">Fancybox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pangu-autospace"><span class="nav-number">4.8.</span> <span class="nav-text">Pangu Autospace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#quicklink"><span class="nav-number">4.9.</span> <span class="nav-text">Quicklink</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#animation-effect"><span class="nav-number">4.10.</span> <span class="nav-text">Animation Effect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#progress-bar"><span class="nav-number">4.11.</span> <span class="nav-text">Progress Bar</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#advanced-settings"><span class="nav-number">5.</span> <span class="nav-text">Advanced Settings</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cdn-settings"><span class="nav-number">5.1.</span> <span class="nav-text">CDN Settings</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">6.</span> <span class="nav-text">部署</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Q Zhou"
+      src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage/img/avatar.png">
+  <p class="site-author-name" itemprop="name">Q Zhou</p>
+  <div class="site-description" itemprop="description">记录我的学习和成长</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/QZhou0706" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;QZhou0706" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:QZhou0706@gmail.com" title="E-Mail → mailto:QZhou0706@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/21623818/quan-zhou" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;21623818&#x2F;quan-zhou" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://arickkaa.com/readme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage/img/avatar.png">
+      <meta itemprop="name" content="Q Zhou">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aric">
+      <meta itemprop="description" content="记录我的学习和成长">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Init Blog | Aric">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Init Blog<a href="https://github.com/QZhou0706/QZhou0706.github.io/tree/blog/source/_posts_posts/readme.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-05-30 14:55:52" itemprop="dateCreated datePublished" datetime="2023-05-30T14:55:52+08:00">2023-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-06-01 11:09:49" itemprop="dateModified" datetime="2023-06-01T11:09:49+08:00">2023-06-01</time>
+    </span>
+
+  
+    <span id="/readme/" class="post-meta-item leancloud_visitors" data-flag-title="Init Blog" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/readme/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="readme/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>Preface:</strong> 重载了系统，我的博客又无了，现在吸收了教训，从无到有开始记录以下创建博客的过程。</p>
+<span id="more"></span>
+<h3 id="使用-npm-下载-hexo-theme-next-最新版">使用 npm 下载 <code>hexo-theme-next</code> 最新版</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-theme-next@latest</span></span><br></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li>设置 Hexo 主题</li>
+</ol>
+<p>编辑 Hexo config file 设置 theme 为 next</p>
+<figure class="highlight json"><figcaption><span>Hexo config file</span></figcaption><table><tr><td class="code"><pre><span class="line">theme<span class="punctuation">:</span> next</span><br></pre></td></tr></table></figure>
+<p>这时运行 hexo s 会报错 <code>Error: Cannot find module 'css'</code>，下载 css 包就行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install css</span><br></pre></td></tr></table></figure>
+<p>然后就可以成功启动 next 主题的博客</p>
+<p>先跳过 deploy 的过程，先把本地能配的都配好</p>
+<h3 id="next-配置文件">Next 配置文件</h3>
+<p>为了能在未来更新 next 主题，应该把配置文件的信息放在 hexo-site 位置下</p>
+<ul>
+<li>确保是 hexo 5.0 以后的版本</li>
+<li>在 hexo-site 创建一个 _config.next.yml 文件</li>
+<li>在 next theme 中把所有的信息都复制过来</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Installed through npm</span></span><br><span class="line">cp node_modules/hexo-theme-next/_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+<h3 id="配置-hexo-信息以及-next-主题配置">配置 Hexo 信息以及 Next 主题配置</h3>
+<p>在 _config.yml 下把该填的都填了</p>
+<h4 id="sidebar">Sidebar</h4>
+<ul>
+<li>设置 Avatar</li>
+</ul>
+<p>在 Next config file 中编辑 avatar 中的 url ，改为图片的位置/地址</p>
+<ul>
+<li>Site State</li>
+</ul>
+<p>设置 Next config file 中的 site state 为 true</p>
+<figure class="highlight plaintext"><figcaption><span>config file</span></figcaption><table><tr><td class="code"><pre><span class="line">site_state: true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Social Link</li>
+</ul>
+<figure class="highlight json"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">social<span class="punctuation">:</span></span><br><span class="line">  GitHub<span class="punctuation">:</span> https<span class="punctuation">:</span><span class="comment">//github.com/yourname || fab fa-github</span></span><br><span class="line">  E-Mail<span class="punctuation">:</span> mailto<span class="punctuation">:</span>yourname@gmail.com || fa fa-envelope</span><br><span class="line">  Weibo<span class="punctuation">:</span> https<span class="punctuation">:</span><span class="comment">//weibo.com/yourname || fab fa-weibo</span></span><br><span class="line">  Twitter<span class="punctuation">:</span> https<span class="punctuation">:</span><span class="comment">//twitter.com/yourname || fab fa-twitter</span></span><br><span class="line">  FB Page<span class="punctuation">:</span> https<span class="punctuation">:</span><span class="comment">//www.facebook.com/yourname || fab fa-facebook</span></span><br><span class="line">  StackOverflow<span class="punctuation">:</span> https<span class="punctuation">:</span><span class="comment">//stackoverflow.com/yourname || fab fa-stack-overflow</span></span><br><span class="line">  YouTube<span class="punctuation">:</span> https<span class="punctuation">:</span><span class="comment">//youtube.com/yourname || fab fa-youtube</span></span><br><span class="line">  Instagram<span class="punctuation">:</span> https<span class="punctuation">:</span><span class="comment">//instagram.com/yourname || fab fa-instagram</span></span><br><span class="line">  Skype<span class="punctuation">:</span> skype<span class="punctuation">:</span>yourname?call|chat || fab fa-skype</span><br></pre></td></tr></table></figure>
+<p>其他的按照 Siderbar 的默认设置即可</p>
+<h4 id="footer">Footer</h4>
+<p>设置以下备案号，把 power 设置为 false ，copyright之后再设置</p>
+<h4 id="posts">Posts</h4>
+<ul>
+<li>Post Meta Display</li>
+</ul>
+<p>默认</p>
+<ul>
+<li>Post Wordcount</li>
+</ul>
+<p>不设置，不用</p>
+<ul>
+<li>Tag Icon</li>
+</ul>
+<p>设置为 true</p>
+<ul>
+<li>Post Edit</li>
+</ul>
+<p>enable 设置为 true</p>
+<p>设置 url</p>
+<p>For site repository</p>
+<p>Link for view source: <code>url: https://github.com/.../tree/master/source/_posts/</code></p>
+<p>Link for fork &amp; edit: <code>url: https://github.com/.../edit/master/source/_posts/</code></p>
+<p>For post repository</p>
+<p>Link for view source: <code>url: https://github.com/.../_posts/tree/master/</code></p>
+<p>Link for fork &amp; edit: <code>url: https://github.com/.../_posts/edit/master/</code></p>
+<ul>
+<li>Post Navigation</li>
+</ul>
+<p>默认为 left</p>
+<h4 id="custom-pages">Custom Pages</h4>
+<p>将 Next config file 的 menu 设置中把所需要的几个 page 前的注释 # 去掉，然后 hexo new page custom-name 创建这几个界面</p>
+<ul>
+<li>添加 Tag page &amp;&amp; categories page</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> hexo-site</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new page tags</span></span><br></pre></td></tr></table></figure>
+<p>然后把 index.md 中的 type 改称 tags</p>
+<p>categories 同理</p>
+<ul>
+<li>添加 Google Calendar page</li>
+</ul>
+<p>获取 google api key 和 google calendar key，填入 Next config file 中的位置</p>
+<p>添加 schedule page ，类似 tags</p>
+<h4 id="misc-设置">Misc 设置</h4>
+<ul>
+<li>Preconnect</li>
+<li>Mobile device adaption</li>
+<li>Body Scrollbar</li>
+<li>Back to Top</li>
+<li>Font Customization</li>
+<li>Codeblock Style
+<ul>
+<li>button</li>
+<li>theme 默认</li>
+</ul></li>
+</ul>
+<p>将 code.fontfamily 设置为 Fira Code</p>
+<h4 id="seo">SEO</h4>
+<p>设置 Hexo config file 中的 url ，设置 Next config file 中 index_with_subtitle 为 true</p>
+<ul>
+<li>Google Search Console</li>
+</ul>
+<p>在 Next config file 中修改</p>
+<figure class="highlight json"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">google_site_verification<span class="punctuation">:</span> XXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
+<h4 id="mermaid">Mermaid</h4>
+<figure class="highlight shell"><figcaption><span>NexT config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Mermaid tag</span></span><br><span class="line">mermaid:</span><br><span class="line">  enable: true</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Available themes: default | dark | forest | neutral</span></span><br><span class="line">  theme:</span><br><span class="line">    light: default</span><br><span class="line">    dark: dark</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>Hexo config file</span></figcaption><table><tr><td class="code"><pre><span class="line">highlight:</span><br><span class="line">  exclude_languages:</span><br><span class="line">    - mermaid</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">
+sequenceDiagram
+Alice-&gt;&gt;John: Hello John, how are you?
+loop Healthcheck
+    John-&gt;&gt;John: Fight against hypochondria
+end
+Note right of John: Rational thoughts!
+John--&gt;&gt;Alice: Great!
+John-&gt;&gt;Bob: How about you?
+Bob--&gt;&gt;John: Jolly good!
+</pre>
+<h4 id="note">Note</h4>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">note:</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Note tag style values:</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"> - simple    bs-callout old alert style. Default.</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"> - modern    bs-callout new (v2-v3) alert style.</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"> - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"> - disabled  <span class="built_in">disable</span> all CSS styles import of note tag.</span></span><br><span class="line">  style: simple</span><br><span class="line">  icons: false</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Offset lighter of background <span class="keyword">in</span> % <span class="keyword">for</span> modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  light_bg_offset: 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note %&#125;</span><br><span class="line">#### Header</span><br><span class="line">(without define class style)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note "><h5 id="header">Header</h5>
+<p>(without define class style)</p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note default %&#125;</span><br><span class="line">#### Default Header</span><br><span class="line">Welcome to [Hexo!](https://hexo.io)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note default"><h5 id="default-header">Default Header</h5>
+<p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note primary %&#125;</span><br><span class="line">#### Primary Header</span><br><span class="line">**Welcome** to [Hexo!](https://hexo.io)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note primary"><h5 id="primary-header">Primary Header</h5>
+<p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note info %&#125;</span><br><span class="line">#### Info Header</span><br><span class="line">**Welcome** to [Hexo!](https://hexo.io)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note info"><h5 id="info-header">Info Header</h5>
+<p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note success %&#125;</span><br><span class="line">#### Success Header</span><br><span class="line">**Welcome** to [Hexo!](https://hexo.io)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note success"><h5 id="success-header">Success Header</h5>
+<p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note warning %&#125;</span><br><span class="line">#### Warning Header</span><br><span class="line">**Welcome** to [Hexo!](https://hexo.io)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note warning"><h5 id="warning-header">Warning Header</h5>
+<p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note danger %&#125;</span><br><span class="line">#### Danger Header</span><br><span class="line">**Welcome** to [Hexo!](https://hexo.io)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note danger"><h5 id="danger-header">Danger Header</h5>
+<p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note info no-icon %&#125;</span><br><span class="line">#### No icon note</span><br><span class="line">Note **without** icon: `note info no-icon`</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><h5 id="no-icon-note">No icon note</h5>
+<p>Note <strong>without</strong> icon: <code>note info no-icon</code></p>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note primary This is a summary %&#125;</span><br><span class="line">#### Details and summary</span><br><span class="line">Note with summary: `note primary This is a summary`</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<details class="note primary"><summary><p>This is a summary</p>
+</summary>
+<h5 id="details-and-summary">Details and summary</h5>
+<p>Note with summary: <code>note primary This is a summary</code></p>
+
+</details>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note info no-icon This is a summary %&#125;</span><br><span class="line">#### Details and summary (No icon)</span><br><span class="line">Note with summary: `note info no-icon This is a summary`</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<details class="note info no-icon"><summary><p>This is a summary</p>
+</summary>
+<h5 id="details-and-summary-no-icon">Details and summary (No icon)</h5>
+<p>Note with summary: <code>note info no-icon This is a summary</code></p>
+
+</details>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note success %&#125;</span><br><span class="line">#### Codeblock in note</span><br><span class="line"></span><br><span class="line">```</span><br><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br><span class="line">```</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note success"><h5 id="codeblock-in-note">Codeblock in note</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br></pre></td></tr></table></figure>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note default %&#125;</span><br><span class="line">#### Lists in note</span><br><span class="line">* ul</span><br><span class="line">* ul</span><br><span class="line">    * ul</span><br><span class="line">    * ul</span><br><span class="line">* ul</span><br><span class="line"></span><br><span class="line">1. ol</span><br><span class="line">2. ol</span><br><span class="line">    1. ol</span><br><span class="line">    2. ol</span><br><span class="line">3. ol</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note default"><h5 id="lists-in-note">Lists in note</h5>
+<ul>
+<li>ul</li>
+<li>ul
+<ul>
+<li>ul</li>
+<li>ul</li>
+</ul></li>
+<li>ul</li>
+</ul>
+<ol type="1">
+<li>ol</li>
+<li>ol
+<ol type="1">
+<li>ol</li>
+<li>ol</li>
+</ol></li>
+<li>ol</li>
+</ol>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#### Table in Note</span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line">| 1 | 2 |</span><br><span class="line">| - | - |</span><br><span class="line">| 3 | 4 |</span><br><span class="line">| 5 | 6 |</span><br><span class="line">| 7 | 8 |</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="table-in-note">Table in Note</h5>
+<div class="note default"><table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="tabs">Tabs</h4>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">tabs:</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Make the nav bar of tabs with long content stick to the top.</span></span><br><span class="line">  sticky: false</span><br><span class="line">  transition:</span><br><span class="line">    tabs: false</span><br><span class="line">    labels: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs First unique name %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="first-unique-name"><ul class="nav-tabs"><li class="tab active"><a href="#first-unique-name-1">First unique name 1</a></li><li class="tab"><a href="#first-unique-name-2">First unique name 2</a></li><li class="tab"><a href="#first-unique-name-3">First unique name 3</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-unique-name-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="first-unique-name-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane" id="first-unique-name-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<h5 id="tabs-with-3rd-tab-selected">Tabs with 3rd tab selected</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs Second unique name, 3 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="second-unique-name"><ul class="nav-tabs"><li class="tab"><a href="#second-unique-name-1">Second unique name 1</a></li><li class="tab"><a href="#second-unique-name-2">Second unique name 2</a></li><li class="tab active"><a href="#second-unique-name-3">Second unique name 3</a></li></ul><div class="tab-content"><div class="tab-pane" id="second-unique-name-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="second-unique-name-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane active" id="second-unique-name-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<h5 id="tabs-with-no-tab-selected">Tabs with no tab selected</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs Third unique name, -1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="third-unique-name"><ul class="nav-tabs"><li class="tab"><a href="#third-unique-name-1">Third unique name 1</a></li><li class="tab"><a href="#third-unique-name-2">Third unique name 2</a></li><li class="tab"><a href="#third-unique-name-3">Third unique name 3</a></li></ul><div class="tab-content"><div class="tab-pane" id="third-unique-name-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="third-unique-name-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane" id="third-unique-name-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<h5 id="tabs-with-custom-labels">Tabs with custom labels</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs Fourth unique name %&#125;</span><br><span class="line">&lt;!-- tab Solution 1 --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab Solution 2 --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab Solution 3 --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="fourth-unique-name"><ul class="nav-tabs"><li class="tab active"><a href="#fourth-unique-name-1">Solution 1</a></li><li class="tab"><a href="#fourth-unique-name-2">Solution 2</a></li><li class="tab"><a href="#fourth-unique-name-3">Solution 3</a></li></ul><div class="tab-content"><div class="tab-pane active" id="fourth-unique-name-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="fourth-unique-name-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane" id="fourth-unique-name-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<h5 id="tabs-with-icons-only">Tabs with icons only</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs Fifth unique name %&#125;</span><br><span class="line">&lt;!-- tab @text-width --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab @font --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab @bold --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="fifth-unique-name"><ul class="nav-tabs"><li class="tab active"><a href="#fifth-unique-name-1"><i class="fa fa-text-width"></i></a></li><li class="tab"><a href="#fifth-unique-name-2"><i class="fa fa-font"></i></a></li><li class="tab"><a href="#fifth-unique-name-3"><i class="fa fa-bold"></i></a></li></ul><div class="tab-content"><div class="tab-pane active" id="fifth-unique-name-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="fifth-unique-name-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane" id="fifth-unique-name-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<h5 id="tabs-with-icons-and-labels">Tabs with icons and labels</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs Sixth unique name %&#125;</span><br><span class="line">&lt;!-- tab Solution 1@text-width --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab Solution 2@font --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab Solution 3@bold --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="sixth-unique-name"><ul class="nav-tabs"><li class="tab active"><a href="#sixth-unique-name-1"><i class="fa fa-text-width"></i>Solution 1</a></li><li class="tab"><a href="#sixth-unique-name-2"><i class="fa fa-font"></i>Solution 2</a></li><li class="tab"><a href="#sixth-unique-name-3"><i class="fa fa-bold"></i>Solution 3</a></li></ul><div class="tab-content"><div class="tab-pane active" id="sixth-unique-name-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="sixth-unique-name-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane" id="sixth-unique-name-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<h5 id="tabs-permalinks-test">Tabs permalinks test</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Permalink for &gt; [Tab one](#tab-one).</span><br><span class="line">Permalink for &gt; [Tab one 1](#tab-one-1).</span><br><span class="line">Permalink for &gt; [Tab one 2](#tab-one-2).</span><br><span class="line">Permalink for &gt; [Tab one 3](#tab-one-3).</span><br><span class="line"></span><br><span class="line">Permalink for &gt; [Tab two](#tab-two).</span><br><span class="line">Permalink for &gt; [Tab two 1](#tab-two-1).</span><br><span class="line">Permalink for &gt; [Tab two 2](#tab-two-2).</span><br><span class="line">Permalink for &gt; [Tab two 3](#tab-two-3).</span><br><span class="line"></span><br><span class="line">&#123;% tabs Tab one %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% tabs Tab two %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<p>Permalink for &gt; <a href="#tab-one">Tab one</a>. Permalink for &gt; <a href="#tab-one-1">Tab one 1</a>. Permalink for &gt; <a href="#tab-one-2">Tab one 2</a>. Permalink for &gt; <a href="#tab-one-3">Tab one 3</a>.</p>
+<p>Permalink for &gt; <a href="#tab-two">Tab two</a>. Permalink for &gt; <a href="#tab-two-1">Tab two 1</a>. Permalink for &gt; <a href="#tab-two-2">Tab two 2</a>. Permalink for &gt; <a href="#tab-two-3">Tab two 3</a>.</p>
+<div class="tabs" id="tab-one"><ul class="nav-tabs"><li class="tab active"><a href="#tab-one-1">Tab one 1</a></li><li class="tab"><a href="#tab-one-2">Tab one 2</a></li><li class="tab"><a href="#tab-one-3">Tab one 3</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-one-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="tab-one-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane" id="tab-one-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<div class="tabs" id="tab-two"><ul class="nav-tabs"><li class="tab active"><a href="#tab-two-1">Tab two 1</a></li><li class="tab"><a href="#tab-two-2">Tab two 2</a></li><li class="tab"><a href="#tab-two-3">Tab two 3</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-two-1"><p><strong>This is Tab 1.</strong></p></div><div class="tab-pane" id="tab-two-2"><p><strong>This is Tab 2.</strong></p></div><div class="tab-pane" id="tab-two-3"><p><strong>This is Tab 3.</strong></p></div></div></div>
+<h5 id="tabs-with-other-tags">Tabs with other tags</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs Tags %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 1.**</span><br><span class="line"></span><br><span class="line">1. One</span><br><span class="line">2. Two</span><br><span class="line">3. Three</span><br><span class="line"></span><br><span class="line">Indented code block:</span><br><span class="line"></span><br><span class="line">    nano /etc</span><br><span class="line"></span><br><span class="line">Tagged code block:</span><br><span class="line"></span><br><span class="line">&#123;% code %&#125;</span><br><span class="line">code tag</span><br><span class="line">code tag</span><br><span class="line">code tag</span><br><span class="line">&#123;% endcode %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line">Note default tag.</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 2.**</span><br><span class="line"></span><br><span class="line">* Five</span><br><span class="line">* Six</span><br><span class="line">* Seven</span><br><span class="line"></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line">&#123;% youtube Kt7u5kr_P5o %&#125;</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Tab 3.**</span><br><span class="line"></span><br><span class="line">&#123;% subtabs Sub Tabs %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Sub Tab 1.**</span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Sub Tab 2.**</span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</span><br><span class="line"></span><br><span class="line">Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</span><br><span class="line"></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line">Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Sub Tab 3.**</span><br><span class="line"></span><br><span class="line">&#123;% subtabs Sub-Sub Tabs %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Sub-Sub Tab 1 of Sub Tab 3.**</span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</span><br><span class="line"></span><br><span class="line">Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</span><br><span class="line"></span><br><span class="line">Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Sub-Sub Tab 2 of Sub Tab 3.**</span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</span><br><span class="line"></span><br><span class="line">Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**This is Sub-Sub Tab 3 of Sub Tab 3.**</span><br><span class="line"></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</span><br><span class="line"></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line">Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endsubtabs %&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endsubtabs %&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="tags"><ul class="nav-tabs"><li class="tab active"><a href="#tags-1">Tags 1</a></li><li class="tab"><a href="#tags-2">Tags 2</a></li><li class="tab"><a href="#tags-3">Tags 3</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tags-1"><p><strong>This is Tab 1.</strong></p>
+<ol type="1">
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ol>
+<p>Indented code block:</p>
+<pre><code>nano /etc</code></pre>
+<p>Tagged code block:</p>
+<figure class="highlight plaintext">
+<table>
+<tr>
+<td class="code">
+<pre><span class="line">code tag</span><br><span class="line">code tag</span><br><span class="line">code tag</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<div class="note default">
+<p>
+Note default tag.
+</p>
+</div></div><div class="tab-pane" id="tags-2"><p><strong>This is Tab 2.</strong></p>
+<ul>
+<li>Five</li>
+<li>Six</li>
+<li>Seven</li>
+</ul>
+<div class="note primary">
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/Kt7u5kr_P5o" frameborder="0" loading="lazy" allowfullscreen>
+</iframe>
+</div>
+</div></div><div class="tab-pane" id="tags-3"><p><strong>This is Tab 3.</strong></p>
+<div id="sub-tabs" class="tabs">
+<ul class="nav-tabs">
+<li class="tab active">
+<a href="#sub-tabs-1">Sub Tabs 1</a>
+</li>
+<li class="tab">
+<a href="#sub-tabs-2">Sub Tabs 2</a>
+</li>
+<li class="tab">
+<a href="#sub-tabs-3">Sub Tabs 3</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="sub-tabs-1" class="tab-pane active">
+<strong>This is Sub Tab 1.</strong>
+<div class="note success">
+<p>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
+</p>
+<div class="note warning">
+<p>
+Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
+</p>
+</div>
+<p>
+Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.
+</p>
+</div>
+</div>
+<div id="sub-tabs-2" class="tab-pane">
+<strong>This is Sub Tab 2.</strong>
+<div class="note success">
+<p>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
+</p>
+<p>
+Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
+</p>
+<div class="note danger">
+<p>
+Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.
+</p>
+</div>
+</div>
+</div>
+<div id="sub-tabs-3" class="tab-pane">
+<p>
+<strong>This is Sub Tab 3.</strong>
+</p>
+<div id="sub-sub-tabs" class="tabs">
+<ul class="nav-tabs">
+<li class="tab active">
+<a href="#sub-sub-tabs-1">Sub-Sub Tabs 1</a>
+</li>
+<li class="tab">
+<a href="#sub-sub-tabs-2">Sub-Sub Tabs 2</a>
+</li>
+<li class="tab">
+<a href="#sub-sub-tabs-3">Sub-Sub Tabs 3</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="sub-sub-tabs-1" class="tab-pane active">
+<strong>This is Sub-Sub Tab 1 of Sub Tab 3.</strong>
+<div class="note success">
+<p>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
+</p>
+<p>
+Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
+</p>
+<p>
+Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.
+</p>
+</div>
+</div>
+<div id="sub-sub-tabs-2" class="tab-pane">
+<strong>This is Sub-Sub Tab 2 of Sub Tab 3.</strong>
+<div class="note success">
+<p>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
+</p>
+<div class="note warning">
+<p>
+Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
+</p>
+<p>
+Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.
+</p>
+</div>
+</div>
+</div>
+<div id="sub-sub-tabs-3" class="tab-pane">
+<p>
+<strong>This is Sub-Sub Tab 3 of Sub Tab 3.</strong>
+</p>
+<div class="note success">
+<p>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
+</p>
+<div class="note warning">
+<p>
+Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
+</p>
+<div class="note danger">
+<p>
+Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div></div>
+<h4 id="centered-quote">Centered Quote</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% centerquote %&#125;Something&#123;% endcenterquote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note danger"><p>这里遇到了错误，无法加载上面的引用</p>
+<p><strong>解决：</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-swig</span><br></pre></td></tr></table></figure>
+</div>
+<blockquote class="blockquote-center">
+<p>Something</p>
+
+</blockquote>
+<h4 id="video">Video</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% video url %&#125;</span><br><span class="line">&#123;% youtube  Kt7u5kr_P5o %&#125;</span><br></pre></td></tr></table></figure>
+<div class="video-container"><iframe src="https://www.youtube.com/embed/gx1hEQSOAyg" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
+<h3 id="third-party-plugin">Third party plugin</h3>
+<h4 id="pjax-加速浏览">Pjax 加速浏览</h4>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Easily <span class="built_in">enable</span> fast Ajax navigation on your website.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">For more information: https://github.com/next-theme/pjax</span></span><br><span class="line">pjax: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install pjax</span><br></pre></td></tr></table></figure>
+<h4 id="math-equations">Math Equations</h4>
+<figure class="highlight shell"><figcaption><span>Next file config</span></figcaption><table><tr><td class="code"><pre><span class="line">math:</span><br><span class="line">  ...</span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm un hexo-renderer-marked</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm i hexo-renderer-pandoc</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean &amp;&amp; hexo g -d</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">or hexo clean &amp;&amp; hexo s</span></span><br></pre></td></tr></table></figure>
+<p><span class="math display">\[
+\begin{equation}
+E = mc^2
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation*}
+e^{\pi i} + 1 = 0
+\end{equation*}
+\]</span></p>
+<p>In equation <span class="math inline">\(\eqref{eq:tag_i}\)</span>, we find the value of an interesting integral: <span class="math display">\[
+\begin{equation}
+  \int_0^\infty \frac{x^3} {e^x-1}\,dx = \frac{\pi^4}{15}
+  \tag{i}
+  \label{eq:tag_i}
+\end{equation}
+\]</span></p>
+<h4 id="comments">Comments</h4>
+<p>Disqus is a global comment system that improves discussion on websites and connects conversations across the web.</p>
+<ol type="1">
+<li>Create an account and log into <a target="_blank" rel="noopener" href="https://disqus.com/">Disqus</a>. Once logged in, click the <code>GET STARTED</code> button on the homepage, then select <code>I want to install Disqus on my site</code> option and you will see the <code>Create a new site</code> interface.</li>
+<li>Enter your <code>Website Name</code>, which will serve as your Disqus shortname, and select a Category from the drop-down menu. Then click <code>Create Site</code> button.</li>
+<li>Choose <code>I don't see my platform listed, install manually with Universal Code</code>, configure Disqus for your site, and click <code>Complete Setup</code> button.</li>
+<li>Set the value <code>enable</code> to <code>true</code>, add the obtained Disqus shortname (<code>shortname</code>), and edit other configurations in <code>disqus</code> section in the NexT config file as following:</li>
+</ol>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">disqus:</span><br><span class="line">  enable: false</span><br><span class="line">  shortname: your-short-disqus-name</span><br><span class="line">  count: true</span><br></pre></td></tr></table></figure>
+<h4 id="analytics">Analytics</h4>
+<p>前往 <a target="_blank" rel="noopener" href="https://analytics.google.com/">Google analytics</a> 获取 track id，填入 Next config file 中</p>
+<h4 id="leancloud-counting">LeanCloud Counting</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-leancloud-counter-security</span><br></pre></td></tr></table></figure>
+<p>登陆 LeanCloud 获取 AppID &amp; APPKey， 在 Hexo config file 中加入</p>
+<figure class="highlight shell"><figcaption><span>Hexo cinfig file</span></figcaption><table><tr><td class="code"><pre><span class="line">leancloud_counter_security:</span><br><span class="line">  enable_sync: true</span><br><span class="line">  app_id: &lt;your app id&gt;</span><br><span class="line">  app_key: &lt;your app key&gt;</span><br><span class="line">  username: &lt;your username&gt; # Will be asked while deploying if is left blank</span><br><span class="line">  password: &lt;your password&gt; # Recommmended to be left blank. Will be asked while deploying if is left blank</span><br></pre></td></tr></table></figure>
+<p>在 Next config file 中修改</p>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Show number of visitors to each article.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">You can visit https://www.leancloud.cn get AppID and AppKey.</span></span><br><span class="line">leancloud_visitors:</span><br><span class="line">  enable: true</span><br><span class="line">  app_id: #&lt;app_id&gt;</span><br><span class="line">  app_key: #&lt;app_key&gt;</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Required <span class="keyword">for</span> apps from CN region</span></span><br><span class="line">  server_url: # &lt;your server url&gt;</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">If you don<span class="string">&#x27;t care about security in lc counter and just want to use it directly</span></span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"><span class="string">(without hexo-leancloud-counter-security plugin), set the `security` to `false`.</span></span></span><br><span class="line">  security: true</span><br></pre></td></tr></table></figure>
+<h4 id="local-search">Local Search</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-generator-searchdb</span></span><br></pre></td></tr></table></figure>
+<p>Hexo config file 中添加</p>
+<figure class="highlight shell"><figcaption><span>Hexo config file</span></figcaption><table><tr><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  content: true</span><br><span class="line">  format: html</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Local search</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Dependencies: https://github.com/next-theme/hexo-generator-searchdb</span></span><br><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">If auto, trigger search by changing input.</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">If manual, trigger search by pressing enter key or search button.</span></span><br><span class="line">  trigger: auto</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Show top n results per article, show all results by setting to -1</span></span><br><span class="line">  top_n_per_article: 1</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Unescape html strings to the readable one.</span></span><br><span class="line">  unescape: false</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Preload the search data when the page loads.</span></span><br><span class="line">  preload: false</span><br></pre></td></tr></table></figure>
+<h4 id="fancybox">Fancybox</h4>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">fancybox: true</span><br></pre></td></tr></table></figure>
+<h4 id="pangu-autospace">Pangu Autospace</h4>
+<p>自动在中文和英文之间加上一个空格</p>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Pangu Support</span></span><br><span class="line">pangu: true</span><br></pre></td></tr></table></figure>
+<h4 id="quicklink">Quicklink</h4>
+<p><a target="_blank" rel="noopener" href="https://github.com/GoogleChromeLabs/quicklink">Quicklink</a> is a JavaScript plugin that faster subsequent page-loads by prefetching in-viewport links during idle time. Chrome, Firefox, Edge are supported without polyfills.</p>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">quicklink:</span><br><span class="line">  enable: true</span><br><span class="line">  home: true</span><br><span class="line">  archive: true</span><br><span class="line">  delay: true</span><br><span class="line">  timeout: 3000</span><br><span class="line">  priority: true</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h4 id="animation-effect">Animation Effect</h4>
+<p>加载动画</p>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use Animate.css to animate everything.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">For more information: https://animate.style</span></span><br><span class="line">motion:</span><br><span class="line">  enable: true</span><br><span class="line">  async: false</span><br><span class="line">  transition:</span><br><span class="line">    # All available Transition variants: https://theme-next.js.org/animate/</span><br><span class="line">    post_block: fadeIn</span><br><span class="line">    post_header: fadeInDown</span><br><span class="line">    post_body: fadeInDown</span><br><span class="line">    coll_header: fadeInLeft</span><br><span class="line">    # Only for Pisces | Gemini.</span><br><span class="line">    sidebar: fadeInUp</span><br></pre></td></tr></table></figure>
+<h4 id="progress-bar">Progress Bar</h4>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">pace:</span><br><span class="line">  enable: true</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">All available colors:</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">black | blue | green | orange | pink | purple | red | silver | white | yellow</span></span><br><span class="line">  color: black</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">All available themes:</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal</span></span><br><span class="line">  theme: big-counter</span><br></pre></td></tr></table></figure>
+<h3 id="advanced-settings">Advanced Settings</h3>
+<h4 id="cdn-settings">CDN Settings</h4>
+<p>用 CDN 加速插件和静态资源的加载</p>
+<figure class="highlight shell"><figcaption><span>Next config file</span></figcaption><table><tr><td class="code"><pre><span class="line">vendors:</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">The CDN provider of NexT internal scripts.</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Available values: <span class="built_in">local</span> | jsdelivr | unpkg | cdnjs | custom</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Warning: If you are using the latest master branch of NexT, please <span class="built_in">set</span> `internal: <span class="built_in">local</span>`</span></span><br><span class="line">  internal: local</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">The default CDN provider of third-party plugins.</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Available values: <span class="built_in">local</span> | jsdelivr | unpkg | cdnjs | custom</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Dependencies <span class="keyword">for</span> `plugins: <span class="built_in">local</span>`: https://github.com/next-theme/plugins</span></span><br><span class="line">  plugins: unpkg</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Custom CDN URL</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">For example:</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">custom_cdn_url: https://cdn.jsdelivr.net/npm/<span class="variable">$&#123;npm_name&#125;</span>@<span class="variable">$&#123;version&#125;</span>/<span class="variable">$&#123;minified&#125;</span></span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">custom_cdn_url: https://cdnjs.cloudflare.com/ajax/libs/<span class="variable">$&#123;cdnjs_name&#125;</span>/<span class="variable">$&#123;version&#125;</span>/<span class="variable">$&#123;cdnjs_file&#125;</span></span></span><br><span class="line">  custom_cdn_url:</span><br></pre></td></tr></table></figure>
+<h3 id="部署">部署</h3>
+<p>一键部署</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>Hexo config file</span></figcaption><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/&lt;username&gt;/&lt;project&gt;</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">example, https://github.com/hexojs/hexojs.github.io</span></span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Q Zhou
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://arickkaa.com/readme/" title="Init Blog">https://arickkaa.com/readme/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/test/" rel="prev" title="test">
+                  <i class="fa fa-chevron-left"></i> test
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备2023015052号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q Zhou</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.4/dist/jquery.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://unpkg.com/mermaid@9.4.3/dist/mermaid.min.js","integrity":"sha256-e0o3JYsdjqKajf9eOe22FhioYSz9WofRY4dLKo3F6do="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"Y8Wsid3Gm5LZWPKWITYBicQ2-MdYXbMMI","app_key":"1hXshc8YneBHn3Xhs3NdO3gV","server_url":"arickkaa.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://unpkg.com/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://arickkaa.com/readme/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"qzhou0706-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
