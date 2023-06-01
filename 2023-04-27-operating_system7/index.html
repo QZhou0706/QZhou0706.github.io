@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510130507698.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/locker.jpg">
 <meta property="article:published_time" content="2023-04-27T03:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-01T03:22:03.424Z">
+<meta property="article:modified_time" content="2023-06-01T06:29:05.046Z">
 <meta property="article:author" content="Q Zhou">
 <meta property="article:tag" content="基础学习">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E9%A1%BE%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">回顾：并发编程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%90%86%E8%A7%A3%E5%B9%B6%E5%8F%91%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">理解并发的工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">互斥问题：定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%97%AE%E9%A2%98%E7%9A%84%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">互斥问题的经典算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%81%87%E8%AE%BE"><span class="nav-number">1.4.</span> <span class="nav-text">实现互斥的基本假设</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81spin-lock"><span class="nav-number">2.</span> <span class="nav-text">自旋锁(Spin Lock)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5"><span class="nav-number">2.1.</span> <span class="nav-text">实现互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E7%94%A8xchg%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5"><span class="nav-number">2.2.</span> <span class="nav-text">自旋锁：用xchg实现互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E9%94%81%E7%AE%97%E6%B3%95%E4%BA%86%E8%A7%A3"><span class="nav-number">2.3.</span> <span class="nav-text">无锁算法(了解)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5"><span class="nav-number">3.</span> <span class="nav-text">在操作系统上实现互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-number">3.1.</span> <span class="nav-text">自旋锁的缺陷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#scalability-%E6%80%A7%E8%83%BD%E7%9A%84%E6%96%B0%E7%BB%B4%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">Scalability: 性能的新维度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.3.</span> <span class="nav-text">自旋锁的使用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B-%E9%95%BF%E4%B8%B4%E7%95%8C%E5%8C%BA%E7%9A%84%E4%BA%92%E6%96%A5"><span class="nav-number">3.4.</span> <span class="nav-text">实现线程 + 长临界区的互斥</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%92%E6%96%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">关于互斥的一些分析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E9%A1%BE%EF%BC%9A%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">回顾：并发编程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%90%86%E8%A7%A3%E5%B9%B6%E5%8F%91%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">理解并发的工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%97%AE%E9%A2%98%EF%BC%9A%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">互斥问题：定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%97%AE%E9%A2%98%E7%9A%84%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">互斥问题的经典算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%81%87%E8%AE%BE"><span class="nav-number">1.4.</span> <span class="nav-text">实现互斥的基本假设</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81-Spin-Lock"><span class="nav-number">2.</span> <span class="nav-text">自旋锁(Spin Lock)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5"><span class="nav-number">2.1.</span> <span class="nav-text">实现互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%EF%BC%9A%E7%94%A8xchg%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5"><span class="nav-number">2.2.</span> <span class="nav-text">自旋锁：用xchg实现互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E9%94%81%E7%AE%97%E6%B3%95-%E4%BA%86%E8%A7%A3"><span class="nav-number">2.3.</span> <span class="nav-text">无锁算法(了解)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8A%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5"><span class="nav-number">3.</span> <span class="nav-text">在操作系统上实现互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-number">3.1.</span> <span class="nav-text">自旋锁的缺陷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Scalability-%E6%80%A7%E8%83%BD%E7%9A%84%E6%96%B0%E7%BB%B4%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">Scalability: 性能的新维度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.3.</span> <span class="nav-text">自旋锁的使用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B-%E9%95%BF%E4%B8%B4%E7%95%8C%E5%8C%BA%E7%9A%84%E4%BA%92%E6%96%A5"><span class="nav-number">3.4.</span> <span class="nav-text">实现线程 + 长临界区的互斥</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%92%E6%96%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">关于互斥的一些分析</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -301,22 +301,19 @@
 <li>互斥锁和Futex</li>
 </ul>
 <span id="more"></span>
-<h4 id="回顾并发编程">回顾：并发编程</h4>
-<h5 id="理解并发的工具">理解并发的工具</h5>
-<ul>
-<li>线程=人(大脑能完成局部存储和计算)</li>
-<li>共享内存=物理世界(物理世界天生并行)</li>
+
+<h4 id="回顾：并发编程"><a href="#回顾：并发编程" class="headerlink" title="回顾：并发编程"></a>回顾：并发编程</h4><h5 id="理解并发的工具"><a href="#理解并发的工具" class="headerlink" title="理解并发的工具"></a>理解并发的工具</h5><ul>
+<li>线程&#x3D;人(大脑能完成局部存储和计算)</li>
+<li>共享内存&#x3D;物理世界(物理世界天生并行)</li>
 <li>一切都是状态机(debugger&amp;model checker)</li>
 </ul>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/wc.jpg" alt="" /><figcaption>“躲进厕所锁上门，我就把全世界人锁在了厕所外“</figcaption>
-</figure>
-<h5 id="互斥问题定义">互斥问题：定义</h5>
-<p>互斥(mutual exclusion)，“互相排斥”</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/wc.jpg" alt="“躲进厕所锁上门，我就把全世界人锁在了厕所外“"></p>
+<h5 id="互斥问题：定义"><a href="#互斥问题：定义" class="headerlink" title="互斥问题：定义"></a>互斥问题：定义</h5><p>互斥(mutual exclusion)，“互相排斥”</p>
 <ul>
-<li>实现lock_t 数据结构和lock/unlock API:</li>
+<li>实现lock_t 数据结构和lock&#x2F;unlock API:</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="type">lock_t</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br></pre></td></tr></table></figure>
+
 <p>一把“排他性”的锁——对于锁对象lk</p>
 <ul>
 <li>如果某个线程持有锁，则其他线程的lock不能发挥(Safety)</li>
@@ -325,86 +322,86 @@
 </ul>
 <p>非常常见的一个bug：</p>
 <p>一个线程用lock_A和unlock_A保护，其他进程如果也用lock_A和unlock_A锁的话就无法操作，但是如果其他线程用一个lock_B和unlock_B保护，那就可能造成lock_A和unlock_A之间与lock_B和unlock_B之间有重叠的数据可能会同时被两个线程访问到，就会产生错误的结果。</p>
-<h5 id="互斥问题的经典算法">互斥问题的经典算法</h5>
-<p><strong>Peterson算法</strong></p>
+<h5 id="互斥问题的经典算法"><a href="#互斥问题的经典算法" class="headerlink" title="互斥问题的经典算法"></a>互斥问题的经典算法</h5><p><strong>Peterson算法</strong></p>
 <ul>
 <li>包间、旗子和门上的字条</li>
-<li>假设atomic load/store
-<ul>
+<li>假设atomic load&#x2F;store<ul>
 <li>实现这个假设也不是非常容易</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>因此，<u>假设很重要</u></p>
 <ul>
-<li>不能同时读/写贡献内存(1960s)不是一个好的假设
-<ul>
+<li>不能同时读&#x2F;写贡献内存(1960s)不是一个好的假设<ul>
 <li>Load(环顾四周)的时候不能写，“看一眼就把眼睛壁上”</li>
 <li>Store(改变物理世界状态)的时候不能读，“闭着眼睛动手”</li>
-<li>这是《操作系统》
-<ul>
+<li>这是《操作系统》<ul>
 <li>更喜欢直观、简单、粗暴(稳定)、有效的解决方法</li>
-</ul></li>
-</ul></li>
 </ul>
-<h5 id="实现互斥的基本假设">实现互斥的基本假设</h5>
-<p>允许我们可以不管一切麻烦事的原子指令</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="实现互斥的基本假设"><a href="#实现互斥的基本假设" class="headerlink" title="实现互斥的基本假设"></a>实现互斥的基本假设</h5><p>允许我们可以不管一切麻烦事的原子指令</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">atomic_inc</span><span class="params">(<span class="type">long</span> *ptr)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">atomic_xchg</span><span class="params">(<span class="type">int</span> val, <span class="type">int</span> *ptr)</span>;</span><br></pre></td></tr></table></figure>
+
+
 <p>看起来是一个普通的函数，但假设：</p>
 <ul>
-<li>包含一个原子指令
-<ul>
+<li>包含一个原子指令<ul>
 <li>指令的执行不能被打断</li>
-</ul></li>
-<li>包含一个compiler barrier
-<ul>
+</ul>
+</li>
+<li>包含一个compiler barrier<ul>
 <li>无论何种优化都不可雨果此函数</li>
-</ul></li>
-<li>包含一个memory fence
-<ul>
+</ul>
+</li>
+<li>包含一个memory fence<ul>
 <li>保证处理器在stop-the world前所有对内存的store都“生效”</li>
 <li>即对resume-the-world之后的load可见</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <figure class="highlight c"><figcaption><span>Atomic Exchange实现</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">xchg</span><span class="params">(<span class="type">int</span> <span class="keyword">volatile</span> *ptr, <span class="type">int</span> newval)</span> &#123;</span><br><span class="line">  <span class="type">int</span> result;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="comment">// 指令自带 memory barrier</span></span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock xchgl %0, %1&quot;</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;+m&quot;</span>(*ptr), <span class="string">&quot;=a&quot;</span>(result)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;1&quot;</span>(newval)</span></span><br><span class="line"><span class="params">    <span class="comment">// Compiler barrier</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>原子指令是一个非常好的东西，我们程序的执行过程当中的任何时候，执行了原子指令，两条原子指令是有因果关系的，先执行的原子指令之前的所有内容在第二条原子指令之后都要是可见的。</p>
 <p>在任何时候使用原子指令都是安全的，前提是原子指令是正确的。</p>
 </blockquote>
-<h4 id="自旋锁spin-lock">自旋锁(Spin Lock)</h4>
-<h5 id="实现互斥">实现互斥</h5>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="自旋锁-Spin-Lock"><a href="#自旋锁-Spin-Lock" class="headerlink" title="自旋锁(Spin Lock)"></a>自旋锁(Spin Lock)</h4><h5 id="实现互斥"><a href="#实现互斥" class="headerlink" title="实现互斥"></a>实现互斥</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br></pre></td></tr></table></figure>
+
 <p>一个科学家的思维应该是：考虑更多更根本的问题</p>
 <ul>
-<li>我们可以设计出怎么样的原子指令？
-<ul>
+<li>我们可以设计出怎么样的原子指令？<ul>
 <li>它们的表达能力如何？</li>
-</ul></li>
-<li>计算机硬件可以提供比“一次load/store”更强的原子性吗？
-<ul>
-<li>如果硬件困难，软件/编译器可以么？</li>
-</ul></li>
 </ul>
-<h5 id="自旋锁用xchg实现互斥">自旋锁：用xchg实现互斥</h5>
-<p>在厕所门口放一个桌子(共享变量)</p>
+</li>
+<li>计算机硬件可以提供比“一次load&#x2F;store”更强的原子性吗？<ul>
+<li>如果硬件困难，软件&#x2F;编译器可以么？</li>
+</ul>
+</li>
+</ul>
+<h5 id="自旋锁：用xchg实现互斥"><a href="#自旋锁：用xchg实现互斥" class="headerlink" title="自旋锁：用xchg实现互斥"></a>自旋锁：用xchg实现互斥</h5><p>在厕所门口放一个桌子(共享变量)</p>
 <ul>
 <li>初始时放着🔑</li>
 </ul>
 <p>自旋锁(Spin Lock)</p>
 <ul>
-<li>想上厕所的同学(一条xchg指令)
-<ul>
+<li>想上厕所的同学(一条xchg指令)<ul>
 <li>Stop the world</li>
 <li>看一眼桌子上有什么(🔑 或 🔞)</li>
 <li>把 🔞 放到桌上 (覆盖之前有的任何东西)</li>
 <li>Resume the world</li>
 <li>期间看到🔑才可以进厕所，否则重复</li>
-</ul></li>
-<li>出厕所的同学
-<ul>
+</ul>
+</li>
+<li>出厕所的同学<ul>
 <li>把🔑放到桌上</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> table = YES;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">()</span> &#123;</span><br><span class="line">retry:</span><br><span class="line">  <span class="type">int</span> got = xchg(&amp;table, NOPE);</span><br><span class="line">  <span class="keyword">if</span> (got == NOPE)</span><br><span class="line">    <span class="keyword">goto</span> retry;</span><br><span class="line">  assert(got == YES);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">()</span> &#123;</span><br><span class="line">  xchg(&amp;table, YES);  <span class="comment">// 为什么不是 table = YES; ?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在xchg的假设下简化实现</p>
 <ul>
 <li>包含一个原子指令</li>
@@ -412,157 +409,154 @@
 <li>包含一个memory fence</li>
 </ul>
 <figure class="highlight c"><figcaption><span>sum-spinlock.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;thread.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> N 100000000</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> M 10</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">xchg</span><span class="params">(<span class="type">int</span> <span class="keyword">volatile</span> *ptr, <span class="type">int</span> newval)</span> &#123;</span><br><span class="line">  <span class="type">int</span> result;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock xchgl %0, %1&quot;</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;+m&quot;</span>(*ptr), <span class="string">&quot;=a&quot;</span>(result)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;1&quot;</span>(newval)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> locked = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">while</span> (xchg(&amp;locked, <span class="number">1</span>)) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">()</span> &#123;</span><br><span class="line">  xchg(&amp;locked, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Tsum</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">long</span> nround = N / M;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nround; i++) &#123;</span><br><span class="line">    lock();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">      sum++;  <span class="comment">// Non-atomic; can optimize</span></span><br><span class="line">    &#125;</span><br><span class="line">    unlock();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  assert(N % M == <span class="number">0</span>);</span><br><span class="line">  create(Tsum);</span><br><span class="line">  create(Tsum);</span><br><span class="line">  join();</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sum = %ld\n&quot;</span>, sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight c"><figcaption><span>thread.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdatomic.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NTHREAD 64</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span> T_FREE = <span class="number">0</span>, T_LIVE, T_DEAD, &#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> id, status;</span><br><span class="line">  <span class="type">pthread_t</span> thread;</span><br><span class="line">  <span class="type">void</span> (*entry)(<span class="type">int</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> <span class="title">tpool</span>[<span class="title">NTHREAD</span>], *<span class="title">tptr</span> =</span> tpool;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *<span class="title function_">wrapper</span><span class="params">(<span class="type">void</span> *arg)</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">thread</span> =</span> (<span class="keyword">struct</span> thread *)arg;</span><br><span class="line">  thread-&gt;entry(thread-&gt;id);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">create</span><span class="params">(<span class="type">void</span> *fn)</span> &#123;</span><br><span class="line">  assert(tptr - tpool &lt; NTHREAD);</span><br><span class="line">  *tptr = (<span class="keyword">struct</span> thread) &#123;</span><br><span class="line">    .id = tptr - tpool + <span class="number">1</span>,</span><br><span class="line">    .status = T_LIVE,</span><br><span class="line">    .entry = fn,</span><br><span class="line">  &#125;;</span><br><span class="line">  pthread_create(&amp;(tptr-&gt;thread), <span class="literal">NULL</span>, wrapper, tptr);</span><br><span class="line">  ++tptr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">join</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; NTHREAD; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">t</span> =</span> &amp;tpool[i];</span><br><span class="line">    <span class="keyword">if</span> (t-&gt;status == T_LIVE) &#123;</span><br><span class="line">      pthread_join(t-&gt;thread, <span class="literal">NULL</span>);</span><br><span class="line">      t-&gt;status = T_DEAD;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">__attribute__((destructor)) <span class="type">void</span> <span class="title function_">cleanup</span><span class="params">()</span> &#123;</span><br><span class="line">  join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>上面用自旋锁优化的sum-spinlock.c可以编译成功，输出正确结果</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230427122620575.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230427122620575.png"></p>
 <p>可以验证，无论是O2优化还是O1优化都可以输出正确的结果，自旋锁目前为止是可以处理编译优化的。lock和unlock内没有compiler barrier里面的代码是可以优化的</p>
-<h5 id="无锁算法了解">无锁算法(了解)</h5>
-<p><strong>更强大的原子指令</strong></p>
-<p>Compare and exchange("test and set")</p>
+<h5 id="无锁算法-了解"><a href="#无锁算法-了解" class="headerlink" title="无锁算法(了解)"></a>无锁算法(了解)</h5><p><strong>更强大的原子指令</strong></p>
+<p>Compare and exchange(“test and set”)</p>
 <ul>
 <li>(lock) compxchg SRC, DEST</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TEMP = DEST</span><br><span class="line"><span class="keyword">if</span> accumulator == TEMP:</span><br><span class="line">    ZF = <span class="number">1</span></span><br><span class="line">    DEST = SRC</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    ZF = <span class="number">0</span></span><br><span class="line">    accumulator = TEMP</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>🤔 看起来没有复杂多少，又好像复杂了很多
-<ul>
-<li>学编程/操作系统”纸面理解“是不行的</li>
-<li>一定要写代码加深印象
-<ul>
+<li>🤔 看起来没有复杂多少，又好像复杂了很多<ul>
+<li>学编程&#x2F;操作系统”纸面理解“是不行的</li>
+<li>一定要写代码加深印象<ul>
 <li>对于这个例子：我们可以列出“真值表”</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <figure class="highlight c"><figcaption><span>cmpoxchg.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">cmpxchg</span><span class="params">(<span class="type">int</span> old, <span class="type">int</span> new, <span class="type">int</span> <span class="keyword">volatile</span> *ptr)</span> &#123;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock cmpxchgl %[new], %[mem]&quot;</span></span></span><br><span class="line"><span class="params">      : <span class="string">&quot;+a&quot;</span>(old), [mem] <span class="string">&quot;+m&quot;</span>(*ptr)</span></span><br><span class="line"><span class="params">      : [new] <span class="string">&quot;S&quot;</span>(new)</span></span><br><span class="line"><span class="params">      : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> old;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">cmpxchg_ref</span><span class="params">(<span class="type">int</span> old, <span class="type">int</span> new, <span class="type">int</span> <span class="keyword">volatile</span> *ptr)</span> &#123;</span><br><span class="line">  <span class="type">int</span> tmp = *ptr;  <span class="comment">// Load</span></span><br><span class="line">  <span class="keyword">if</span> (tmp == old) &#123;</span><br><span class="line">    *ptr = new;  <span class="comment">// Store (conditionally)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">run_test</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> old, <span class="type">int</span> new)</span> &#123;</span><br><span class="line">  <span class="type">int</span> val1 = x;</span><br><span class="line">  <span class="type">int</span> ret1 = cmpxchg(old, new, &amp;val1);</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> val2 = x;</span><br><span class="line">  <span class="type">int</span> ret2 = cmpxchg_ref(old, new, &amp;val2);</span><br><span class="line"></span><br><span class="line">  assert(val1 == val2 &amp;&amp; ret1 == ret2);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x = %d -&gt; (cmpxchg %d -&gt; %d) -&gt; x = %d\n&quot;</span>, x, old, new, val1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">0</span>; x &lt;= <span class="number">2</span>; x++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> old = <span class="number">0</span>; old &lt;= <span class="number">2</span>; old++)</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> new = <span class="number">0</span>; new &lt;= <span class="number">2</span>; new++)</span><br><span class="line">        run_test(x, old, new);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510124338922.png" /></p>
-<h4 id="在操作系统上实现互斥">在操作系统上实现互斥</h4>
-<h5 id="自旋锁的缺陷">自旋锁的缺陷</h5>
-<p>性能问题(1)</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510124338922.png"></p>
+<h4 id="在操作系统上实现互斥"><a href="#在操作系统上实现互斥" class="headerlink" title="在操作系统上实现互斥"></a>在操作系统上实现互斥</h4><h5 id="自旋锁的缺陷"><a href="#自旋锁的缺陷" class="headerlink" title="自旋锁的缺陷"></a>自旋锁的缺陷</h5><p>性能问题(1)</p>
 <ul>
 <li>除了进入临界区的线程，其他处理器上的线程都在<strong>空转</strong></li>
-<li>争抢锁的处理器越多，利用率越低
-<ul>
-<li>4 个 CPU 运行 4 个 sum-spinlock 和 1 个 OBS
-<ul>
+<li>争抢锁的处理器越多，利用率越低<ul>
+<li>4 个 CPU 运行 4 个 sum-spinlock 和 1 个 OBS<ul>
 <li>人一时刻都只有一个 sum-atomic 在有效计算</li>
-</ul></li>
+</ul>
+</li>
 <li>均分 CPU, OBS 就分不到 100% 的 CPU 了</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>性能问题(2)</p>
 <ul>
-<li>持有自选锁的线程<strong>可能被操作系统切换出去</strong>
-<ul>
-<li>操作系统不"感知"线程在做什么</li>
+<li>持有自选锁的线程<strong>可能被操作系统切换出去</strong><ul>
+<li>操作系统不”感知”线程在做什么</li>
 <li>(但为什么不能呢？)</li>
-</ul></li>
+</ul>
+</li>
 <li>实现 100% 的资源浪费</li>
 </ul>
-<h5 id="scalability-性能的新维度">Scalability: 性能的新维度</h5>
-<blockquote>
+<h5 id="Scalability-性能的新维度"><a href="#Scalability-性能的新维度" class="headerlink" title="Scalability: 性能的新维度"></a>Scalability: 性能的新维度</h5><blockquote>
 <p>同一份计算任务，时间 (CPU cycles) 和空间 (mapped memory) 会随处理器数量的增长而变化。</p>
 </blockquote>
 <p>用自旋锁实现 sum++ 的性能问题</p>
 <ul>
-<li>严谨的统计很难
-<ul>
+<li>严谨的统计很难<ul>
 <li>CPU 动态功耗</li>
 <li>系统的其他进程</li>
 <li>超线程</li>
 <li>NUMA</li>
-<li>......</li>
+<li>……</li>
 <li><a target="_blank" rel="noopener" href="https://gernot-heiser.org/benchmarking-crimes.html">Benchmarking crimes</a></li>
-</ul></li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/spinlock-scalability.jpg" /></p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510130507698.png" /></p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/spinlock-scalability.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510130507698.png"></p>
 <p>线程越多，效率越低，用本地代码去测试也有这种情况，为什么会发生这种情况？一个很重要的原因是现代的处理器是有缓存的，当我们想要读 sum 或者写 sum 都是从一级缓存中读出的，但是当另一个线程想要读不在这个处理器缓存中的 sum 时，就需要去另一个 CPU 的缓存中拉下来，传的过程就会产生时间，很有趣的 Scalability 的讨论</p>
-<h5 id="自旋锁的使用场景">自旋锁的使用场景</h5>
-<ol type="1">
+<h5 id="自旋锁的使用场景"><a href="#自旋锁的使用场景" class="headerlink" title="自旋锁的使用场景"></a>自旋锁的使用场景</h5><ol>
 <li>临界区几乎不“拥堵”</li>
 <li>持有自旋锁时禁止执行流切换</li>
 </ol>
-<p>使用场景<strong>(唯一)</strong>：<strong>操作系统内和的并发数据结构（短临界区）</strong></p>
+<p>使用场景**(唯一)<strong>：</strong>操作系统内和的并发数据结构（短临界区）**</p>
 <ul>
-<li>操作系统可以关闭中断和抢占(仔细读起来这个行为是不合理的)
-<ul>
+<li>操作系统可以关闭中断和抢占(仔细读起来这个行为是不合理的)<ul>
 <li>保证自旋锁的持有者在很短的时间内可以释放锁</li>
-</ul></li>
-<li>(如果是虚拟机呢...😂)
-<ul>
-<li>PAUSE 指令会处罚 VM Exit</li>
-</ul></li>
-<li>但依旧很难做好
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.usenix.org/conference/osdi10/analysis-linux-scalability-many-cores">An analysis of Linux scalability to many cores</a> (OSDI'10)</li>
-</ul></li>
 </ul>
-<h5 id="实现线程-长临界区的互斥">实现线程 + 长临界区的互斥</h5>
-<blockquote>
+</li>
+<li>(如果是虚拟机呢…😂)<ul>
+<li>PAUSE 指令会处罚 VM Exit</li>
+</ul>
+</li>
+<li>但依旧很难做好<ul>
+<li><a target="_blank" rel="noopener" href="https://www.usenix.org/conference/osdi10/analysis-linux-scalability-many-cores">An analysis of Linux scalability to many cores</a> (OSDI’10)</li>
+</ul>
+</li>
+</ul>
+<h5 id="实现线程-长临界区的互斥"><a href="#实现线程-长临界区的互斥" class="headerlink" title="实现线程 + 长临界区的互斥"></a>实现线程 + 长临界区的互斥</h5><blockquote>
 <p>作业那么多，与其干等作业发布，不如把自己 (CPU) 让给其他作业 (线程) 执行？</p>
 </blockquote>
 <p>“让”不是 C 语言代码可以做到的 (C 代码只能执行命令)</p>
 <ul>
 <li>但有一种特殊的指令：syscall</li>
-<li>把锁的实现放到操作系统里就好了
-<ul>
-<li>syscall(SYSCALL_lock, &amp;lk);
-<ul>
+<li>把锁的实现放到操作系统里就好了<ul>
+<li>syscall(SYSCALL_lock, &amp;lk);<ul>
 <li>试图获得 1k，但如果失败，就切换到其他进程</li>
-</ul></li>
-<li>syscall(SYSCALL_unlock, &amp;1k);
-<ul>
-<li>释放 1k，如果有等待锁的线程就唤醒</li>
-</ul></li>
-</ul></li>
 </ul>
-<p>操作系统 = 更衣室管理员</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/locker.jpg" /></p>
+</li>
+<li>syscall(SYSCALL_unlock, &amp;1k);<ul>
+<li>释放 1k，如果有等待锁的线程就唤醒</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>操作系统 &#x3D; 更衣室管理员</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/locker.jpg"></p>
 <ul>
-<li>先到的人(线程)
-<ul>
+<li>先到的人(线程)<ul>
 <li>成功获得手环，进入游泳馆</li>
-<li>*1k = 🔒，系统调用直接返回</li>
-</ul></li>
-<li>后到的人(线程)
-<ul>
+<li>*1k &#x3D; 🔒，系统调用直接返回</li>
+</ul>
+</li>
+<li>后到的人(线程)<ul>
 <li>不能进入游泳馆，排队等待</li>
 <li>线程放入等待队列，执行线程切换(yield)</li>
-</ul></li>
-<li>洗完澡出来的人(线程)
-<ul>
+</ul>
+</li>
+<li>洗完澡出来的人(线程)<ul>
 <li>交还手环给管理员；管理员把手环再交给排队的人</li>
 <li>如果等待队列不空，从等待队列中取出一个线程允许执行</li>
-<li>如果等待队列为空，*1k = ✅</li>
-</ul></li>
+<li>如果等待队列为空，*1k &#x3D; ✅</li>
+</ul>
+</li>
 <li><strong>管理员 (OS) 使用自旋锁确保自己处理手环的过程是原子的</strong></li>
 </ul>
-<h4 id="关于互斥的一些分析">关于互斥的一些分析</h4>
-<p>自旋锁(线程直接共享 locked)</p>
+<h4 id="关于互斥的一些分析"><a href="#关于互斥的一些分析" class="headerlink" title="关于互斥的一些分析"></a>关于互斥的一些分析</h4><p>自旋锁(线程直接共享 locked)</p>
 <ul>
-<li>更快的 fast path
-<ul>
+<li>更快的 fast path<ul>
 <li>xchg 成功→立即进入临界区，开小很小</li>
-</ul></li>
-<li>更慢的 slow path
-<ul>
+</ul>
+</li>
+<li>更慢的 slow path<ul>
 <li>xchg 失败→浪费 CPU 自旋等待</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>互斥锁(通过系统调用访问 locked)</p>
 <ul>
-<li>更经济的 slow path
-<ul>
+<li>更经济的 slow path<ul>
 <li>上锁失败线程不再占用 CPU</li>
-</ul></li>
-<li>更慢的 fast path
-<ul>
-<li>即使上锁成功也需要进出内核 (syscall)</li>
-</ul></li>
 </ul>
-<hr />
+</li>
+<li>更慢的 fast path<ul>
+<li>即使上锁成功也需要进出内核 (syscall)</li>
+</ul>
+</li>
+</ul>
+<hr>
 <p>为了实现现代多处理器系统上的互斥，我们首先需要理解 “原子操作” (例如 <code>atomic_xchg</code>) 的假设：</p>
-<ol type="1">
+<ol>
 <li>操作本身是原子的、看起来无法被打断的，即它真的是一个 “原子操作”；</li>
 <li>操作自带一个 compiler barrier，防止优化跨过函数调用。这一点很重要——例如我们今天的编译器支持 Link-time Optimization (LTO)，如果缺少 compiler barrier，编译优化可以穿过 volatile 标记的汇编指令；</li>
 <li>操作自带一个 memory barrier，保证操作执行前指令的写入，能对其他处理器之后的 load 可见。</li>
