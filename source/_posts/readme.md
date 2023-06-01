@@ -7,6 +7,8 @@ tags:
 
 **Preface:** 重载了系统，我的博客又无了，现在吸收了教训，从无到有开始记录以下创建博客的过程。
 
+<!--more-->
+
 ### 使用 npm 下载 `hexo-theme-next` 最新版
 
 ```shell
@@ -1197,4 +1199,25 @@ pace:
 ```
 
 ### Advanced Settings
+
+#### CDN Settings
+
+用 CDN 加速插件和静态资源的加载
+
+```shell Next config file
+vendors:
+  # The CDN provider of NexT internal scripts.
+  # Available values: local | jsdelivr | unpkg | cdnjs | custom
+  # Warning: If you are using the latest master branch of NexT, please set `internal: local`
+  internal: local
+  # The default CDN provider of third-party plugins.
+  # Available values: local | jsdelivr | unpkg | cdnjs | custom
+  # Dependencies for `plugins: local`: https://github.com/next-theme/plugins
+  plugins: unpkg
+  # Custom CDN URL
+  # For example:
+  # custom_cdn_url: https://cdn.jsdelivr.net/npm/${npm_name}@${version}/${minified}
+  # custom_cdn_url: https://cdnjs.cloudflare.com/ajax/libs/${cdnjs_name}/${version}/${cdnjs_file}
+  custom_cdn_url:
+```
 
