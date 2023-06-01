@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="google-site-verification=9Q8muzhS2thviJB7_PE70he9WiXyWfnjenFEwEujD5o">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/pace-js@1.2.4/themes/black/pace-theme-big-counter.css">
+  <script src="https://unpkg.com/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"arickkaa.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Preface: 假设我们已经熟练使用各种C语言机制，原则上给需求就能搞定任何代码，但是结果并不是。本次课程就是教学怎么写代码才能从一个大型项目里存活下来  核心准则：编写可读代码">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="计算机系统基础2. C语言拾遗(2):编程实践">
+<meta property="og:url" content="https://arickkaa.com/2023-04-25-computer_system2/index.html">
+<meta property="og:site_name" content="Aric">
+<meta property="og:description" content="Preface: 假设我们已经熟练使用各种C语言机制，原则上给需求就能搞定任何代码，但是结果并不是。本次课程就是教学怎么写代码才能从一个大型项目里存活下来  核心准则：编写可读代码">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-05-09T12:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-01T03:22:03.424Z">
+<meta property="article:author" content="Q Zhou">
+<meta property="article:tag" content="基础学习">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://arickkaa.com/2023-04-25-computer_system2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://arickkaa.com/2023-04-25-computer_system2/","path":"2023-04-25-computer_system2/","title":"计算机系统基础2. C语言拾遗(2):编程实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机系统基础2. C语言拾遗(2):编程实践 | Aric</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-59YMWEWNCJ"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-59YMWEWNCJ","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Aric</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">and his fancy life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">11</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%87%86%E5%88%99%E7%BC%96%E5%86%99%E5%8F%AF%E8%AF%BB%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">核心准则：编写可读代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E5%87%86%E5%88%99%E9%99%8D%E4%BD%8E%E7%BB%B4%E6%8A%A4%E6%88%90%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">编写代码的准则：降低维护成本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%8F%E8%A7%82"><span class="nav-number">2.1.</span> <span class="nav-text">宏观</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AE%E8%A7%82"><span class="nav-number">2.2.</span> <span class="nav-text">微观</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%E5%AE%9E%E7%8E%B0%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF"><span class="nav-number">2.3.</span> <span class="nav-text">例子：实现数字逻辑电路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%A2%84%E7%BC%96%E8%AF%91good-and-bad"><span class="nav-number">2.4.</span> <span class="nav-text">使用预编译：Good and Bad</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%E5%AE%9E%E7%8E%B0-yemu-%E5%85%A8%E7%B3%BB%E7%BB%9F%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">例子：实现 YEMU 全系统模拟器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA"><span class="nav-number">3.1.</span> <span class="nav-text">最简单的计算机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#y-emulator-yemu-%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.</span> <span class="nav-text">Y-Emulator (YEMU) 设计与实现</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Q Zhou"
+      src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage/img/avatar.png">
+  <p class="site-author-name" itemprop="name">Q Zhou</p>
+  <div class="site-description" itemprop="description">记录我的学习和成长</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/QZhou0706" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;QZhou0706" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:QZhou0706@gmail.com" title="E-Mail → mailto:QZhou0706@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/21623818/quan-zhou" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;21623818&#x2F;quan-zhou" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://arickkaa.com/2023-04-25-computer_system2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage/img/avatar.png">
+      <meta itemprop="name" content="Q Zhou">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aric">
+      <meta itemprop="description" content="记录我的学习和成长">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机系统基础2. C语言拾遗(2):编程实践 | Aric">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机系统基础2. C语言拾遗(2):编程实践<a href="https://github.com/QZhou0706/QZhou0706.github.io/tree/blog/source/_posts_posts/2023-04-25-computer_system2.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-05-09 20:00:00" itemprop="dateCreated datePublished" datetime="2023-05-09T20:00:00+08:00">2023-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Computer-System/" itemprop="url" rel="index"><span itemprop="name">Computer System</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023-04-25-computer_system2/" class="post-meta-item leancloud_visitors" data-flag-title="计算机系统基础2. C语言拾遗(2):编程实践" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023-04-25-computer_system2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023-04-25-computer_system2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>Preface:</strong></p>
+<p>假设我们已经熟练使用各种C语言机制，原则上给需求就能搞定任何代码，但是结果并不是。本次课程就是教学怎么写代码才能从一个大型项目里存活下来</p>
+<ul>
+<li>核心准则：编写可读代码</li>
+</ul>
+<span id="more"></span>
+<h4 id="核心准则编写可读代码">核心准则：编写可读代码</h4>
+<p><a target="_blank" rel="noopener" href="https://www.ioccc.org/2011/hou/hou.c">IOCCC'11 best self documenting program</a></p>
+<ul>
+<li>不可读 = 不可维护</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">puts</span>(usage: calculator <span class="number">11</span>/<span class="number">26</span>+<span class="number">222</span>/<span class="number">31</span></span><br><span class="line">  +~~~~~~~~~~~~~~~~~~~~~~~~calculator-\</span><br><span class="line">  !                          <span class="number">7.584</span>,<span class="number">367</span> )</span><br><span class="line">  +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+</span><br><span class="line">  ! clear ! <span class="number">0</span> ||l   -x  l   <span class="built_in">tan</span>  <span class="title function_">I</span> <span class="params">(/)</span> |</span><br><span class="line">  +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+</span><br><span class="line">  ! 1 | 2 | 3 ||l  1/x  l   <span class="built_in">cos</span>  <span class="title function_">I</span> <span class="params">(*)</span> |</span><br><span class="line">  +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+</span><br><span class="line">  ! 4 | 5 | 6 ||l  <span class="built_in">exp</span>  l  <span class="built_in">sqrt</span>  <span class="title function_">I</span> <span class="params">(+)</span> |</span><br><span class="line">  +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+</span><br><span class="line">  ! 7 | 8 | 9 ||l  <span class="built_in">sin</span>  l   <span class="built_in">log</span>  <span class="title function_">I</span> <span class="params">(-)</span> |</span><br><span class="line">  +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<span class="params">(<span class="number">0</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+<p>这是一段完全滥用 C 语言机制的代码，完全不可读。如果完全不可读，如果下次需要增加一个运算符，那么就极难进行维护。</p>
+<p>这种代码或许平时不会写，但是一个现实中可能遇到的例子:</p>
+<p><strong>人类不可读版 (STFW: clockwise/spiral rule)</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*signal(<span class="type">int</span> sig, <span class="type">void</span> (*func)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>人类可读版</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(*<span class="type">sighandler_t</span>)</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">sighandler_t</span> <span class="title function_">signal</span><span class="params">(<span class="type">int</span>, <span class="type">sighandler_t</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>上面这个函数实际上就是一个函数指针，返回值为和参数同类型的函数指针，但是可读版和不可读版读起来和改起来难度完全不同，下面的代码对人类更 friendly</p>
+<h4 id="编写代码的准则降低维护成本">编写代码的准则：降低维护成本</h4>
+<p>为什么在编写一个比较长的代码的时候维护起来比较困难？长不是主要的问题，只是当代码的 size 增长之后，我们很难在回去看的时候明白每一个代码中的细节</p>
+<blockquote>
+<p>Programs are meant to be read by humans and only incidentally for computers to execute. — <em>D. E. Knuth</em></p>
+<p>(程序首先是拿给人读的，其次才是被机器执行。)</p>
+</blockquote>
+<h5 id="宏观">宏观</h5>
+<ul>
+<li>做好分解和解耦(现实世界也是这样管理复杂的系统的)
+<ul>
+<li>大学中选课、住宿、食堂......</li>
+</ul></li>
+</ul>
+<h5 id="微观">微观</h5>
+<ul>
+<li>“不言自明”
+<ul>
+<li>通过<strong>阅读代码</strong>(直接阅读代码的文本)能理解一段程序是做什么的(specification)</li>
+</ul></li>
+<li>“不言自证”
+<ul>
+<li>通过<strong>阅读代码</strong>能验证一段程序与 specification 的一致性，我阅读完代码之后，不仅知道代码是做什么的，还了解代码的输入输出是如何规范等等</li>
+</ul></li>
+</ul>
+<h5 id="例子实现数字逻辑电路">例子：实现数字逻辑电路</h5>
+<p>假想的数字逻辑电路</p>
+<ul>
+<li>若干个 1-bit 边沿触发寄存器(X, Y, ...)</li>
+<li>若干个逻辑门</li>
+</ul>
+<p>我们怎么设计？</p>
+<ul>
+<li>基本思路：状态（存储）模拟 + 计算模拟
+<ul>
+<li>状态 = 变量
+<ul>
+<li>int X = 0, Y = 0;</li>
+</ul></li>
+<li>计算(while 循环)
+<ul>
+<li>X1 = !X &amp;&amp; Y;</li>
+<li>Y1 = !X &amp;&amp; !Y;</li>
+<li>X = X1; Y = Y1;</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>如果要增加一个触发器 Z ，我们就需要对代码作出一些改动</p>
+<ul>
+<li><p>定义变量 Z, Z1</p></li>
+<li><p>对 while 循环内的逻辑增加几行</p></li>
+</ul>
+<p>如果项目不是这么简单，是一个很大的项目，以下的各种逻辑都用在各种文件中，我们要修改 such as 8 处，或许很容易出现各种编译会报错或者不报错(更可怕)的错误</p>
+<p><strong>通用数字逻辑电路模拟器(cant'd)</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> FORALL_REGS(_)  _(X) _(Y)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LOGIC           X1 = !X &amp;&amp; Y; \</span></span><br><span class="line"><span class="meta">                        Y1 = !X &amp;&amp; !Y;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEFINE(X)       static int X, X##1;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> UPDATE(X)       X = X##1;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PRINT(X)        printf(#X <span class="string">&quot; = %d; &quot;</span>, X);</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  FORALL_REGS(DEFINE);</span><br><span class="line">  <span class="keyword">while</span> (<span class="number">1</span>) &#123; <span class="comment">// clock</span></span><br><span class="line">    FORALL_REGS(PRINT); <span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>); sleep(<span class="number">1</span>);</span><br><span class="line">    LOGIC;</span><br><span class="line">    FORALL_REGS(UPDATE);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="使用预编译good-and-bad">使用预编译：Good and Bad</h5>
+<p>Good</p>
+<ul>
+<li>增加/删除寄存器只要修改一个地方</li>
+<li>阻止一些编译错误
+<ul>
+<li>忘记更新寄存器</li>
+<li>忘记打印寄存器</li>
+</ul></li>
+<li>“不言自明”还算不错</li>
+</ul>
+<p>Bad</p>
+<ul>
+<li>可读性变差(更不像 C 代码了)
+<ul>
+<li>“不言自证“还缺一些</li>
+</ul></li>
+<li>给 IDE 解析带来一些困难</li>
+</ul>
+<p><strong>更完整的实现：数码管显示</strong></p>
+<p><a target="_blank" rel="noopener" href="https://jyywiki.cn/pages/ICS/2020/demos/logisim.c">logisim.c</a> 和 <a target="_blank" rel="noopener" href="https://jyywiki.cn/pages/ICS/2020/demos/display.py">display.py</a></p>
+<ul>
+<li>也可以考虑增加诸如开关、UART等外设</li>
+<li>原理无限接近数字电路课玩的 FPGA</li>
+</ul>
+<p>FPGA？它不是万能的吗？？</p>
+<ul>
+<li>我们能模拟它，是不是就能模拟计算机系统？</li>
+</ul>
+<hr />
+<h4 id="例子实现-yemu-全系统模拟器">例子：实现 YEMU 全系统模拟器</h4>
+<h5 id="最简单的计算机">最简单的计算机</h5>
+<p><strong>存储系统</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">寄存器: PC, R0 (RA), R1, R2, R3 (8-bit)</span><br><span class="line">内存：  16字节 (按字节访问)</span><br></pre></td></tr></table></figure>
+<p>指令集</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">       7 6 5 4   3 2   1 0</span><br><span class="line">mov   [0 0 0 0] [ rt] [ rs]</span><br><span class="line">add   [0 0 0 1] [ rt] [ rs]</span><br><span class="line">load  [1 1 1 0] [   addr  ]</span><br><span class="line">store [1 1 1 1] [   addr  ]</span><br></pre></td></tr></table></figure>
+<p>这就是一个 ISA ，前几位是一段二进制代码， CPU 接收到一段机器码，根据这段手册去匹配一些指令 mov, add, load, sotre......有“计算机系统“的感觉了？</p>
+<ul>
+<li>它显然可以用数字逻辑电路实现(这个实现实际上和012是一样的)</li>
+<li>不过我们<strong>不需要在门层面实现它</strong>
+<ul>
+<li>接下来实现一个超级低配版 NEMU......</li>
+</ul></li>
+</ul>
+<h5 id="y-emulator-yemu-设计与实现">Y-Emulator (YEMU) 设计与实现</h5>
+<p><strong>存储模型：内存 + 寄存器(包含 PC)</strong></p>
+<ul>
+<li>16 + 5 = 21 bytes = 168 bits</li>
+<li>总共有 <span class="math inline">\(2^{168}\)</span>种不同的取值
+<ul>
+<li>任给一个状态，我们都能计算出 PC 处的命令，从而计算出下一个状态</li>
+</ul></li>
+</ul>
+<p>理论上，任何计算机系统都是这样的<strong>状态机</strong></p>
+<ul>
+<li><span class="math inline">\((M,R)\)</span>构成了计算机系统的状态</li>
+<li>32 GiB 内存有 <span class="math inline">\(2^{274877906944}\)</span>种不同的状态</li>
+<li>每个时钟周期，取出 <span class="math inline">\(M[R[PC]]\)</span> 的指令；执行；写回
+<ul>
+<li>受制于物理实现(和功耗)的限制，通常每个始终周期只能改变少量的寄存器和内存的状态</li>
+<li>(量子计算机颠覆了这个模型：同一时刻可以处于多个状态)</li>
+</ul></li>
+</ul>
+<p><strong>存储</strong>是计算机能实现“计算”的重要基础</p>
+<ul>
+<li>寄存器(PC)、内存</li>
+<li>这简单，用全局变量就好了！</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NREG 4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NMEM 16</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint8_t</span> u8; <span class="comment">// 没用过 uint8_t？</span></span><br><span class="line">u8 pc = <span class="number">0</span>, R[NREG], M[NMEM] = &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>建议 STFW(C 标准库) → bool 有没有？(Answer is "NO")</li>
+<li>现代计算机系统：uint8_t == unsigned char
+<ul>
+<li>C Tips: 使用 unsigned int 避免潜在的 UB
+<ul>
+<li>-fwrapv 可以强制有符号整数溢出为 wraparound</li>
+</ul></li>
+<li>C Quiz: 把指针转换成整数，应该用什么类型？(Answer is intptr_t in &lt;stdint.h&gt;)</li>
+</ul></li>
+</ul>
+<p><strong>提升代码质量</strong></p>
+<p>给寄存器名字？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> NREG 4</span></span><br><span class="line">u8 R[NREG], pc; <span class="comment">// 有些指令是用寄存器名描述的</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RA 1    <span class="comment">// <span class="doctag">BUG:</span> 数组下标从0开始</span></span></span><br><span class="line">... </span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span> RA, R1, ..., PC &#125;;</span><br><span class="line">u8 R[] = &#123;</span><br><span class="line">  [RA] = <span class="number">0</span>,  <span class="comment">// 这是什么语法？？</span></span><br><span class="line">  [R1] = <span class="number">0</span>,</span><br><span class="line">  ...</span><br><span class="line">  [PC]  = init_pc,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pc (R[PC]) <span class="comment">// 把 PC 也作为寄存器的一部分</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NREG (sizeof(R) / sizeof(u8))</span></span><br></pre></td></tr></table></figure>
+<p>使用 C 语言中的特性</p>
+<ul>
+<li>enum 添加寄存器</li>
+<li>可以在数组中用 such as [RA] = 0 语法，避免在定义数组时多一个或者少一个 0 (人类难以避免犯这种错误)
+<ul>
+<li>我们如何证明自己是正确的呢？
+<ul>
+<li>对着第一行的 enum 中内容在下面 R[] 中逐个定义</li>
+</ul></li>
+</ul></li>
+<li>用 sizeof(R) / sizeof(u8) 计算寄存器的大小，防止漏掉一些细节比如数组从 0 开始或者是新添加一个寄存器</li>
+</ul>
+<p><strong>从一小带代码看软件设计</strong></p>
+<p>软件里有很多隐藏的 dependencies (一些额外的、代码中没有体现和约束的“规则”)</p>
+<ul>
+<li>一处改了，另一处忘了(例如加了一个寄存器但是忘记更新 NREG)</li>
+<li>减少 dependencies → 降低代码耦合程度</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// breaks when adding a register</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NREG 5 <span class="comment">// 隐藏假设max&#123;RA, RB, ... PC&#125; == (NREG - 1)</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// breaks when changing register size</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NREG (sizeof(R) / sizeof(u8)) <span class="comment">// 隐藏假设寄存器是8-bit</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// never breaks</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NREG (sizeof(R) / sizeof(R[0])) <span class="comment">// 但需要R的定义</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// even better (why?)</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span> RA, ... , PC, NREG &#125;</span><br></pre></td></tr></table></figure>
+<p>最后一行中利用 C 语言的 enum 特性减少了 NREG 对寄存器数组的 dependencies</p>
+<p><strong>PA 框架代码中的 CPU_state</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CPU_state</span> &#123;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// C is not C++</span></span><br><span class="line"><span class="comment">// cannot declare &quot;CPU_state state&quot;;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> reg_l(index) (cpu.gpr[check_reg_index(index)]._32)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> reg_w(index) (cpu.gpr[check_reg_index(index)]._16)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> reg_b(index) (cpu.gpr[check_reg_index(index) &amp; 0x3]._8[index &gt;&gt; 2])</span></span><br></pre></td></tr></table></figure>
+<p>对于复杂的情况，struct/union 是更好的设计</p>
+<ul>
+<li>担心性能(check_reg_index)？
+<ul>
+<li>在超强的编译器优化面前，不存在的</li>
+</ul></li>
+</ul>
+<p><strong>YEMU:模拟指令执行</strong></p>
+<p>在时钟信号驱动下，根据 <span class="math inline">\((M,R)\)</span> 更新系统的状态</p>
+<p>RISC 处理器(以及实际的 CISC 处理器实现)：</p>
+<ul>
+<li>取值令(fetch): 读出 M[R[PC]] 的一条指令</li>
+<li>译码(decode): 根据指令集规范解析指令的语义(顺便取出操作数)</li>
+<li>执行(execute): 执行命令、运算后写回寄存器或内存</li>
+</ul>
+<p>最重要的就是实现 idex()</p>
+<ul>
+<li>在 PA 中最挣扎的地方</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">while</span> (!is_halt(M[pc])) &#123;</span><br><span class="line">    idex();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码例子1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">idex</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> ((M[pc] &gt;&gt; <span class="number">4</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">    R[(M[pc] &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>] = R[M[pc] &amp; <span class="number">3</span>];</span><br><span class="line">    pc++;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((M[pc] &gt;&gt; <span class="number">4</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">    R[(M[pc] &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>] += R[M[pc] &amp; <span class="number">3</span>];</span><br><span class="line">    pc++;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((M[pc] &gt;&gt; <span class="number">4</span>) == <span class="number">14</span>) &#123;</span><br><span class="line">    R[<span class="number">0</span>] = M[M[pc] &amp; <span class="number">0xf</span>]; </span><br><span class="line">    pc++;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((M[pc] &gt;&gt; <span class="number">4</span>) == <span class="number">15</span>) &#123;</span><br><span class="line">    M[M[pc] &amp; <span class="number">0xf</span>] = R[<span class="number">0</span>];</span><br><span class="line">    pc++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码例子2</strong></p>
+<p>是否好一些？</p>
+<ul>
+<li>不言自明？不言自证？</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">idex</span><span class="params">()</span> &#123;</span><br><span class="line">  u8 inst = M[pc++];</span><br><span class="line">  u8 op = inst &gt;&gt; <span class="number">4</span>;</span><br><span class="line">  <span class="keyword">if</span> (op == <span class="number">0x0</span> || op == <span class="number">0x1</span>) &#123;</span><br><span class="line">    <span class="type">int</span> rt = (inst &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>, rs = (inst &amp; <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">if</span>      (op == <span class="number">0x0</span>) R[rt]  = R[rs];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">0x1</span>) R[rt] += R[rs];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (op == <span class="number">0xe</span> || op == <span class="number">0xf</span>) &#123;</span><br><span class="line">    <span class="type">int</span> addr = inst &amp; <span class="number">0xf</span>;</span><br><span class="line">    <span class="keyword">if</span>      (op == <span class="number">0xe</span>) R[<span class="number">0</span>]    = M[addr];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">0xf</span>) M[addr] = R[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码例子3</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">union</span> <span class="title">inst</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span> u8 rs  : <span class="number">2</span>, rt: <span class="number">2</span>, op: <span class="number">4</span>; &#125; rtype;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span> u8 addr: <span class="number">4</span>,        op: <span class="number">4</span>; &#125; mtype;</span><br><span class="line">&#125; <span class="type">inst_t</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RTYPE(i) u8 rt = (i)-&gt;rtype.rt, rs = (i)-&gt;rtype.rs;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MTYPE(i) u8 addr = (i)-&gt;mtype.addr;</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">idex</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">inst_t</span> *cur = (<span class="type">inst_t</span> *)&amp;M[pc];</span><br><span class="line">  <span class="keyword">switch</span> (cur-&gt;rtype.op) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b0000</span>: &#123; RTYPE(cur); R[rt]   = R[rs];   pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b0001</span>: &#123; RTYPE(cur); R[rt]  += R[rs];   pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b1110</span>: &#123; MTYPE(cur); R[RA]   = M[addr]; pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b1111</span>: &#123; MTYPE(cur); M[addr] = R[RA];   pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">default</span>: panic(<span class="string">&quot;invalid instruction at PC = %x&quot;</span>, pc);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用到了 C 语言的一个特性：bit field，用一个类型的某些位来定义变量</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Q Zhou
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://arickkaa.com/2023-04-25-computer_system2/" title="计算机系统基础2. C语言拾遗(2):编程实践">https://arickkaa.com/2023-04-25-computer_system2/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 基础学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023-05-06-Web1/" rel="prev" title="Web学习1:Html基本语法">
+                  <i class="fa fa-chevron-left"></i> Web学习1:Html基本语法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/test/" rel="next" title="test">
+                  test <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备2023015052号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q Zhou</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.4/dist/jquery.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://unpkg.com/mermaid@9.4.3/dist/mermaid.min.js","integrity":"sha256-e0o3JYsdjqKajf9eOe22FhioYSz9WofRY4dLKo3F6do="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"Y8Wsid3Gm5LZWPKWITYBicQ2-MdYXbMMI","app_key":"1hXshc8YneBHn3Xhs3NdO3gV","server_url":"arickkaa.com","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://unpkg.com/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://arickkaa.com/2023-04-25-computer_system2/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"qzhou0706-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

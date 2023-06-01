@@ -24,27 +24,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"arickkaa.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://arickkaa.com/tags/index.html">
+    <meta name="description" content="Preface:考完了算法设计与分析，终于有一点时间可以用来自主学习了。由于有一门选修课要用到许多Web的知识，所以计划给Web学习分配一些时间，赶紧自学完。CS和OS是长期的主线，防止自己的节奏乱掉在这里提一下。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Web学习1:Html基本语法">
+<meta property="og:url" content="https://arickkaa.com/2023-05-06-Web1/index.html">
 <meta property="og:site_name" content="Aric">
+<meta property="og:description" content="Preface:考完了算法设计与分析，终于有一点时间可以用来自主学习了。由于有一门选修课要用到许多Web的知识，所以计划给Web学习分配一些时间，赶紧自学完。CS和OS是长期的主线，防止自己的节奏乱掉在这里提一下。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-05-30T07:13:39.000Z">
-<meta property="article:modified_time" content="2023-05-31T15:35:35.734Z">
+<meta property="article:published_time" content="2023-05-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-01T03:22:03.424Z">
 <meta property="article:author" content="Q Zhou">
-<meta property="article:tag" content="arickkaa">
+<meta property="article:tag" content="基础学习">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://arickkaa.com/tags/">
+<link rel="canonical" href="https://arickkaa.com/2023-05-06-Web1/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":"","permalink":"https://arickkaa.com/tags/index.html","path":"tags/index.html","title":"tags"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://arickkaa.com/2023-05-06-Web1/","path":"2023-05-06-Web1/","title":"Web学习1:Html基本语法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>tags | Aric
-</title>
+<title>Web学习1:Html基本语法 | Aric</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-59YMWEWNCJ"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-59YMWEWNCJ","only_pageview":false}</script>
@@ -134,7 +135,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -147,6 +148,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#html%E5%9F%BA%E7%A1%80%E6%A0%87%E7%AD%BE"><span class="nav-number">1.</span> <span class="nav-text">HTML基础标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">文件结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A0%87%E7%AD%BE"><span class="nav-number">3.</span> <span class="nav-text">基础标签</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -202,43 +204,202 @@
 
     </div>
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
 
 
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://arickkaa.com/2023-05-06-Web1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage/img/avatar.png">
+      <meta itemprop="name" content="Q Zhou">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aric">
+      <meta itemprop="description" content="记录我的学习和成长">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Web学习1:Html基本语法 | Aric">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Web学习1:Html基本语法<a href="https://github.com/QZhou0706/QZhou0706.github.io/tree/blog/source/_posts_posts/2023-05-06-Web1.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2023-05-06T00:00:00+08:00">2023-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023-05-06-Web1/" class="post-meta-item leancloud_visitors" data-flag-title="Web学习1:Html基本语法" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
     
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
     
-    
-    <div class="post-block" lang="en"><header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">tags<a href="https://github.com/QZhou0706/QZhou0706.github.io/tree/blog/source/_poststags/index.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
-</h1>
-
-<div class="post-meta-container">
+    <a title="disqus" href="/2023-05-06-Web1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023-05-06-Web1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 </div>
 
-</header>
+        </div>
+      </header>
 
-      
-      
-      <div class="post-body"><div class="tag-cloud">
-  <div class="tag-cloud-title">
-    2 tags in total
-  </div>
-  <div class="tag-cloud-tags">
-    <a href="/tags/Blog/" style="font-size: 12px;" class="tag-cloud-0">Blog</a> <a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" style="font-size: 30px;" class="tag-cloud-10">基础学习</a>
-  </div>
-</div>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>Preface:</strong>考完了算法设计与分析，终于有一点时间可以用来自主学习了。由于有一门选修课要用到许多Web的知识，所以计划给Web学习分配一些时间，赶紧自学完。CS和OS是长期的主线，防止自己的节奏乱掉在这里提一下。</p>
+<span id="more"></span>
+<h4 id="html基础标签">HTML基础标签</h4>
+<h4 id="文件结构">文件结构</h4>
+<p>html的所有标签大致为以下结构，例如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<p><strong>html</strong></p>
+<p><code>&lt;html&gt;</code>元素表示一个HTML文档的根，也称为根元素，所有其他元素必须是此元素的后代</p>
+<hr />
+<p><strong>head</strong></p>
+<p><code>&lt;head&gt;</code>元素规定文档的相关配置信息，包括文档的标题，引用的文档样式和脚本等</p>
+<hr />
+<p><strong>body</strong></p>
+<p><code>&lt;body&gt;</code>元素表示文档的内容，document.body属性提供了可以轻松访问文档的脚本</p>
+<hr />
+<p><strong>title</strong></p>
+<p><code>&lt;title&gt;</code>元素定义文档的标题，先是在浏览器的标题栏或者标签页，只包含文本，如果是包含标签，则它包含的任何标签都会被忽略</p>
+<hr />
+<p><strong>meta</strong></p>
+<p><code>&lt;meta&gt;</code>元素表示那些不能由其他HTML (meta-related)元素(base, link, script, style, title)之一表示的任何元数据信息</p>
+<ul>
+<li>chartset</li>
+<li>name</li>
+</ul>
+<hr />
+<p><strong>icon</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/images/logo.png&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<p><strong>多行注释</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- comments --&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="基础标签">基础标签</h4>
+<p><strong>div</strong></p>
+<p><code>&lt;div&gt;</code>元素是一个通用的流内容容器，在不使用CSS的情况喜爱，对其内容和布局没有任何影响</p>
+<p>主要是在逻辑上把一些元素打包在一起</p>
+<p>是一个块级元素，与行级元素的区别就是是否会自己换行</p>
+<hr />
+<p><strong>span</strong></p>
+<p><code>&lt;span&gt;</code>元素是短语内容的通用行内容器，可以用来编组元素来达到某些样式，或者这些元素有共同的属性。</p>
+<p>应该在没有其他合适的语义元素才使用</p>
+<p>和上面div的不同就是这是个行级元素</p>
+<hr />
+<p><strong>h1 ~ h6</strong></p>
+<p>Heading 呈现了六个不同级别的标题</p>
+<hr />
+<p><strong>p</strong></p>
+<p><code>&lt;p&gt;</code>表示文本的一个段落，表现为一整块与相邻文本分离的文本，或以垂直的空白格里或以首行缩进</p>
+<p>是一个块级元素</p>
+<hr />
+<p><strong>pre</strong></p>
+<p><code>&lt;pre&gt;</code>表示预定义格式文本(人话就是保留锁进、空格、换行符之类的)</p>
+<p>紧跟在这个标签之后的那个换行符会被省略</p>
+<p>pre中的默认字体是等宽字体，如果想用不等宽的就去p中用br和一些空格的转义字符自己去写</p>
+<hr />
+<p><strong>br</strong></p>
+<p><code>&lt;br&gt;</code>回车换行</p>
+<hr />
 
-      </div>
-      
-      
-      
     </div>
 
     
     
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Q Zhou
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://arickkaa.com/2023-05-06-Web1/" title="Web学习1:Html基本语法">https://arickkaa.com/2023-05-06-Web1/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 基础学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/PA1-The-simplest-computer/" rel="prev" title="PA1:The simplest computer">
+                  <i class="fa fa-chevron-left"></i> PA1:The simplest computer
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023-04-25-computer_system2/" rel="next" title="计算机系统基础2. C语言拾遗(2):编程实践">
+                  计算机系统基础2. C语言拾遗(2):编程实践 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
 
 
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 </div>
   </main>
 
@@ -304,7 +465,7 @@
 
 
   <script src="https://unpkg.com/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://arickkaa.com/tags/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://arickkaa.com/2023-05-06-Web1/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"qzhou0706-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>

@@ -24,27 +24,35 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"arickkaa.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://arickkaa.com/tags/index.html">
+    <meta name="description" content="Preface:PA或许比较困难，我想记录一下途中遇到的困难，以及我是如何解决，在这个实验的过程中我希望能培养一下我先前比较弱的RTFSC能力。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="PA1:The simplest computer">
+<meta property="og:url" content="https://arickkaa.com/PA1-The-simplest-computer/index.html">
 <meta property="og:site_name" content="Aric">
+<meta property="og:description" content="Preface:PA或许比较困难，我想记录一下途中遇到的困难，以及我是如何解决，在这个实验的过程中我希望能培养一下我先前比较弱的RTFSC能力。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-05-30T07:13:39.000Z">
-<meta property="article:modified_time" content="2023-05-31T15:35:35.734Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502191442346.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502195059434.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot%20from%202023-04-28%2023-11-19.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230428232022537.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502192612669.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502193010338.png">
+<meta property="article:published_time" content="2023-04-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-01T03:22:03.424Z">
 <meta property="article:author" content="Q Zhou">
 <meta property="article:tag" content="arickkaa">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502191442346.png">
 
 
-<link rel="canonical" href="https://arickkaa.com/tags/">
+<link rel="canonical" href="https://arickkaa.com/PA1-The-simplest-computer/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":"","permalink":"https://arickkaa.com/tags/index.html","path":"tags/index.html","title":"tags"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://arickkaa.com/PA1-The-simplest-computer/","path":"PA1-The-simplest-computer/","title":"PA1:The simplest computer"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>tags | Aric
-</title>
+<title>PA1:The simplest computer | Aric</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-59YMWEWNCJ"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-59YMWEWNCJ","only_pageview":false}</script>
@@ -134,7 +142,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -147,6 +155,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#bugs"><span class="nav-number">1.</span> <span class="nav-text">BUGs：</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -202,43 +211,168 @@
 
     </div>
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
 
 
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://arickkaa.com/PA1-The-simplest-computer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage/img/avatar.png">
+      <meta itemprop="name" content="Q Zhou">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aric">
+      <meta itemprop="description" content="记录我的学习和成长">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="PA1:The simplest computer | Aric">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PA1:The simplest computer<a href="https://github.com/QZhou0706/QZhou0706.github.io/tree/blog/source/_posts_posts/PA1-The-simplest-computer.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-04-28 23:00:00" itemprop="dateCreated datePublished" datetime="2023-04-28T23:00:00+08:00">2023-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/PA%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">PA实验</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/PA1-The-simplest-computer/" class="post-meta-item leancloud_visitors" data-flag-title="PA1:The simplest computer" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
     
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
     
-    
-    <div class="post-block" lang="en"><header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">tags<a href="https://github.com/QZhou0706/QZhou0706.github.io/tree/blog/source/_poststags/index.md" class="post-edit-link" title="Edit this post" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
-</h1>
-
-<div class="post-meta-container">
+    <a title="disqus" href="/PA1-The-simplest-computer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PA1-The-simplest-computer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 </div>
 
-</header>
+        </div>
+      </header>
 
-      
-      
-      <div class="post-body"><div class="tag-cloud">
-  <div class="tag-cloud-title">
-    2 tags in total
-  </div>
-  <div class="tag-cloud-tags">
-    <a href="/tags/Blog/" style="font-size: 12px;" class="tag-cloud-0">Blog</a> <a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" style="font-size: 30px;" class="tag-cloud-10">基础学习</a>
-  </div>
-</div>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>Preface:</strong>PA或许比较困难，我想记录一下途中遇到的困难，以及我是如何解决，在这个实验的过程中我希望能培养一下我先前比较弱的RTFSC能力。</p>
+<span id="more"></span>
+<h4 id="bugs">BUGs：</h4>
+<ul>
+<li>在<code>开始愉快的PA之旅之前</code>中，运行fceux-am时报错<strong>(UNcompleted)</strong>：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502191442346.png" /></p>
+<p>如下修改过后，fceux-am能运行，声音和游戏都能运行，如果切换成字符模式可以正常玩，但是没有画面，至今不知道怎么解决，也不知道哪里有问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502195059434.png" /></p>
+<hr />
+<ul>
+<li>运行risv32-NEMU时发现报错如下</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot%20from%202023-04-28%2023-11-19.png" /></p>
+<p>看了calloc的manual，发现是给gdb_conn *指针申请空间的时候申请了sizeof(strcut gdb_conn *)大小的内存，实际上内存应该申请的是sizeof(strcut gdb_conn)大小</p>
+<p>修改后成功编译运行risv32-NEMU，欢迎界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230428232022537.png" /></p>
+<hr />
+<ul>
+<li>x86-CPU-state中寄存器部分需要修改</li>
+</ul>
+<p>做出如下修改：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502192612669.png" /></p>
+<p>成功运行x86-NEMU，欢迎界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502193010338.png" /></p>
+<hr />
 
-      </div>
-      
-      
-      
     </div>
 
     
     
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Q Zhou
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://arickkaa.com/PA1-The-simplest-computer/" title="PA1:The simplest computer">https://arickkaa.com/PA1-The-simplest-computer/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
 
 
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023-04-27-operating_system7/" rel="prev" title="操作系统07. 并发控制互斥">
+                  <i class="fa fa-chevron-left"></i> 操作系统07. 并发控制互斥
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023-05-06-Web1/" rel="next" title="Web学习1:Html基本语法">
+                  Web学习1:Html基本语法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 </div>
   </main>
 
@@ -304,7 +438,7 @@
 
 
   <script src="https://unpkg.com/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://arickkaa.com/tags/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://arickkaa.com/PA1-The-simplest-computer/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"qzhou0706-github-io","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>
