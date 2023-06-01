@@ -44,196 +44,6 @@
       </categories>
   </entry>
   <entry>
-    <title>计算机系统基础1. C语言拾遗(1):机制</title>
-    <url>/2023-04-25-computer_system1/</url>
-    <content><![CDATA[<h4 id="概述">概述</h4>
-<p>这一节主要是弥补一些程序设计基础课上不会讲到的一些关于 C 语言的比较重要的知识，帮助构筑整体知识框架，以便后续学习计算机系统能更加顺利一些。——总共学习了四个半小时。</p>
-<span id="more"></span>
-<p><strong>以下几个问题值得思考：</strong></p>
-<ul>
-<li>在IDE中，按一个建就能编译运行，中间的过程是什么？
-<ul>
-<li>编译、连接
-<ul>
-<li>.c → 预编译 → .i → 编译 → .s → 汇编 → .o → 链接 → a.out</li>
-</ul></li>
-<li>加载执行
-<ul>
-<li>./a.out</li>
-</ul></li>
-</ul></li>
-<li>背后是通过调用命令行工具完成的
-<ul>
-<li>RTFM: gcc --help; man gcc
-<ul>
-<li>控制行为的三个选项：-E, -S, -c</li>
-</ul></li>
-</ul></li>
-<li>注意点：
-<ul>
-<li>预热：编译、链接、加载到底做了什么？</li>
-<li>RTFSC 时需要关注的 C 语言特性</li>
-</ul></li>
-</ul>
-<h4 id="进入-c-语言之前预编译">进入 C 语言之前：预编译</h4>
-<h5 id="include-指令">#include &lt;&gt;指令</h5>
-<p>以下代码有什么区别？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br></pre></td></tr></table></figure>
-<p>为什么在没有安装库时会发生错误？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SDL2/SDL2.h&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>很多人包括我在刚开始学习 C 语言时，肯定会问出一些问题：在引用stdio.h时到底是引用在哪里的文件？</p>
-<p>可能在书/阅读材料上了解一些相关知识</p>
-<ul>
-<li>但更好的办法是阅读命令的日志</li>
-<li>gcc --verbose a.c</li>
-</ul>
-<p>使用gcc --verbose可以了解到很多内部的东西，例如：</p>
-<p>这张图片是我的电脑上运行gcc --verbose a.c后包含的一段，这段信息显示了gcc在编译a.c文件时头文件引用的发生，分别找的是这些路径下的文件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/gcc_verbose.png" /></p>
-<p>如果我有a.c和a.inc文件放在同一个路径下</p>
-<figure class="highlight c"><figcaption><span>a.inc</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.inc&quot;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-<p>然后使用gcc --verbose a.c后会发生什么？正确编译除了a.out，运行后输出hello world</p>
-<p>如果把a.c改变一下，再编译就出现error了</p>
-<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;a.inc&gt;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090237647.png" /></p>
-<p>有一个命令选项-I可以添加gcc寻找#include &lt;...&gt;的路径，如果输入这些指令，编译通过，可以正常输出hello world。用gcc --verbose查看详细信息，发现#Include &lt;...&gt;多了一个path</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090737466.png" /></p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090859148.png" /></p>
-<h5 id="有趣的预编译">有趣的预编译</h5>
-<p>以下代码会输出什么？</p>
-<ul>
-<li>为什么？</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果是Yes，可以运行gcc -E a.c查看预编译代码，#include &lt;stdio.h&gt;中引用的内容太多了，这里只用到了其中的printf，可以用一行代码替换</p>
-<figure class="highlight c"><figcaption><span>printf</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br></pre></td></tr></table></figure>
-<p>这是stdio.h中关于printf的定义，替换后再使用gcc -E a.c得到如下代码</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425092836183.png" /></p>
-<p>其中那几行#开头的代码都被消失了，实际上是预编译先对代码进行词法上做处理，#if判断后面是否为true，如果是true则包含#if下的代码。C语言的很有意思的特性是所有预编译的变量，都不需要定义就可以使用，所以这里实际上是判断 <span class="math inline">\(&#39;&#39;==&#39;&#39;\)</span> 所以返回true，预编译后的代码包含printf("Yes")</p>
-<p>还可以试试编译下面的代码，看看执行a.out后会输出什么，如果拿gcc -m32 a.c编译，又会输出什么？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __x86_64__</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86-64\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="宏定义与展开">宏定义与展开</h5>
-<p>宏展开：通过复制/粘贴改变代码的形态</p>
-<ul>
-<li><p>#include→ 粘贴文件</p></li>
-<li><p>aa,bb→ 粘贴符号</p></li>
-</ul>
-<p>知乎问题：如何搞垮一个OJ？</p>
-<p>下面这段代码会在一行输出<span class="math inline">\(1^7\)</span>个a，会占用大量OJ资源，但是我在我们学校的OJ上试验了一下，输出超限后会被程序好像会被强制中断，所以现在搞不垮了。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A <span class="string">&quot;aaaaaaaaaa&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEN(A) A A A A A A A A A A</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> B TEN(A)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> C TEN(B)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> D TEN(C)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> E TEN(D)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> F TEN(E)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> G TEN(F)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123; <span class="built_in">puts</span>(G); &#125;</span><br></pre></td></tr></table></figure>
-<p>如何躲过Online Judge的关键字过滤？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A sys ## tem</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  A(<span class="string">&quot;echo hello&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##的作用是在去除前后的所有空格，并且把前后非空格的两个部分按照连接起来，这样OJ就检测不到<code>system</code>这个单词了，但是实际上<code>system</code>已经起作用了，编译运行输出hello</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425232043043.png" /></p>
-<p>如何毁掉一个身边用C语言的同学？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> true (__LINE__ % 16 != 0)</span></span><br></pre></td></tr></table></figure>
-<p>这段代码的意思是改变true的定义，true变为当代码的行数模16不等于0返回真，这就会引起非常大的歧义，如果偷偷趁同学不在，在他的电脑上的某一个头文件中插入这段代码，将在某一天对他造成毁灭性的打击！</p>
-<p>宏展开：通过复制/粘贴改变代码的形态</p>
-<ul>
-<li>反复粘贴，直到没有宏可以展开为止</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight c"><figcaption><span>X-macro</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> NAMES(X) \</span></span><br><span class="line"><span class="meta">  X(Tom) X(Jerry) X(Tyke) X(Spike)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="meta">#<span class="keyword">define</span> PRINT(x) puts(<span class="string">&quot;Hello, &quot;</span> #x <span class="string">&quot;!&quot;</span>);</span></span><br><span class="line">  NAMES(PRINT)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><u>其中#表示字符串化，#x相当于把x转换成字符串</u></p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425233837276.png" /></p>
-<p>在发生实际编译之前</p>
-<ul>
-<li>也称为元编程(meta-programming)
-<ul>
-<li>gcc的与处理器同样可以处理汇编代码</li>
-<li>C++中的模板元编程；Rust的macros；...（这一块我基本看不懂，元编程和macros什么意思？）</li>
-</ul></li>
-</ul>
-<p>Pros</p>
-<ul>
-<li>提供灵活的用法 (X-macros)</li>
-<li>接近自然语言的写法</li>
-</ul>
-<p>Cons</p>
-<ul>
-<li>破坏可读性 <a href="https://www.ioccc.org/">IOCCC</a>、程序分析 (补全)、……</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> L (</span></span><br><span class="line"><span class="type">int</span> main L ) &#123; <span class="built_in">puts</span> L <span class="string">&quot;Hello, World&quot;</span> ); &#125;</span><br></pre></td></tr></table></figure>
-<p>破坏了人类的直觉，造成括号不匹配，及其影响阅读</p>
-<h4 id="编译与链接">编译与链接</h4>
-<h5 id="编译">编译</h5>
-<p>一个不带优化的简易（理想）编译器</p>
-<ul>
-<li>C代码的连续一段总能找到对应的一段连续的机器指令
-<ul>
-<li>因此大家说C是高级的汇编语言</li>
-</ul></li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>编译之后对应的汇编语言大致如下（去除了一些不相干的代码）</p>
-<figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="title">foo</span>:</span><br><span class="line">.<span class="type">LFB0</span>:</span><br><span class="line">	pushq	%rbp</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	movl	%edi, <span class="number">-20</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">0</span>, <span class="number">-8</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">	jmp	.<span class="type">L2</span></span><br><span class="line">.<span class="type">L3</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	addl	%eax, <span class="number">-8</span>(%rbp)</span><br><span class="line">	addl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">.<span class="type">L2</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	cmpl	<span class="number">-20</span>(%rbp), %eax</span><br><span class="line">	jle	.<span class="type">L3</span></span><br><span class="line">	movl	<span class="number">-8</span>(%rbp), %eax</span><br><span class="line">	popq	%rbp</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
-<p>C语言代码有一一对应的汇编代码，汇编代码对应机器代码，上面的程序用objdump转换为机器代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425235744552.png" /></p>
-<h5 id="链接">链接</h5>
-<p>将多个二进制目标代码拼接在一起</p>
-<ul>
-<li>C中成为编译单元(compilation unit)</li>
-<li>甚至可以连接 C++, <a href="https://rust-embedded.github.io/book/interoperability/rust-with-c.html">rust</a>, ... 代码（不懂？_？）</li>
-</ul>
-<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><figcaption><span>b.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">10</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426000753133.png" /></p>
-<p>这是b.c汇编的代码，怎么把a.o和b.o中的代码合到一起？那就要用到链接，a.c中定义了foo函数，b.c中申明foo函数，并且在main函数调用foo函数输出结果</p>
-<p>输入gcc a.o b.o -static，运行./a.out输出结果55</p>
-<p>可以使用objdump反汇编a.out可以在其中找到main和foo的内容</p>
-<h4 id="加载进入c语言的世界">加载：进入C语言的世界</h4>
-<h5 id="c程序执行的两个视角">C程序执行的两个视角</h5>
-<p>静态：C代码的连续一段总能找到一段连续的机器指令</p>
-<p>动态：C代码执行的状态总能对应到机器的状态</p>
-<ul>
-<li>源代码视角
-<ul>
-<li>函数、变量、指针......</li>
-</ul></li>
-<li>机器指令视角
-<ul>
-<li>寄存器、内存、地址......</li>
-</ul></li>
-</ul>
-<p>两个视角的共同之处：内存</p>
-<ul>
-<li>代码、变量（源代码视角）=地址+长度（机器指令视角）</li>
-<li>（不太严谨地）内存=代码+数据+堆栈
-<ul>
-<li>因此理解C程序执行最重要的就是<u>内存模型</u></li>
-</ul></li>
-</ul>
-<p><u>本质上C语言中的所有的东西都是指针</u>，C语言的一切皆可取地址，常量、变量、函数、堆栈......在汇编中所有东西都是内存，两个刚好对应起来。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">printptr</span><span class="params">(<span class="type">void</span> *p)</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;p = %p;  *p = %016lx\n&quot;</span>, p, *(<span class="type">long</span> *)p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> x;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> *p = (<span class="type">void</span> *) <span class="number">1</span>;</span><br><span class="line">  printptr(main);  <span class="comment">// 代码</span></span><br><span class="line">  printptr(&amp;main);</span><br><span class="line">  printptr(&amp;x);    <span class="comment">// 数据</span></span><br><span class="line">  printptr(&amp;argc); <span class="comment">// 堆栈</span></span><br><span class="line">  printptr(argv);</span><br><span class="line">  printptr(&amp;argv);</span><br><span class="line">  printptr(argv[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="c-type-system">C Type System</h5>
-<p><strong>类型：</strong>对一段内存的解读方式</p>
-<ul>
-<li>非常“汇编“——没有class,polymorphism,type traits,...（看不懂）</li>
-<li>C里所有的数据都可以理解成是地址（指针）+类型（对地址的解读）</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line">  <span class="keyword">if</span> (argc != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">char</span> ***a = &amp;argv, *first = argv[<span class="number">0</span>], ch = argv[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;arg = \&quot;%s\&quot;;  ch = &#x27;%c&#x27;\n&quot;</span>, first, ch);</span><br><span class="line">    assert(***a == ch);</span><br><span class="line">    f(argc - <span class="number">1</span>, argv + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码可以画一张图去理解一下，其中比较有意思的是，函数作为指针、函数地址作为指针和*函数作为指针都是相同的</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, &amp;main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, *main);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码输出结果是完全相同的，说明函数的指针就是指向自身</p>
-<p>有意思的函数指针：</p>
-<ul>
-<li>当一个指针指向函数的时候，指针本身的地址没有改变，但是它指向一个指向函数的地址，函数的地址就是指向自身，所以一个上面例子中的f和(*f)甚至是(*****...*f)都起到main函数的作用，但是(&amp;f)就是取这个指针的地址。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    sum += i;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;foo = %p\n&quot;</span>, &amp;foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;foo  = %p\n&quot;</span>, foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*foo = %p\n&quot;</span>, *foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;f   = %p\n&quot;</span>, &amp;f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;f    = %p\n&quot;</span>, f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*f   = %p\n&quot;</span>, *f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426230857144.png" /></p>
-<p>第一节终于上完了，比第一次看要学会了不少新的细节，这周不再看计算机系统基础，遇到知识点就回来看这篇文章吸收。</p>
-<p>推荐文章：<a href="https://iq.opengenus.org/function-pointer-in-c/">Function Pointer in C</a></p>
-]]></content>
-      <categories>
-        <category>Computer System</category>
-      </categories>
-      <tags>
-        <tag>基础学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机系统基础2. C语言拾遗(2):编程实践</title>
     <url>/2023-04-25-computer_system2/</url>
     <content><![CDATA[<p><strong>Preface:</strong></p>
@@ -455,6 +265,264 @@
       </tags>
   </entry>
   <entry>
+    <title>计算机系统基础1. C语言拾遗(1):机制</title>
+    <url>/2023-04-25-computer_system1/</url>
+    <content><![CDATA[<h4 id="概述">概述</h4>
+<p>这一节主要是弥补一些程序设计基础课上不会讲到的一些关于 C 语言的比较重要的知识，帮助构筑整体知识框架，以便后续学习计算机系统能更加顺利一些。——总共学习了四个半小时。</p>
+<span id="more"></span>
+<p><strong>以下几个问题值得思考：</strong></p>
+<ul>
+<li>在IDE中，按一个建就能编译运行，中间的过程是什么？
+<ul>
+<li>编译、连接
+<ul>
+<li>.c → 预编译 → .i → 编译 → .s → 汇编 → .o → 链接 → a.out</li>
+</ul></li>
+<li>加载执行
+<ul>
+<li>./a.out</li>
+</ul></li>
+</ul></li>
+<li>背后是通过调用命令行工具完成的
+<ul>
+<li>RTFM: gcc --help; man gcc
+<ul>
+<li>控制行为的三个选项：-E, -S, -c</li>
+</ul></li>
+</ul></li>
+<li>注意点：
+<ul>
+<li>预热：编译、链接、加载到底做了什么？</li>
+<li>RTFSC 时需要关注的 C 语言特性</li>
+</ul></li>
+</ul>
+<h4 id="进入-c-语言之前预编译">进入 C 语言之前：预编译</h4>
+<h5 id="include-指令">#include &lt;&gt;指令</h5>
+<p>以下代码有什么区别？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br></pre></td></tr></table></figure>
+<p>为什么在没有安装库时会发生错误？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SDL2/SDL2.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>很多人包括我在刚开始学习 C 语言时，肯定会问出一些问题：在引用stdio.h时到底是引用在哪里的文件？</p>
+<p>可能在书/阅读材料上了解一些相关知识</p>
+<ul>
+<li>但更好的办法是阅读命令的日志</li>
+<li>gcc --verbose a.c</li>
+</ul>
+<p>使用gcc --verbose可以了解到很多内部的东西，例如：</p>
+<p>这张图片是我的电脑上运行gcc --verbose a.c后包含的一段，这段信息显示了gcc在编译a.c文件时头文件引用的发生，分别找的是这些路径下的文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/gcc_verbose.png" /></p>
+<p>如果我有a.c和a.inc文件放在同一个路径下</p>
+<figure class="highlight c"><figcaption><span>a.inc</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.inc&quot;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>然后使用gcc --verbose a.c后会发生什么？正确编译除了a.out，运行后输出hello world</p>
+<p>如果把a.c改变一下，再编译就出现error了</p>
+<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;a.inc&gt;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090237647.png" /></p>
+<p>有一个命令选项-I可以添加gcc寻找#include &lt;...&gt;的路径，如果输入这些指令，编译通过，可以正常输出hello world。用gcc --verbose查看详细信息，发现#Include &lt;...&gt;多了一个path</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090737466.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090859148.png" /></p>
+<h5 id="有趣的预编译">有趣的预编译</h5>
+<p>以下代码会输出什么？</p>
+<ul>
+<li>为什么？</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果是Yes，可以运行gcc -E a.c查看预编译代码，#include &lt;stdio.h&gt;中引用的内容太多了，这里只用到了其中的printf，可以用一行代码替换</p>
+<figure class="highlight c"><figcaption><span>printf</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br></pre></td></tr></table></figure>
+<p>这是stdio.h中关于printf的定义，替换后再使用gcc -E a.c得到如下代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425092836183.png" /></p>
+<p>其中那几行#开头的代码都被消失了，实际上是预编译先对代码进行词法上做处理，#if判断后面是否为true，如果是true则包含#if下的代码。C语言的很有意思的特性是所有预编译的变量，都不需要定义就可以使用，所以这里实际上是判断 <span class="math inline">\(&#39;&#39;==&#39;&#39;\)</span> 所以返回true，预编译后的代码包含printf("Yes")</p>
+<p>还可以试试编译下面的代码，看看执行a.out后会输出什么，如果拿gcc -m32 a.c编译，又会输出什么？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __x86_64__</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86-64\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="宏定义与展开">宏定义与展开</h5>
+<p>宏展开：通过复制/粘贴改变代码的形态</p>
+<ul>
+<li><p>#include→ 粘贴文件</p></li>
+<li><p>aa,bb→ 粘贴符号</p></li>
+</ul>
+<p>知乎问题：如何搞垮一个OJ？</p>
+<p>下面这段代码会在一行输出<span class="math inline">\(1^7\)</span>个a，会占用大量OJ资源，但是我在我们学校的OJ上试验了一下，输出超限后会被程序好像会被强制中断，所以现在搞不垮了。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A <span class="string">&quot;aaaaaaaaaa&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEN(A) A A A A A A A A A A</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> B TEN(A)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> C TEN(B)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> D TEN(C)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> E TEN(D)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> F TEN(E)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> G TEN(F)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123; <span class="built_in">puts</span>(G); &#125;</span><br></pre></td></tr></table></figure>
+<p>如何躲过Online Judge的关键字过滤？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A sys ## tem</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  A(<span class="string">&quot;echo hello&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##的作用是在去除前后的所有空格，并且把前后非空格的两个部分按照连接起来，这样OJ就检测不到<code>system</code>这个单词了，但是实际上<code>system</code>已经起作用了，编译运行输出hello</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425232043043.png" /></p>
+<p>如何毁掉一个身边用C语言的同学？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> true (__LINE__ % 16 != 0)</span></span><br></pre></td></tr></table></figure>
+<p>这段代码的意思是改变true的定义，true变为当代码的行数模16不等于0返回真，这就会引起非常大的歧义，如果偷偷趁同学不在，在他的电脑上的某一个头文件中插入这段代码，将在某一天对他造成毁灭性的打击！</p>
+<p>宏展开：通过复制/粘贴改变代码的形态</p>
+<ul>
+<li>反复粘贴，直到没有宏可以展开为止</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight c"><figcaption><span>X-macro</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> NAMES(X) \</span></span><br><span class="line"><span class="meta">  X(Tom) X(Jerry) X(Tyke) X(Spike)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="meta">#<span class="keyword">define</span> PRINT(x) puts(<span class="string">&quot;Hello, &quot;</span> #x <span class="string">&quot;!&quot;</span>);</span></span><br><span class="line">  NAMES(PRINT)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><u>其中#表示字符串化，#x相当于把x转换成字符串</u></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425233837276.png" /></p>
+<p>在发生实际编译之前</p>
+<ul>
+<li>也称为元编程(meta-programming)
+<ul>
+<li>gcc的与处理器同样可以处理汇编代码</li>
+<li>C++中的模板元编程；Rust的macros；...（这一块我基本看不懂，元编程和macros什么意思？）</li>
+</ul></li>
+</ul>
+<p>Pros</p>
+<ul>
+<li>提供灵活的用法 (X-macros)</li>
+<li>接近自然语言的写法</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>破坏可读性 <a href="https://www.ioccc.org/">IOCCC</a>、程序分析 (补全)、……</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> L (</span></span><br><span class="line"><span class="type">int</span> main L ) &#123; <span class="built_in">puts</span> L <span class="string">&quot;Hello, World&quot;</span> ); &#125;</span><br></pre></td></tr></table></figure>
+<p>破坏了人类的直觉，造成括号不匹配，及其影响阅读</p>
+<h4 id="编译与链接">编译与链接</h4>
+<h5 id="编译">编译</h5>
+<p>一个不带优化的简易（理想）编译器</p>
+<ul>
+<li>C代码的连续一段总能找到对应的一段连续的机器指令
+<ul>
+<li>因此大家说C是高级的汇编语言</li>
+</ul></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译之后对应的汇编语言大致如下（去除了一些不相干的代码）</p>
+<figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="title">foo</span>:</span><br><span class="line">.<span class="type">LFB0</span>:</span><br><span class="line">	pushq	%rbp</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	movl	%edi, <span class="number">-20</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">0</span>, <span class="number">-8</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">	jmp	.<span class="type">L2</span></span><br><span class="line">.<span class="type">L3</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	addl	%eax, <span class="number">-8</span>(%rbp)</span><br><span class="line">	addl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">.<span class="type">L2</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	cmpl	<span class="number">-20</span>(%rbp), %eax</span><br><span class="line">	jle	.<span class="type">L3</span></span><br><span class="line">	movl	<span class="number">-8</span>(%rbp), %eax</span><br><span class="line">	popq	%rbp</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+<p>C语言代码有一一对应的汇编代码，汇编代码对应机器代码，上面的程序用objdump转换为机器代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425235744552.png" /></p>
+<h5 id="链接">链接</h5>
+<p>将多个二进制目标代码拼接在一起</p>
+<ul>
+<li>C中成为编译单元(compilation unit)</li>
+<li>甚至可以连接 C++, <a href="https://rust-embedded.github.io/book/interoperability/rust-with-c.html">rust</a>, ... 代码（不懂？_？）</li>
+</ul>
+<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>b.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">10</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426000753133.png" /></p>
+<p>这是b.c汇编的代码，怎么把a.o和b.o中的代码合到一起？那就要用到链接，a.c中定义了foo函数，b.c中申明foo函数，并且在main函数调用foo函数输出结果</p>
+<p>输入gcc a.o b.o -static，运行./a.out输出结果55</p>
+<p>可以使用objdump反汇编a.out可以在其中找到main和foo的内容</p>
+<h4 id="加载进入c语言的世界">加载：进入C语言的世界</h4>
+<h5 id="c程序执行的两个视角">C程序执行的两个视角</h5>
+<p>静态：C代码的连续一段总能找到一段连续的机器指令</p>
+<p>动态：C代码执行的状态总能对应到机器的状态</p>
+<ul>
+<li>源代码视角
+<ul>
+<li>函数、变量、指针......</li>
+</ul></li>
+<li>机器指令视角
+<ul>
+<li>寄存器、内存、地址......</li>
+</ul></li>
+</ul>
+<p>两个视角的共同之处：内存</p>
+<ul>
+<li>代码、变量（源代码视角）=地址+长度（机器指令视角）</li>
+<li>（不太严谨地）内存=代码+数据+堆栈
+<ul>
+<li>因此理解C程序执行最重要的就是<u>内存模型</u></li>
+</ul></li>
+</ul>
+<p><u>本质上C语言中的所有的东西都是指针</u>，C语言的一切皆可取地址，常量、变量、函数、堆栈......在汇编中所有东西都是内存，两个刚好对应起来。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">printptr</span><span class="params">(<span class="type">void</span> *p)</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;p = %p;  *p = %016lx\n&quot;</span>, p, *(<span class="type">long</span> *)p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> x;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> *p = (<span class="type">void</span> *) <span class="number">1</span>;</span><br><span class="line">  printptr(main);  <span class="comment">// 代码</span></span><br><span class="line">  printptr(&amp;main);</span><br><span class="line">  printptr(&amp;x);    <span class="comment">// 数据</span></span><br><span class="line">  printptr(&amp;argc); <span class="comment">// 堆栈</span></span><br><span class="line">  printptr(argv);</span><br><span class="line">  printptr(&amp;argv);</span><br><span class="line">  printptr(argv[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="c-type-system">C Type System</h5>
+<p><strong>类型：</strong>对一段内存的解读方式</p>
+<ul>
+<li>非常“汇编“——没有class,polymorphism,type traits,...（看不懂）</li>
+<li>C里所有的数据都可以理解成是地址（指针）+类型（对地址的解读）</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line">  <span class="keyword">if</span> (argc != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">char</span> ***a = &amp;argv, *first = argv[<span class="number">0</span>], ch = argv[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;arg = \&quot;%s\&quot;;  ch = &#x27;%c&#x27;\n&quot;</span>, first, ch);</span><br><span class="line">    assert(***a == ch);</span><br><span class="line">    f(argc - <span class="number">1</span>, argv + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码可以画一张图去理解一下，其中比较有意思的是，函数作为指针、函数地址作为指针和*函数作为指针都是相同的</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, &amp;main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, *main);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码输出结果是完全相同的，说明函数的指针就是指向自身</p>
+<p>有意思的函数指针：</p>
+<ul>
+<li>当一个指针指向函数的时候，指针本身的地址没有改变，但是它指向一个指向函数的地址，函数的地址就是指向自身，所以一个上面例子中的f和(*f)甚至是(*****...*f)都起到main函数的作用，但是(&amp;f)就是取这个指针的地址。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    sum += i;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;foo = %p\n&quot;</span>, &amp;foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;foo  = %p\n&quot;</span>, foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*foo = %p\n&quot;</span>, *foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;f   = %p\n&quot;</span>, &amp;f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;f    = %p\n&quot;</span>, f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*f   = %p\n&quot;</span>, *f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426230857144.png" /></p>
+<p>第一节终于上完了，比第一次看要学会了不少新的细节，这周不再看计算机系统基础，遇到知识点就回来看这篇文章吸收。</p>
+<p>推荐文章：<a href="https://iq.opengenus.org/function-pointer-in-c/">Function Pointer in C</a></p>
+]]></content>
+      <categories>
+        <category>Computer System</category>
+      </categories>
+      <tags>
+        <tag>基础学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web学习1:Html基本语法</title>
+    <url>/2023-05-06-Web1/</url>
+    <content><![CDATA[<p><strong>Preface:</strong>考完了算法设计与分析，终于有一点时间可以用来自主学习了。由于有一门选修课要用到许多Web的知识，所以计划给Web学习分配一些时间，赶紧自学完。CS和OS是长期的主线，防止自己的节奏乱掉在这里提一下。</p>
+<span id="more"></span>
+<h4 id="html基础标签">HTML基础标签</h4>
+<h4 id="文件结构">文件结构</h4>
+<p>html的所有标签大致为以下结构，例如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<p><strong>html</strong></p>
+<p><code>&lt;html&gt;</code>元素表示一个HTML文档的根，也称为根元素，所有其他元素必须是此元素的后代</p>
+<hr />
+<p><strong>head</strong></p>
+<p><code>&lt;head&gt;</code>元素规定文档的相关配置信息，包括文档的标题，引用的文档样式和脚本等</p>
+<hr />
+<p><strong>body</strong></p>
+<p><code>&lt;body&gt;</code>元素表示文档的内容，document.body属性提供了可以轻松访问文档的脚本</p>
+<hr />
+<p><strong>title</strong></p>
+<p><code>&lt;title&gt;</code>元素定义文档的标题，先是在浏览器的标题栏或者标签页，只包含文本，如果是包含标签，则它包含的任何标签都会被忽略</p>
+<hr />
+<p><strong>meta</strong></p>
+<p><code>&lt;meta&gt;</code>元素表示那些不能由其他HTML (meta-related)元素(base, link, script, style, title)之一表示的任何元数据信息</p>
+<ul>
+<li>chartset</li>
+<li>name</li>
+</ul>
+<hr />
+<p><strong>icon</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/images/logo.png&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr />
+<p><strong>多行注释</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- comments --&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="基础标签">基础标签</h4>
+<p><strong>div</strong></p>
+<p><code>&lt;div&gt;</code>元素是一个通用的流内容容器，在不使用CSS的情况喜爱，对其内容和布局没有任何影响</p>
+<p>主要是在逻辑上把一些元素打包在一起</p>
+<p>是一个块级元素，与行级元素的区别就是是否会自己换行</p>
+<hr />
+<p><strong>span</strong></p>
+<p><code>&lt;span&gt;</code>元素是短语内容的通用行内容器，可以用来编组元素来达到某些样式，或者这些元素有共同的属性。</p>
+<p>应该在没有其他合适的语义元素才使用</p>
+<p>和上面div的不同就是这是个行级元素</p>
+<hr />
+<p><strong>h1 ~ h6</strong></p>
+<p>Heading 呈现了六个不同级别的标题</p>
+<hr />
+<p><strong>p</strong></p>
+<p><code>&lt;p&gt;</code>表示文本的一个段落，表现为一整块与相邻文本分离的文本，或以垂直的空白格里或以首行缩进</p>
+<p>是一个块级元素</p>
+<hr />
+<p><strong>pre</strong></p>
+<p><code>&lt;pre&gt;</code>表示预定义格式文本(人话就是保留锁进、空格、换行符之类的)</p>
+<p>紧跟在这个标签之后的那个换行符会被省略</p>
+<p>pre中的默认字体是等宽字体，如果想用不等宽的就去p中用br和一些空格的转义字符自己去写</p>
+<hr />
+<p><strong>br</strong></p>
+<p><code>&lt;br&gt;</code>回车换行</p>
+<hr />
+]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>基础学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>操作系统06. 并发控制基础</title>
     <url>/2023-04-27-operating_system6/</url>
     <content><![CDATA[<p><strong>背景回顾</strong>：虽然 “线程库” 入门简单，但多处理器编程 + 编译优化会给我们带来很多意想不到的惊喜。在编写多线程程序时，们必须放弃许多对顺序程序编程时的基本假设，这也是并发编程困难的原因。</p>
@@ -605,459 +673,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Web学习1:Html基本语法</title>
-    <url>/2023-05-06-Web1/</url>
-    <content><![CDATA[<p><strong>Preface:</strong>考完了算法设计与分析，终于有一点时间可以用来自主学习了。由于有一门选修课要用到许多Web的知识，所以计划给Web学习分配一些时间，赶紧自学完。CS和OS是长期的主线，防止自己的节奏乱掉在这里提一下。</p>
-<span id="more"></span>
-<h4 id="html基础标签">HTML基础标签</h4>
-<h4 id="文件结构">文件结构</h4>
-<p>html的所有标签大致为以下结构，例如：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr />
-<p><strong>html</strong></p>
-<p><code>&lt;html&gt;</code>元素表示一个HTML文档的根，也称为根元素，所有其他元素必须是此元素的后代</p>
-<hr />
-<p><strong>head</strong></p>
-<p><code>&lt;head&gt;</code>元素规定文档的相关配置信息，包括文档的标题，引用的文档样式和脚本等</p>
-<hr />
-<p><strong>body</strong></p>
-<p><code>&lt;body&gt;</code>元素表示文档的内容，document.body属性提供了可以轻松访问文档的脚本</p>
-<hr />
-<p><strong>title</strong></p>
-<p><code>&lt;title&gt;</code>元素定义文档的标题，先是在浏览器的标题栏或者标签页，只包含文本，如果是包含标签，则它包含的任何标签都会被忽略</p>
-<hr />
-<p><strong>meta</strong></p>
-<p><code>&lt;meta&gt;</code>元素表示那些不能由其他HTML (meta-related)元素(base, link, script, style, title)之一表示的任何元数据信息</p>
-<ul>
-<li>chartset</li>
-<li>name</li>
-</ul>
-<hr />
-<p><strong>icon</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/images/logo.png&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr />
-<p><strong>多行注释</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- comments --&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="基础标签">基础标签</h4>
-<p><strong>div</strong></p>
-<p><code>&lt;div&gt;</code>元素是一个通用的流内容容器，在不使用CSS的情况喜爱，对其内容和布局没有任何影响</p>
-<p>主要是在逻辑上把一些元素打包在一起</p>
-<p>是一个块级元素，与行级元素的区别就是是否会自己换行</p>
-<hr />
-<p><strong>span</strong></p>
-<p><code>&lt;span&gt;</code>元素是短语内容的通用行内容器，可以用来编组元素来达到某些样式，或者这些元素有共同的属性。</p>
-<p>应该在没有其他合适的语义元素才使用</p>
-<p>和上面div的不同就是这是个行级元素</p>
-<hr />
-<p><strong>h1 ~ h6</strong></p>
-<p>Heading 呈现了六个不同级别的标题</p>
-<hr />
-<p><strong>p</strong></p>
-<p><code>&lt;p&gt;</code>表示文本的一个段落，表现为一整块与相邻文本分离的文本，或以垂直的空白格里或以首行缩进</p>
-<p>是一个块级元素</p>
-<hr />
-<p><strong>pre</strong></p>
-<p><code>&lt;pre&gt;</code>表示预定义格式文本(人话就是保留锁进、空格、换行符之类的)</p>
-<p>紧跟在这个标签之后的那个换行符会被省略</p>
-<p>pre中的默认字体是等宽字体，如果想用不等宽的就去p中用br和一些空格的转义字符自己去写</p>
-<hr />
-<p><strong>br</strong></p>
-<p><code>&lt;br&gt;</code>回车换行</p>
-<hr />
-]]></content>
-      <categories>
-        <category>Web</category>
-      </categories>
-      <tags>
-        <tag>基础学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>操作系统07. 并发控制互斥</title>
-    <url>/2023-04-27-operating_system7/</url>
-    <content><![CDATA[<p><strong>背景回顾</strong>：互斥 (Peterson 算法)：为了掌控并发程序的复杂行为，使程序退回到 “串行执行” 的 lock &amp; unlock。</p>
-<p><strong>本节内容：</strong>现代多处理器系统上的互斥实现：</p>
-<ul>
-<li>互斥问题的定义和假设</li>
-<li>自旋锁</li>
-<li>互斥锁和Futex</li>
-</ul>
-<span id="more"></span>
-<h4 id="回顾并发编程">回顾：并发编程</h4>
-<h5 id="理解并发的工具">理解并发的工具</h5>
-<ul>
-<li>线程=人(大脑能完成局部存储和计算)</li>
-<li>共享内存=物理世界(物理世界天生并行)</li>
-<li>一切都是状态机(debugger&amp;model checker)</li>
-</ul>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/wc.jpg" alt="" /><figcaption>“躲进厕所锁上门，我就把全世界人锁在了厕所外“</figcaption>
-</figure>
-<h5 id="互斥问题定义">互斥问题：定义</h5>
-<p>互斥(mutual exclusion)，“互相排斥”</p>
-<ul>
-<li>实现lock_t 数据结构和lock/unlock API:</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="type">lock_t</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br></pre></td></tr></table></figure>
-<p>一把“排他性”的锁——对于锁对象lk</p>
-<ul>
-<li>如果某个线程持有锁，则其他线程的lock不能发挥(Safety)</li>
-<li>如果多个线程执行lock时，至少有一个可以返回(Liveness)</li>
-<li>能正确处理处理器乱序、宽松内存模型和编译优化</li>
-</ul>
-<p>非常常见的一个bug：</p>
-<p>一个线程用lock_A和unlock_A保护，其他进程如果也用lock_A和unlock_A锁的话就无法操作，但是如果其他线程用一个lock_B和unlock_B保护，那就可能造成lock_A和unlock_A之间与lock_B和unlock_B之间有重叠的数据可能会同时被两个线程访问到，就会产生错误的结果。</p>
-<h5 id="互斥问题的经典算法">互斥问题的经典算法</h5>
-<p><strong>Peterson算法</strong></p>
-<ul>
-<li>包间、旗子和门上的字条</li>
-<li>假设atomic load/store
-<ul>
-<li>实现这个假设也不是非常容易</li>
-</ul></li>
-</ul>
-<p>因此，<u>假设很重要</u></p>
-<ul>
-<li>不能同时读/写贡献内存(1960s)不是一个好的假设
-<ul>
-<li>Load(环顾四周)的时候不能写，“看一眼就把眼睛壁上”</li>
-<li>Store(改变物理世界状态)的时候不能读，“闭着眼睛动手”</li>
-<li>这是《操作系统》
-<ul>
-<li>更喜欢直观、简单、粗暴(稳定)、有效的解决方法</li>
-</ul></li>
-</ul></li>
-</ul>
-<h5 id="实现互斥的基本假设">实现互斥的基本假设</h5>
-<p>允许我们可以不管一切麻烦事的原子指令</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">atomic_inc</span><span class="params">(<span class="type">long</span> *ptr)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">atomic_xchg</span><span class="params">(<span class="type">int</span> val, <span class="type">int</span> *ptr)</span>;</span><br></pre></td></tr></table></figure>
-<p>看起来是一个普通的函数，但假设：</p>
-<ul>
-<li>包含一个原子指令
-<ul>
-<li>指令的执行不能被打断</li>
-</ul></li>
-<li>包含一个compiler barrier
-<ul>
-<li>无论何种优化都不可雨果此函数</li>
-</ul></li>
-<li>包含一个memory fence
-<ul>
-<li>保证处理器在stop-the world前所有对内存的store都“生效”</li>
-<li>即对resume-the-world之后的load可见</li>
-</ul></li>
-</ul>
-<figure class="highlight c"><figcaption><span>Atomic Exchange实现</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">xchg</span><span class="params">(<span class="type">int</span> <span class="keyword">volatile</span> *ptr, <span class="type">int</span> newval)</span> &#123;</span><br><span class="line">  <span class="type">int</span> result;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="comment">// 指令自带 memory barrier</span></span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock xchgl %0, %1&quot;</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;+m&quot;</span>(*ptr), <span class="string">&quot;=a&quot;</span>(result)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;1&quot;</span>(newval)</span></span><br><span class="line"><span class="params">    <span class="comment">// Compiler barrier</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>原子指令是一个非常好的东西，我们程序的执行过程当中的任何时候，执行了原子指令，两条原子指令是有因果关系的，先执行的原子指令之前的所有内容在第二条原子指令之后都要是可见的。</p>
-<p>在任何时候使用原子指令都是安全的，前提是原子指令是正确的。</p>
-</blockquote>
-<h4 id="自旋锁spin-lock">自旋锁(Spin Lock)</h4>
-<h5 id="实现互斥">实现互斥</h5>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br></pre></td></tr></table></figure>
-<p>一个科学家的思维应该是：考虑更多更根本的问题</p>
-<ul>
-<li>我们可以设计出怎么样的原子指令？
-<ul>
-<li>它们的表达能力如何？</li>
-</ul></li>
-<li>计算机硬件可以提供比“一次load/store”更强的原子性吗？
-<ul>
-<li>如果硬件困难，软件/编译器可以么？</li>
-</ul></li>
-</ul>
-<h5 id="自旋锁用xchg实现互斥">自旋锁：用xchg实现互斥</h5>
-<p>在厕所门口放一个桌子(共享变量)</p>
-<ul>
-<li>初始时放着🔑</li>
-</ul>
-<p>自旋锁(Spin Lock)</p>
-<ul>
-<li>想上厕所的同学(一条xchg指令)
-<ul>
-<li>Stop the world</li>
-<li>看一眼桌子上有什么(🔑 或 🔞)</li>
-<li>把 🔞 放到桌上 (覆盖之前有的任何东西)</li>
-<li>Resume the world</li>
-<li>期间看到🔑才可以进厕所，否则重复</li>
-</ul></li>
-<li>出厕所的同学
-<ul>
-<li>把🔑放到桌上</li>
-</ul></li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> table = YES;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">()</span> &#123;</span><br><span class="line">retry:</span><br><span class="line">  <span class="type">int</span> got = xchg(&amp;table, NOPE);</span><br><span class="line">  <span class="keyword">if</span> (got == NOPE)</span><br><span class="line">    <span class="keyword">goto</span> retry;</span><br><span class="line">  assert(got == YES);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">()</span> &#123;</span><br><span class="line">  xchg(&amp;table, YES);  <span class="comment">// 为什么不是 table = YES; ?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在xchg的假设下简化实现</p>
-<ul>
-<li>包含一个原子指令</li>
-<li>包含一个compiler barrier</li>
-<li>包含一个memory fence</li>
-</ul>
-<figure class="highlight c"><figcaption><span>sum-spinlock.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;thread.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> N 100000000</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> M 10</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">xchg</span><span class="params">(<span class="type">int</span> <span class="keyword">volatile</span> *ptr, <span class="type">int</span> newval)</span> &#123;</span><br><span class="line">  <span class="type">int</span> result;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock xchgl %0, %1&quot;</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;+m&quot;</span>(*ptr), <span class="string">&quot;=a&quot;</span>(result)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;1&quot;</span>(newval)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> locked = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">while</span> (xchg(&amp;locked, <span class="number">1</span>)) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">()</span> &#123;</span><br><span class="line">  xchg(&amp;locked, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Tsum</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">long</span> nround = N / M;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nround; i++) &#123;</span><br><span class="line">    lock();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">      sum++;  <span class="comment">// Non-atomic; can optimize</span></span><br><span class="line">    &#125;</span><br><span class="line">    unlock();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  assert(N % M == <span class="number">0</span>);</span><br><span class="line">  create(Tsum);</span><br><span class="line">  create(Tsum);</span><br><span class="line">  join();</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sum = %ld\n&quot;</span>, sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><figcaption><span>thread.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdatomic.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NTHREAD 64</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span> T_FREE = <span class="number">0</span>, T_LIVE, T_DEAD, &#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> id, status;</span><br><span class="line">  <span class="type">pthread_t</span> thread;</span><br><span class="line">  <span class="type">void</span> (*entry)(<span class="type">int</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> <span class="title">tpool</span>[<span class="title">NTHREAD</span>], *<span class="title">tptr</span> =</span> tpool;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *<span class="title function_">wrapper</span><span class="params">(<span class="type">void</span> *arg)</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">thread</span> =</span> (<span class="keyword">struct</span> thread *)arg;</span><br><span class="line">  thread-&gt;entry(thread-&gt;id);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">create</span><span class="params">(<span class="type">void</span> *fn)</span> &#123;</span><br><span class="line">  assert(tptr - tpool &lt; NTHREAD);</span><br><span class="line">  *tptr = (<span class="keyword">struct</span> thread) &#123;</span><br><span class="line">    .id = tptr - tpool + <span class="number">1</span>,</span><br><span class="line">    .status = T_LIVE,</span><br><span class="line">    .entry = fn,</span><br><span class="line">  &#125;;</span><br><span class="line">  pthread_create(&amp;(tptr-&gt;thread), <span class="literal">NULL</span>, wrapper, tptr);</span><br><span class="line">  ++tptr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">join</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; NTHREAD; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">t</span> =</span> &amp;tpool[i];</span><br><span class="line">    <span class="keyword">if</span> (t-&gt;status == T_LIVE) &#123;</span><br><span class="line">      pthread_join(t-&gt;thread, <span class="literal">NULL</span>);</span><br><span class="line">      t-&gt;status = T_DEAD;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">__attribute__((destructor)) <span class="type">void</span> <span class="title function_">cleanup</span><span class="params">()</span> &#123;</span><br><span class="line">  join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面用自旋锁优化的sum-spinlock.c可以编译成功，输出正确结果</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230427122620575.png" /></p>
-<p>可以验证，无论是O2优化还是O1优化都可以输出正确的结果，自旋锁目前为止是可以处理编译优化的。lock和unlock内没有compiler barrier里面的代码是可以优化的</p>
-<h5 id="无锁算法了解">无锁算法(了解)</h5>
-<p><strong>更强大的原子指令</strong></p>
-<p>Compare and exchange("test and set")</p>
-<ul>
-<li>(lock) compxchg SRC, DEST</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TEMP = DEST</span><br><span class="line"><span class="keyword">if</span> accumulator == TEMP:</span><br><span class="line">    ZF = <span class="number">1</span></span><br><span class="line">    DEST = SRC</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    ZF = <span class="number">0</span></span><br><span class="line">    accumulator = TEMP</span><br></pre></td></tr></table></figure>
-<ul>
-<li>🤔 看起来没有复杂多少，又好像复杂了很多
-<ul>
-<li>学编程/操作系统”纸面理解“是不行的</li>
-<li>一定要写代码加深印象
-<ul>
-<li>对于这个例子：我们可以列出“真值表”</li>
-</ul></li>
-</ul></li>
-</ul>
-<figure class="highlight c"><figcaption><span>cmpoxchg.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">cmpxchg</span><span class="params">(<span class="type">int</span> old, <span class="type">int</span> new, <span class="type">int</span> <span class="keyword">volatile</span> *ptr)</span> &#123;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock cmpxchgl %[new], %[mem]&quot;</span></span></span><br><span class="line"><span class="params">      : <span class="string">&quot;+a&quot;</span>(old), [mem] <span class="string">&quot;+m&quot;</span>(*ptr)</span></span><br><span class="line"><span class="params">      : [new] <span class="string">&quot;S&quot;</span>(new)</span></span><br><span class="line"><span class="params">      : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> old;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">cmpxchg_ref</span><span class="params">(<span class="type">int</span> old, <span class="type">int</span> new, <span class="type">int</span> <span class="keyword">volatile</span> *ptr)</span> &#123;</span><br><span class="line">  <span class="type">int</span> tmp = *ptr;  <span class="comment">// Load</span></span><br><span class="line">  <span class="keyword">if</span> (tmp == old) &#123;</span><br><span class="line">    *ptr = new;  <span class="comment">// Store (conditionally)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">run_test</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> old, <span class="type">int</span> new)</span> &#123;</span><br><span class="line">  <span class="type">int</span> val1 = x;</span><br><span class="line">  <span class="type">int</span> ret1 = cmpxchg(old, new, &amp;val1);</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> val2 = x;</span><br><span class="line">  <span class="type">int</span> ret2 = cmpxchg_ref(old, new, &amp;val2);</span><br><span class="line"></span><br><span class="line">  assert(val1 == val2 &amp;&amp; ret1 == ret2);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x = %d -&gt; (cmpxchg %d -&gt; %d) -&gt; x = %d\n&quot;</span>, x, old, new, val1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">0</span>; x &lt;= <span class="number">2</span>; x++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> old = <span class="number">0</span>; old &lt;= <span class="number">2</span>; old++)</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> new = <span class="number">0</span>; new &lt;= <span class="number">2</span>; new++)</span><br><span class="line">        run_test(x, old, new);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510124338922.png" /></p>
-<h4 id="在操作系统上实现互斥">在操作系统上实现互斥</h4>
-<h5 id="自旋锁的缺陷">自旋锁的缺陷</h5>
-<p>性能问题(1)</p>
-<ul>
-<li>除了进入临界区的线程，其他处理器上的线程都在<strong>空转</strong></li>
-<li>争抢锁的处理器越多，利用率越低
-<ul>
-<li>4 个 CPU 运行 4 个 sum-spinlock 和 1 个 OBS
-<ul>
-<li>人一时刻都只有一个 sum-atomic 在有效计算</li>
-</ul></li>
-<li>均分 CPU, OBS 就分不到 100% 的 CPU 了</li>
-</ul></li>
-</ul>
-<p>性能问题(2)</p>
-<ul>
-<li>持有自选锁的线程<strong>可能被操作系统切换出去</strong>
-<ul>
-<li>操作系统不"感知"线程在做什么</li>
-<li>(但为什么不能呢？)</li>
-</ul></li>
-<li>实现 100% 的资源浪费</li>
-</ul>
-<h5 id="scalability-性能的新维度">Scalability: 性能的新维度</h5>
-<blockquote>
-<p>同一份计算任务，时间 (CPU cycles) 和空间 (mapped memory) 会随处理器数量的增长而变化。</p>
-</blockquote>
-<p>用自旋锁实现 sum++ 的性能问题</p>
-<ul>
-<li>严谨的统计很难
-<ul>
-<li>CPU 动态功耗</li>
-<li>系统的其他进程</li>
-<li>超线程</li>
-<li>NUMA</li>
-<li>......</li>
-<li><a href="https://gernot-heiser.org/benchmarking-crimes.html">Benchmarking crimes</a></li>
-</ul></li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/spinlock-scalability.jpg" /></p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510130507698.png" /></p>
-<p>线程越多，效率越低，用本地代码去测试也有这种情况，为什么会发生这种情况？一个很重要的原因是现代的处理器是有缓存的，当我们想要读 sum 或者写 sum 都是从一级缓存中读出的，但是当另一个线程想要读不在这个处理器缓存中的 sum 时，就需要去另一个 CPU 的缓存中拉下来，传的过程就会产生时间，很有趣的 Scalability 的讨论</p>
-<h5 id="自旋锁的使用场景">自旋锁的使用场景</h5>
-<ol type="1">
-<li>临界区几乎不“拥堵”</li>
-<li>持有自旋锁时禁止执行流切换</li>
-</ol>
-<p>使用场景<strong>(唯一)</strong>：<strong>操作系统内和的并发数据结构（短临界区）</strong></p>
-<ul>
-<li>操作系统可以关闭中断和抢占(仔细读起来这个行为是不合理的)
-<ul>
-<li>保证自旋锁的持有者在很短的时间内可以释放锁</li>
-</ul></li>
-<li>(如果是虚拟机呢...😂)
-<ul>
-<li>PAUSE 指令会处罚 VM Exit</li>
-</ul></li>
-<li>但依旧很难做好
-<ul>
-<li><a href="https://www.usenix.org/conference/osdi10/analysis-linux-scalability-many-cores">An analysis of Linux scalability to many cores</a> (OSDI'10)</li>
-</ul></li>
-</ul>
-<h5 id="实现线程-长临界区的互斥">实现线程 + 长临界区的互斥</h5>
-<blockquote>
-<p>作业那么多，与其干等作业发布，不如把自己 (CPU) 让给其他作业 (线程) 执行？</p>
-</blockquote>
-<p>“让”不是 C 语言代码可以做到的 (C 代码只能执行命令)</p>
-<ul>
-<li>但有一种特殊的指令：syscall</li>
-<li>把锁的实现放到操作系统里就好了
-<ul>
-<li>syscall(SYSCALL_lock, &amp;lk);
-<ul>
-<li>试图获得 1k，但如果失败，就切换到其他进程</li>
-</ul></li>
-<li>syscall(SYSCALL_unlock, &amp;1k);
-<ul>
-<li>释放 1k，如果有等待锁的线程就唤醒</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>操作系统 = 更衣室管理员</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/locker.jpg" /></p>
-<ul>
-<li>先到的人(线程)
-<ul>
-<li>成功获得手环，进入游泳馆</li>
-<li>*1k = 🔒，系统调用直接返回</li>
-</ul></li>
-<li>后到的人(线程)
-<ul>
-<li>不能进入游泳馆，排队等待</li>
-<li>线程放入等待队列，执行线程切换(yield)</li>
-</ul></li>
-<li>洗完澡出来的人(线程)
-<ul>
-<li>交还手环给管理员；管理员把手环再交给排队的人</li>
-<li>如果等待队列不空，从等待队列中取出一个线程允许执行</li>
-<li>如果等待队列为空，*1k = ✅</li>
-</ul></li>
-<li><strong>管理员 (OS) 使用自旋锁确保自己处理手环的过程是原子的</strong></li>
-</ul>
-<h4 id="关于互斥的一些分析">关于互斥的一些分析</h4>
-<p>自旋锁(线程直接共享 locked)</p>
-<ul>
-<li>更快的 fast path
-<ul>
-<li>xchg 成功→立即进入临界区，开小很小</li>
-</ul></li>
-<li>更慢的 slow path
-<ul>
-<li>xchg 失败→浪费 CPU 自旋等待</li>
-</ul></li>
-</ul>
-<p>互斥锁(通过系统调用访问 locked)</p>
-<ul>
-<li>更经济的 slow path
-<ul>
-<li>上锁失败线程不再占用 CPU</li>
-</ul></li>
-<li>更慢的 fast path
-<ul>
-<li>即使上锁成功也需要进出内核 (syscall)</li>
-</ul></li>
-</ul>
-<hr />
-<p>为了实现现代多处理器系统上的互斥，我们首先需要理解 “原子操作” (例如 <code>atomic_xchg</code>) 的假设：</p>
-<ol type="1">
-<li>操作本身是原子的、看起来无法被打断的，即它真的是一个 “原子操作”；</li>
-<li>操作自带一个 compiler barrier，防止优化跨过函数调用。这一点很重要——例如我们今天的编译器支持 Link-time Optimization (LTO)，如果缺少 compiler barrier，编译优化可以穿过 volatile 标记的汇编指令；</li>
-<li>操作自带一个 memory barrier，保证操作执行前指令的写入，能对其他处理器之后的 load 可见。</li>
-</ol>
-<p>在此假设的基础上，原子操作就成为了我们简化程序执行的基础机制。通过自旋 (spin)，可以很直观地实现 “轮询” 式的互斥。而为了节约共享内存线程在自旋上浪费的处理器，我们也可以通过系统调用请求操作系统来帮助现成完成互斥。</p>
-<p>以上就是本节的所有内容，中间因为各种原因隔了十多天才全部看完，这段间隔也让我发现了前导知识的缺陷，线程库的那一章被我跳过了，我感觉需要去把前面的多处理器编程补回来，然后这篇文章中的一些链接都看一下，大致就能更深入地理解并发了。</p>
-]]></content>
-      <categories>
-        <category>Operating System</category>
-      </categories>
-      <tags>
-        <tag>基础学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PA1:The simplest computer</title>
-    <url>/PA1-The-simplest-computer/</url>
-    <content><![CDATA[<p><strong>Preface:</strong>PA或许比较困难，我想记录一下途中遇到的困难，以及我是如何解决，在这个实验的过程中我希望能培养一下我先前比较弱的RTFSC能力。</p>
-<span id="more"></span>
-<h4 id="bugs">BUGs：</h4>
-<ul>
-<li>在<code>开始愉快的PA之旅之前</code>中，运行fceux-am时报错<strong>(UNcompleted)</strong>：</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502191442346.png" /></p>
-<p>如下修改过后，fceux-am能运行，声音和游戏都能运行，如果切换成字符模式可以正常玩，但是没有画面，至今不知道怎么解决，也不知道哪里有问题。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502195059434.png" /></p>
-<hr />
-<ul>
-<li>运行risv32-NEMU时发现报错如下</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot%20from%202023-04-28%2023-11-19.png" /></p>
-<p>看了calloc的manual，发现是给gdb_conn *指针申请空间的时候申请了sizeof(strcut gdb_conn *)大小的内存，实际上内存应该申请的是sizeof(strcut gdb_conn)大小</p>
-<p>修改后成功编译运行risv32-NEMU，欢迎界面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230428232022537.png" /></p>
-<hr />
-<ul>
-<li>x86-CPU-state中寄存器部分需要修改</li>
-</ul>
-<p>做出如下修改：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502192612669.png" /></p>
-<p>成功运行x86-NEMU，欢迎界面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502193010338.png" /></p>
-<hr />
-]]></content>
-      <categories>
-        <category>PA实验</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>article title</title>
-    <url>/article-title/</url>
-    <content><![CDATA[<figure class="highlight c++"><figcaption><span>Demo</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;Hello World\n&quot;</span>;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a&lt;=b\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><span class="math display">\[
-\begin{equation} \label{eq1}
-e=mc^2
-\end{equation}
-\]</span></p>
-<p>The famous matter-energy equation <span class="math inline">\(\eqref{eq1}\)</span> proposed by Einstein...</p>
-<p><span class="math display">\[
-\begin{equation} \label{eq2}
-\begin{aligned}
-a &amp;= b + c \\
-  &amp;= d + e + f + g \\
-  &amp;= h + i
-\end{aligned}
-\end{equation}
-\]</span></p>
-<p>Equation <span class="math inline">\(\eqref{eq2}\)</span> is a multi-line equation.</p>
-<p><span class="math display">\[
-\begin{align}
-a &amp;= b + c \label{eq3} \\
-x &amp;= yz \label{eq4} \\
-l &amp;= m - n \label{eq5}
-\end{align}
-\]</span></p>
-<p>There are three aligned equations: equation <span class="math inline">\(\eqref{eq3}\)</span>, equation <span class="math inline">\(\eqref{eq4}\)</span> and equation <span class="math inline">\(\eqref{eq5}\)</span>.</p>
-<p><span class="math display">\[
-\begin{align}
--4 + 5x &amp;= 2 + y \nonumber \\
-w + 2 &amp;= -1 + w \\
-ab &amp;= cb
-\end{align}
-\]</span></p>
-<p><span class="math display">\[
-x+1\over\sqrt{1-x^2} \tag{i}\label{eq_tag}
-\]</span> Equation <span class="math inline">\(\eqref{eq_tag}\)</span> use <code>\tag&#123;&#125;</code> instead of automatic numbering.</p>
-]]></content>
-      <categories>
-        <category>test</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Init Blog</title>
-    <url>/readme/</url>
+    <url>/2023-05-30-init_blog/</url>
     <content><![CDATA[<p><strong>Preface:</strong> 重载了系统，我的博客又无了，现在吸收了教训，从无到有开始记录以下创建博客的过程。</p>
 <span id="more"></span>
 <h3 id="使用-npm-下载-hexo-theme-next-最新版">使用 npm 下载 <code>hexo-theme-next</code> 最新版</h3>
@@ -1537,11 +1154,324 @@ e^{\pi i} + 1 = 0
       </tags>
   </entry>
   <entry>
-    <title>test</title>
-    <url>/test/</url>
-    <content><![CDATA[<h4 id="test-post">Test Post</h4>
+    <title>操作系统07. 并发控制互斥</title>
+    <url>/2023-04-27-operating_system7/</url>
+    <content><![CDATA[<p><strong>背景回顾</strong>：互斥 (Peterson 算法)：为了掌控并发程序的复杂行为，使程序退回到 “串行执行” 的 lock &amp; unlock。</p>
+<p><strong>本节内容：</strong>现代多处理器系统上的互斥实现：</p>
+<ul>
+<li>互斥问题的定义和假设</li>
+<li>自旋锁</li>
+<li>互斥锁和Futex</li>
+</ul>
+<span id="more"></span>
+<h4 id="回顾并发编程">回顾：并发编程</h4>
+<h5 id="理解并发的工具">理解并发的工具</h5>
+<ul>
+<li>线程=人(大脑能完成局部存储和计算)</li>
+<li>共享内存=物理世界(物理世界天生并行)</li>
+<li>一切都是状态机(debugger&amp;model checker)</li>
+</ul>
+<figure>
+<img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/wc.jpg" alt="" /><figcaption>“躲进厕所锁上门，我就把全世界人锁在了厕所外“</figcaption>
+</figure>
+<h5 id="互斥问题定义">互斥问题：定义</h5>
+<p>互斥(mutual exclusion)，“互相排斥”</p>
+<ul>
+<li>实现lock_t 数据结构和lock/unlock API:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="type">lock_t</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br></pre></td></tr></table></figure>
+<p>一把“排他性”的锁——对于锁对象lk</p>
+<ul>
+<li>如果某个线程持有锁，则其他线程的lock不能发挥(Safety)</li>
+<li>如果多个线程执行lock时，至少有一个可以返回(Liveness)</li>
+<li>能正确处理处理器乱序、宽松内存模型和编译优化</li>
+</ul>
+<p>非常常见的一个bug：</p>
+<p>一个线程用lock_A和unlock_A保护，其他进程如果也用lock_A和unlock_A锁的话就无法操作，但是如果其他线程用一个lock_B和unlock_B保护，那就可能造成lock_A和unlock_A之间与lock_B和unlock_B之间有重叠的数据可能会同时被两个线程访问到，就会产生错误的结果。</p>
+<h5 id="互斥问题的经典算法">互斥问题的经典算法</h5>
+<p><strong>Peterson算法</strong></p>
+<ul>
+<li>包间、旗子和门上的字条</li>
+<li>假设atomic load/store
+<ul>
+<li>实现这个假设也不是非常容易</li>
+</ul></li>
+</ul>
+<p>因此，<u>假设很重要</u></p>
+<ul>
+<li>不能同时读/写贡献内存(1960s)不是一个好的假设
+<ul>
+<li>Load(环顾四周)的时候不能写，“看一眼就把眼睛壁上”</li>
+<li>Store(改变物理世界状态)的时候不能读，“闭着眼睛动手”</li>
+<li>这是《操作系统》
+<ul>
+<li>更喜欢直观、简单、粗暴(稳定)、有效的解决方法</li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="实现互斥的基本假设">实现互斥的基本假设</h5>
+<p>允许我们可以不管一切麻烦事的原子指令</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">atomic_inc</span><span class="params">(<span class="type">long</span> *ptr)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">atomic_xchg</span><span class="params">(<span class="type">int</span> val, <span class="type">int</span> *ptr)</span>;</span><br></pre></td></tr></table></figure>
+<p>看起来是一个普通的函数，但假设：</p>
+<ul>
+<li>包含一个原子指令
+<ul>
+<li>指令的执行不能被打断</li>
+</ul></li>
+<li>包含一个compiler barrier
+<ul>
+<li>无论何种优化都不可雨果此函数</li>
+</ul></li>
+<li>包含一个memory fence
+<ul>
+<li>保证处理器在stop-the world前所有对内存的store都“生效”</li>
+<li>即对resume-the-world之后的load可见</li>
+</ul></li>
+</ul>
+<figure class="highlight c"><figcaption><span>Atomic Exchange实现</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">xchg</span><span class="params">(<span class="type">int</span> <span class="keyword">volatile</span> *ptr, <span class="type">int</span> newval)</span> &#123;</span><br><span class="line">  <span class="type">int</span> result;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="comment">// 指令自带 memory barrier</span></span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock xchgl %0, %1&quot;</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;+m&quot;</span>(*ptr), <span class="string">&quot;=a&quot;</span>(result)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;1&quot;</span>(newval)</span></span><br><span class="line"><span class="params">    <span class="comment">// Compiler barrier</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>原子指令是一个非常好的东西，我们程序的执行过程当中的任何时候，执行了原子指令，两条原子指令是有因果关系的，先执行的原子指令之前的所有内容在第二条原子指令之后都要是可见的。</p>
+<p>在任何时候使用原子指令都是安全的，前提是原子指令是正确的。</p>
+</blockquote>
+<h4 id="自旋锁spin-lock">自旋锁(Spin Lock)</h4>
+<h5 id="实现互斥">实现互斥</h5>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">(<span class="type">lock_t</span> *lk)</span>;</span><br></pre></td></tr></table></figure>
+<p>一个科学家的思维应该是：考虑更多更根本的问题</p>
+<ul>
+<li>我们可以设计出怎么样的原子指令？
+<ul>
+<li>它们的表达能力如何？</li>
+</ul></li>
+<li>计算机硬件可以提供比“一次load/store”更强的原子性吗？
+<ul>
+<li>如果硬件困难，软件/编译器可以么？</li>
+</ul></li>
+</ul>
+<h5 id="自旋锁用xchg实现互斥">自旋锁：用xchg实现互斥</h5>
+<p>在厕所门口放一个桌子(共享变量)</p>
+<ul>
+<li>初始时放着🔑</li>
+</ul>
+<p>自旋锁(Spin Lock)</p>
+<ul>
+<li>想上厕所的同学(一条xchg指令)
+<ul>
+<li>Stop the world</li>
+<li>看一眼桌子上有什么(🔑 或 🔞)</li>
+<li>把 🔞 放到桌上 (覆盖之前有的任何东西)</li>
+<li>Resume the world</li>
+<li>期间看到🔑才可以进厕所，否则重复</li>
+</ul></li>
+<li>出厕所的同学
+<ul>
+<li>把🔑放到桌上</li>
+</ul></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> table = YES;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">()</span> &#123;</span><br><span class="line">retry:</span><br><span class="line">  <span class="type">int</span> got = xchg(&amp;table, NOPE);</span><br><span class="line">  <span class="keyword">if</span> (got == NOPE)</span><br><span class="line">    <span class="keyword">goto</span> retry;</span><br><span class="line">  assert(got == YES);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">()</span> &#123;</span><br><span class="line">  xchg(&amp;table, YES);  <span class="comment">// 为什么不是 table = YES; ?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在xchg的假设下简化实现</p>
+<ul>
+<li>包含一个原子指令</li>
+<li>包含一个compiler barrier</li>
+<li>包含一个memory fence</li>
+</ul>
+<figure class="highlight c"><figcaption><span>sum-spinlock.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;thread.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> N 100000000</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> M 10</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">xchg</span><span class="params">(<span class="type">int</span> <span class="keyword">volatile</span> *ptr, <span class="type">int</span> newval)</span> &#123;</span><br><span class="line">  <span class="type">int</span> result;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock xchgl %0, %1&quot;</span></span></span><br><span class="line"><span class="params">    : <span class="string">&quot;+m&quot;</span>(*ptr), <span class="string">&quot;=a&quot;</span>(result)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;1&quot;</span>(newval)</span></span><br><span class="line"><span class="params">    : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> locked = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">while</span> (xchg(&amp;locked, <span class="number">1</span>)) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unlock</span><span class="params">()</span> &#123;</span><br><span class="line">  xchg(&amp;locked, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Tsum</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">long</span> nround = N / M;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nround; i++) &#123;</span><br><span class="line">    lock();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">      sum++;  <span class="comment">// Non-atomic; can optimize</span></span><br><span class="line">    &#125;</span><br><span class="line">    unlock();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  assert(N % M == <span class="number">0</span>);</span><br><span class="line">  create(Tsum);</span><br><span class="line">  create(Tsum);</span><br><span class="line">  join();</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sum = %ld\n&quot;</span>, sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>thread.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdatomic.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NTHREAD 64</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span> T_FREE = <span class="number">0</span>, T_LIVE, T_DEAD, &#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> id, status;</span><br><span class="line">  <span class="type">pthread_t</span> thread;</span><br><span class="line">  <span class="type">void</span> (*entry)(<span class="type">int</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> <span class="title">tpool</span>[<span class="title">NTHREAD</span>], *<span class="title">tptr</span> =</span> tpool;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *<span class="title function_">wrapper</span><span class="params">(<span class="type">void</span> *arg)</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">thread</span> =</span> (<span class="keyword">struct</span> thread *)arg;</span><br><span class="line">  thread-&gt;entry(thread-&gt;id);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">create</span><span class="params">(<span class="type">void</span> *fn)</span> &#123;</span><br><span class="line">  assert(tptr - tpool &lt; NTHREAD);</span><br><span class="line">  *tptr = (<span class="keyword">struct</span> thread) &#123;</span><br><span class="line">    .id = tptr - tpool + <span class="number">1</span>,</span><br><span class="line">    .status = T_LIVE,</span><br><span class="line">    .entry = fn,</span><br><span class="line">  &#125;;</span><br><span class="line">  pthread_create(&amp;(tptr-&gt;thread), <span class="literal">NULL</span>, wrapper, tptr);</span><br><span class="line">  ++tptr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">join</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; NTHREAD; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">t</span> =</span> &amp;tpool[i];</span><br><span class="line">    <span class="keyword">if</span> (t-&gt;status == T_LIVE) &#123;</span><br><span class="line">      pthread_join(t-&gt;thread, <span class="literal">NULL</span>);</span><br><span class="line">      t-&gt;status = T_DEAD;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">__attribute__((destructor)) <span class="type">void</span> <span class="title function_">cleanup</span><span class="params">()</span> &#123;</span><br><span class="line">  join();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面用自旋锁优化的sum-spinlock.c可以编译成功，输出正确结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230427122620575.png" /></p>
+<p>可以验证，无论是O2优化还是O1优化都可以输出正确的结果，自旋锁目前为止是可以处理编译优化的。lock和unlock内没有compiler barrier里面的代码是可以优化的</p>
+<h5 id="无锁算法了解">无锁算法(了解)</h5>
+<p><strong>更强大的原子指令</strong></p>
+<p>Compare and exchange("test and set")</p>
+<ul>
+<li>(lock) compxchg SRC, DEST</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TEMP = DEST</span><br><span class="line"><span class="keyword">if</span> accumulator == TEMP:</span><br><span class="line">    ZF = <span class="number">1</span></span><br><span class="line">    DEST = SRC</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    ZF = <span class="number">0</span></span><br><span class="line">    accumulator = TEMP</span><br></pre></td></tr></table></figure>
+<ul>
+<li>🤔 看起来没有复杂多少，又好像复杂了很多
+<ul>
+<li>学编程/操作系统”纸面理解“是不行的</li>
+<li>一定要写代码加深印象
+<ul>
+<li>对于这个例子：我们可以列出“真值表”</li>
+</ul></li>
+</ul></li>
+</ul>
+<figure class="highlight c"><figcaption><span>cmpoxchg.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">cmpxchg</span><span class="params">(<span class="type">int</span> old, <span class="type">int</span> new, <span class="type">int</span> <span class="keyword">volatile</span> *ptr)</span> &#123;</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="string">&quot;lock cmpxchgl %[new], %[mem]&quot;</span></span></span><br><span class="line"><span class="params">      : <span class="string">&quot;+a&quot;</span>(old), [mem] <span class="string">&quot;+m&quot;</span>(*ptr)</span></span><br><span class="line"><span class="params">      : [new] <span class="string">&quot;S&quot;</span>(new)</span></span><br><span class="line"><span class="params">      : <span class="string">&quot;memory&quot;</span></span></span><br><span class="line"><span class="params">  )</span>;</span><br><span class="line">  <span class="keyword">return</span> old;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">cmpxchg_ref</span><span class="params">(<span class="type">int</span> old, <span class="type">int</span> new, <span class="type">int</span> <span class="keyword">volatile</span> *ptr)</span> &#123;</span><br><span class="line">  <span class="type">int</span> tmp = *ptr;  <span class="comment">// Load</span></span><br><span class="line">  <span class="keyword">if</span> (tmp == old) &#123;</span><br><span class="line">    *ptr = new;  <span class="comment">// Store (conditionally)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">run_test</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> old, <span class="type">int</span> new)</span> &#123;</span><br><span class="line">  <span class="type">int</span> val1 = x;</span><br><span class="line">  <span class="type">int</span> ret1 = cmpxchg(old, new, &amp;val1);</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> val2 = x;</span><br><span class="line">  <span class="type">int</span> ret2 = cmpxchg_ref(old, new, &amp;val2);</span><br><span class="line"></span><br><span class="line">  assert(val1 == val2 &amp;&amp; ret1 == ret2);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x = %d -&gt; (cmpxchg %d -&gt; %d) -&gt; x = %d\n&quot;</span>, x, old, new, val1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">0</span>; x &lt;= <span class="number">2</span>; x++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> old = <span class="number">0</span>; old &lt;= <span class="number">2</span>; old++)</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> new = <span class="number">0</span>; new &lt;= <span class="number">2</span>; new++)</span><br><span class="line">        run_test(x, old, new);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510124338922.png" /></p>
+<h4 id="在操作系统上实现互斥">在操作系统上实现互斥</h4>
+<h5 id="自旋锁的缺陷">自旋锁的缺陷</h5>
+<p>性能问题(1)</p>
+<ul>
+<li>除了进入临界区的线程，其他处理器上的线程都在<strong>空转</strong></li>
+<li>争抢锁的处理器越多，利用率越低
+<ul>
+<li>4 个 CPU 运行 4 个 sum-spinlock 和 1 个 OBS
+<ul>
+<li>人一时刻都只有一个 sum-atomic 在有效计算</li>
+</ul></li>
+<li>均分 CPU, OBS 就分不到 100% 的 CPU 了</li>
+</ul></li>
+</ul>
+<p>性能问题(2)</p>
+<ul>
+<li>持有自选锁的线程<strong>可能被操作系统切换出去</strong>
+<ul>
+<li>操作系统不"感知"线程在做什么</li>
+<li>(但为什么不能呢？)</li>
+</ul></li>
+<li>实现 100% 的资源浪费</li>
+</ul>
+<h5 id="scalability-性能的新维度">Scalability: 性能的新维度</h5>
+<blockquote>
+<p>同一份计算任务，时间 (CPU cycles) 和空间 (mapped memory) 会随处理器数量的增长而变化。</p>
+</blockquote>
+<p>用自旋锁实现 sum++ 的性能问题</p>
+<ul>
+<li>严谨的统计很难
+<ul>
+<li>CPU 动态功耗</li>
+<li>系统的其他进程</li>
+<li>超线程</li>
+<li>NUMA</li>
+<li>......</li>
+<li><a href="https://gernot-heiser.org/benchmarking-crimes.html">Benchmarking crimes</a></li>
+</ul></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/spinlock-scalability.jpg" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230510130507698.png" /></p>
+<p>线程越多，效率越低，用本地代码去测试也有这种情况，为什么会发生这种情况？一个很重要的原因是现代的处理器是有缓存的，当我们想要读 sum 或者写 sum 都是从一级缓存中读出的，但是当另一个线程想要读不在这个处理器缓存中的 sum 时，就需要去另一个 CPU 的缓存中拉下来，传的过程就会产生时间，很有趣的 Scalability 的讨论</p>
+<h5 id="自旋锁的使用场景">自旋锁的使用场景</h5>
+<ol type="1">
+<li>临界区几乎不“拥堵”</li>
+<li>持有自旋锁时禁止执行流切换</li>
+</ol>
+<p>使用场景<strong>(唯一)</strong>：<strong>操作系统内和的并发数据结构（短临界区）</strong></p>
+<ul>
+<li>操作系统可以关闭中断和抢占(仔细读起来这个行为是不合理的)
+<ul>
+<li>保证自旋锁的持有者在很短的时间内可以释放锁</li>
+</ul></li>
+<li>(如果是虚拟机呢...😂)
+<ul>
+<li>PAUSE 指令会处罚 VM Exit</li>
+</ul></li>
+<li>但依旧很难做好
+<ul>
+<li><a href="https://www.usenix.org/conference/osdi10/analysis-linux-scalability-many-cores">An analysis of Linux scalability to many cores</a> (OSDI'10)</li>
+</ul></li>
+</ul>
+<h5 id="实现线程-长临界区的互斥">实现线程 + 长临界区的互斥</h5>
+<blockquote>
+<p>作业那么多，与其干等作业发布，不如把自己 (CPU) 让给其他作业 (线程) 执行？</p>
+</blockquote>
+<p>“让”不是 C 语言代码可以做到的 (C 代码只能执行命令)</p>
+<ul>
+<li>但有一种特殊的指令：syscall</li>
+<li>把锁的实现放到操作系统里就好了
+<ul>
+<li>syscall(SYSCALL_lock, &amp;lk);
+<ul>
+<li>试图获得 1k，但如果失败，就切换到其他进程</li>
+</ul></li>
+<li>syscall(SYSCALL_unlock, &amp;1k);
+<ul>
+<li>释放 1k，如果有等待锁的线程就唤醒</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>操作系统 = 更衣室管理员</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/locker.jpg" /></p>
+<ul>
+<li>先到的人(线程)
+<ul>
+<li>成功获得手环，进入游泳馆</li>
+<li>*1k = 🔒，系统调用直接返回</li>
+</ul></li>
+<li>后到的人(线程)
+<ul>
+<li>不能进入游泳馆，排队等待</li>
+<li>线程放入等待队列，执行线程切换(yield)</li>
+</ul></li>
+<li>洗完澡出来的人(线程)
+<ul>
+<li>交还手环给管理员；管理员把手环再交给排队的人</li>
+<li>如果等待队列不空，从等待队列中取出一个线程允许执行</li>
+<li>如果等待队列为空，*1k = ✅</li>
+</ul></li>
+<li><strong>管理员 (OS) 使用自旋锁确保自己处理手环的过程是原子的</strong></li>
+</ul>
+<h4 id="关于互斥的一些分析">关于互斥的一些分析</h4>
+<p>自旋锁(线程直接共享 locked)</p>
+<ul>
+<li>更快的 fast path
+<ul>
+<li>xchg 成功→立即进入临界区，开小很小</li>
+</ul></li>
+<li>更慢的 slow path
+<ul>
+<li>xchg 失败→浪费 CPU 自旋等待</li>
+</ul></li>
+</ul>
+<p>互斥锁(通过系统调用访问 locked)</p>
+<ul>
+<li>更经济的 slow path
+<ul>
+<li>上锁失败线程不再占用 CPU</li>
+</ul></li>
+<li>更慢的 fast path
+<ul>
+<li>即使上锁成功也需要进出内核 (syscall)</li>
+</ul></li>
+</ul>
 <hr />
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">int</span> a, b;</span><br><span class="line">  <span class="keyword">if</span> (a == b)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了实现现代多处理器系统上的互斥，我们首先需要理解 “原子操作” (例如 <code>atomic_xchg</code>) 的假设：</p>
+<ol type="1">
+<li>操作本身是原子的、看起来无法被打断的，即它真的是一个 “原子操作”；</li>
+<li>操作自带一个 compiler barrier，防止优化跨过函数调用。这一点很重要——例如我们今天的编译器支持 Link-time Optimization (LTO)，如果缺少 compiler barrier，编译优化可以穿过 volatile 标记的汇编指令；</li>
+<li>操作自带一个 memory barrier，保证操作执行前指令的写入，能对其他处理器之后的 load 可见。</li>
+</ol>
+<p>在此假设的基础上，原子操作就成为了我们简化程序执行的基础机制。通过自旋 (spin)，可以很直观地实现 “轮询” 式的互斥。而为了节约共享内存线程在自旋上浪费的处理器，我们也可以通过系统调用请求操作系统来帮助现成完成互斥。</p>
+<p>以上就是本节的所有内容，中间因为各种原因隔了十多天才全部看完，这段间隔也让我发现了前导知识的缺陷，线程库的那一章被我跳过了，我感觉需要去把前面的多处理器编程补回来，然后这篇文章中的一些链接都看一下，大致就能更深入地理解并发了。</p>
 ]]></content>
+      <categories>
+        <category>Operating System</category>
+      </categories>
+      <tags>
+        <tag>基础学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PA1:The simplest computer</title>
+    <url>/PA1-The-simplest-computer/</url>
+    <content><![CDATA[<p><strong>Preface:</strong>PA或许比较困难，我想记录一下途中遇到的困难，以及我是如何解决，在这个实验的过程中我希望能培养一下我先前比较弱的RTFSC能力。</p>
+<span id="more"></span>
+<h4 id="bugs">BUGs：</h4>
+<ul>
+<li>在<code>开始愉快的PA之旅之前</code>中，运行fceux-am时报错<strong>(UNcompleted)</strong>：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502191442346.png" /></p>
+<p>如下修改过后，fceux-am能运行，声音和游戏都能运行，如果切换成字符模式可以正常玩，但是没有画面，至今不知道怎么解决，也不知道哪里有问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502195059434.png" /></p>
+<hr />
+<ul>
+<li>运行risv32-NEMU时发现报错如下</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot%20from%202023-04-28%2023-11-19.png" /></p>
+<p>看了calloc的manual，发现是给gdb_conn *指针申请空间的时候申请了sizeof(strcut gdb_conn *)大小的内存，实际上内存应该申请的是sizeof(strcut gdb_conn)大小</p>
+<p>修改后成功编译运行risv32-NEMU，欢迎界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230428232022537.png" /></p>
+<hr />
+<ul>
+<li>x86-CPU-state中寄存器部分需要修改</li>
+</ul>
+<p>做出如下修改：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502192612669.png" /></p>
+<p>成功运行x86-NEMU，欢迎界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502193010338.png" /></p>
+<hr />
+]]></content>
+      <categories>
+        <category>PA实验</category>
+      </categories>
   </entry>
 </search>
