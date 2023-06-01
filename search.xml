@@ -41,6 +41,208 @@
       </categories>
   </entry>
   <entry>
+    <title>计算机系统基础1. C语言拾遗(1):机制</title>
+    <url>/2023-04-25-computer_system1/</url>
+    <content><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>这一节主要是弥补一些程序设计基础课上不会讲到的一些关于 C 语言的比较重要的知识，帮助构筑整体知识框架，以便后续学习计算机系统能更加顺利一些。——总共学习了四个半小时。</p>
+<span id="more"></span>
+<p><strong>以下几个问题值得思考：</strong></p>
+<ul>
+<li>在IDE中，按一个建就能编译运行，中间的过程是什么？<ul>
+<li>编译、连接<ul>
+<li>.c → 预编译 → .i → 编译 → .s → 汇编 → .o → 链接 → a.out</li>
+</ul>
+</li>
+<li>加载执行<ul>
+<li>.&#x2F;a.out</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>背后是通过调用命令行工具完成的<ul>
+<li>RTFM: gcc –help; man gcc<ul>
+<li>控制行为的三个选项：-E, -S, -c</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意点：<ul>
+<li>预热：编译、链接、加载到底做了什么？</li>
+<li>RTFSC 时需要关注的 C 语言特性</li>
+</ul>
+</li>
+</ul>
+<h4 id="进入-C-语言之前：预编译"><a href="#进入-C-语言之前：预编译" class="headerlink" title="进入 C 语言之前：预编译"></a>进入 C 语言之前：预编译</h4><h5 id="include-lt-gt-指令"><a href="#include-lt-gt-指令" class="headerlink" title="#include &lt;&gt;指令"></a>#include &lt;&gt;指令</h5><p>以下代码有什么区别？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>为什么在没有安装库时会发生错误？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SDL2/SDL2.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>很多人包括我在刚开始学习 C 语言时，肯定会问出一些问题：在引用stdio.h时到底是引用在哪里的文件？</p>
+<p>可能在书&#x2F;阅读材料上了解一些相关知识</p>
+<ul>
+<li>但更好的办法是阅读命令的日志</li>
+<li>gcc –verbose a.c</li>
+</ul>
+<p>使用gcc –verbose可以了解到很多内部的东西，例如：</p>
+<p>这张图片是我的电脑上运行gcc –verbose a.c后包含的一段，这段信息显示了gcc在编译a.c文件时头文件引用的发生，分别找的是这些路径下的文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/gcc_verbose.png"></p>
+<p>如果我有a.c和a.inc文件放在同一个路径下</p>
+<figure class="highlight c"><figcaption><span>a.inc</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.inc&quot;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>然后使用gcc –verbose a.c后会发生什么？正确编译除了a.out，运行后输出hello world</p>
+<p>如果把a.c改变一下，再编译就出现error了</p>
+<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;a.inc&gt;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090237647.png"></p>
+<p>有一个命令选项-I可以添加gcc寻找#include &lt;…&gt;的路径，如果输入这些指令，编译通过，可以正常输出hello world。用gcc –verbose查看详细信息，发现#Include &lt;…&gt;多了一个path</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090737466.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090859148.png"></p>
+<h5 id="有趣的预编译"><a href="#有趣的预编译" class="headerlink" title="有趣的预编译"></a>有趣的预编译</h5><p>以下代码会输出什么？</p>
+<ul>
+<li>为什么？</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果是Yes，可以运行gcc -E a.c查看预编译代码，#include &lt;stdio.h&gt;中引用的内容太多了，这里只用到了其中的printf，可以用一行代码替换</p>
+<figure class="highlight c"><figcaption><span>printf</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这是stdio.h中关于printf的定义，替换后再使用gcc -E a.c得到如下代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425092836183.png"></p>
+<p>其中那几行#开头的代码都被消失了，实际上是预编译先对代码进行词法上做处理，#if判断后面是否为true，如果是true则包含#if下的代码。C语言的很有意思的特性是所有预编译的变量，都不需要定义就可以使用，所以这里实际上是判断 $’’&#x3D;&#x3D;’’$ 所以返回true，预编译后的代码包含printf(“Yes\n”)</p>
+<p>还可以试试编译下面的代码，看看执行a.out后会输出什么，如果拿gcc -m32 a.c编译，又会输出什么？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __x86_64__</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86-64\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="宏定义与展开"><a href="#宏定义与展开" class="headerlink" title="宏定义与展开"></a>宏定义与展开</h5><p>宏展开：通过复制&#x2F;粘贴改变代码的形态</p>
+<ul>
+<li><p>#include→ 粘贴文件</p>
+</li>
+<li><p>aa,bb→ 粘贴符号</p>
+</li>
+</ul>
+<p>知乎问题：如何搞垮一个OJ？</p>
+<p>下面这段代码会在一行输出$1^7$个a，会占用大量OJ资源，但是我在我们学校的OJ上试验了一下，输出超限后会被程序好像会被强制中断，所以现在搞不垮了。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A <span class="string">&quot;aaaaaaaaaa&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEN(A) A A A A A A A A A A</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> B TEN(A)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> C TEN(B)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> D TEN(C)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> E TEN(D)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> F TEN(E)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> G TEN(F)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123; <span class="built_in">puts</span>(G); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如何躲过Online Judge的关键字过滤？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A sys ## tem</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  A(<span class="string">&quot;echo hello&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##的作用是在去除前后的所有空格，并且把前后非空格的两个部分按照连接起来，这样OJ就检测不到<code>system</code>这个单词了，但是实际上<code>system</code>已经起作用了，编译运行输出hello</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425232043043.png"></p>
+<p>如何毁掉一个身边用C语言的同学？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> true (__LINE__ % 16 != 0)</span></span><br></pre></td></tr></table></figure>
+
+<p>这段代码的意思是改变true的定义，true变为当代码的行数模16不等于0返回真，这就会引起非常大的歧义，如果偷偷趁同学不在，在他的电脑上的某一个头文件中插入这段代码，将在某一天对他造成毁灭性的打击！</p>
+<p>宏展开：通过复制&#x2F;粘贴改变代码的形态</p>
+<ul>
+<li>反复粘贴，直到没有宏可以展开为止</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight c"><figcaption><span>X-macro</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> NAMES(X) \</span></span><br><span class="line"><span class="meta">  X(Tom) X(Jerry) X(Tyke) X(Spike)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="meta">#<span class="keyword">define</span> PRINT(x) puts(<span class="string">&quot;Hello, &quot;</span> #x <span class="string">&quot;!&quot;</span>);</span></span><br><span class="line">  NAMES(PRINT)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><u>其中#表示字符串化，#x相当于把x转换成字符串</u></p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425233837276.png"></p>
+<p>在发生实际编译之前</p>
+<ul>
+<li>也称为元编程(meta-programming)<ul>
+<li>gcc的与处理器同样可以处理汇编代码</li>
+<li>C++中的模板元编程；Rust的macros；…（这一块我基本看不懂，元编程和macros什么意思？）</li>
+</ul>
+</li>
+</ul>
+<p>Pros</p>
+<ul>
+<li>提供灵活的用法 (X-macros)</li>
+<li>接近自然语言的写法</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>破坏可读性 <a href="https://www.ioccc.org/">IOCCC</a>、程序分析 (补全)、……</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> L (</span></span><br><span class="line"><span class="type">int</span> main L ) &#123; <span class="built_in">puts</span> L <span class="string">&quot;Hello, World&quot;</span> ); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>破坏了人类的直觉，造成括号不匹配，及其影响阅读</p>
+<h4 id="编译与链接"><a href="#编译与链接" class="headerlink" title="编译与链接"></a>编译与链接</h4><h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><p>一个不带优化的简易（理想）编译器</p>
+<ul>
+<li>C代码的连续一段总能找到对应的一段连续的机器指令<ul>
+<li>因此大家说C是高级的汇编语言</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译之后对应的汇编语言大致如下（去除了一些不相干的代码）</p>
+<figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="title">foo</span>:</span><br><span class="line">.<span class="type">LFB0</span>:</span><br><span class="line">	pushq	%rbp</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	movl	%edi, <span class="number">-20</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">0</span>, <span class="number">-8</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">	jmp	.<span class="type">L2</span></span><br><span class="line">.<span class="type">L3</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	addl	%eax, <span class="number">-8</span>(%rbp)</span><br><span class="line">	addl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">.<span class="type">L2</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	cmpl	<span class="number">-20</span>(%rbp), %eax</span><br><span class="line">	jle	.<span class="type">L3</span></span><br><span class="line">	movl	<span class="number">-8</span>(%rbp), %eax</span><br><span class="line">	popq	%rbp</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+
+<p>C语言代码有一一对应的汇编代码，汇编代码对应机器代码，上面的程序用objdump转换为机器代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425235744552.png"></p>
+<h5 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h5><p>将多个二进制目标代码拼接在一起</p>
+<ul>
+<li>C中成为编译单元(compilation unit)</li>
+<li>甚至可以连接 C++, <a href="https://rust-embedded.github.io/book/interoperability/rust-with-c.html">rust</a>, … 代码（不懂？_？）</li>
+</ul>
+<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>b.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">10</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426000753133.png"></p>
+<p>这是b.c汇编的代码，怎么把a.o和b.o中的代码合到一起？那就要用到链接，a.c中定义了foo函数，b.c中申明foo函数，并且在main函数调用foo函数输出结果</p>
+<p>输入gcc a.o b.o -static，运行.&#x2F;a.out输出结果55</p>
+<p>可以使用objdump反汇编a.out可以在其中找到main和foo的内容</p>
+<h4 id="加载：进入C语言的世界"><a href="#加载：进入C语言的世界" class="headerlink" title="加载：进入C语言的世界"></a>加载：进入C语言的世界</h4><h5 id="C程序执行的两个视角"><a href="#C程序执行的两个视角" class="headerlink" title="C程序执行的两个视角"></a>C程序执行的两个视角</h5><p>静态：C代码的连续一段总能找到一段连续的机器指令</p>
+<p>动态：C代码执行的状态总能对应到机器的状态</p>
+<ul>
+<li>源代码视角<ul>
+<li>函数、变量、指针……</li>
+</ul>
+</li>
+<li>机器指令视角<ul>
+<li>寄存器、内存、地址……</li>
+</ul>
+</li>
+</ul>
+<p>两个视角的共同之处：内存</p>
+<ul>
+<li>代码、变量（源代码视角）&#x3D;地址+长度（机器指令视角）</li>
+<li>（不太严谨地）内存&#x3D;代码+数据+堆栈<ul>
+<li>因此理解C程序执行最重要的就是<u>内存模型</u></li>
+</ul>
+</li>
+</ul>
+<p><u>本质上C语言中的所有的东西都是指针</u>，C语言的一切皆可取地址，常量、变量、函数、堆栈……在汇编中所有东西都是内存，两个刚好对应起来。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">printptr</span><span class="params">(<span class="type">void</span> *p)</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;p = %p;  *p = %016lx\n&quot;</span>, p, *(<span class="type">long</span> *)p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> x;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> *p = (<span class="type">void</span> *) <span class="number">1</span>;</span><br><span class="line">  printptr(main);  <span class="comment">// 代码</span></span><br><span class="line">  printptr(&amp;main);</span><br><span class="line">  printptr(&amp;x);    <span class="comment">// 数据</span></span><br><span class="line">  printptr(&amp;argc); <span class="comment">// 堆栈</span></span><br><span class="line">  printptr(argv);</span><br><span class="line">  printptr(&amp;argv);</span><br><span class="line">  printptr(argv[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="C-Type-System"><a href="#C-Type-System" class="headerlink" title="C Type System"></a>C Type System</h5><p><strong>类型：</strong>对一段内存的解读方式</p>
+<ul>
+<li>非常“汇编“——没有class,polymorphism,type traits,…（看不懂）</li>
+<li>C里所有的数据都可以理解成是地址（指针）+类型（对地址的解读）</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line">  <span class="keyword">if</span> (argc != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">char</span> ***a = &amp;argv, *first = argv[<span class="number">0</span>], ch = argv[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;arg = \&quot;%s\&quot;;  ch = &#x27;%c&#x27;\n&quot;</span>, first, ch);</span><br><span class="line">    assert(***a == ch);</span><br><span class="line">    f(argc - <span class="number">1</span>, argv + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码可以画一张图去理解一下，其中比较有意思的是，函数作为指针、函数地址作为指针和*函数作为指针都是相同的</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, &amp;main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, *main);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码输出结果是完全相同的，说明函数的指针就是指向自身</p>
+<p>有意思的函数指针：</p>
+<ul>
+<li>当一个指针指向函数的时候，指针本身的地址没有改变，但是它指向一个指向函数的地址，函数的地址就是指向自身，所以一个上面例子中的f和(*f)甚至是(*****…*f)都起到main函数的作用，但是(&amp;f)就是取这个指针的地址。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    sum += i;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;foo = %p\n&quot;</span>, &amp;foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;foo  = %p\n&quot;</span>, foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*foo = %p\n&quot;</span>, *foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;f   = %p\n&quot;</span>, &amp;f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;f    = %p\n&quot;</span>, f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*f   = %p\n&quot;</span>, *f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426230857144.png"></p>
+<p>第一节终于上完了，比第一次看要学会了不少新的细节，这周不再看计算机系统基础，遇到知识点就回来看这篇文章吸收。</p>
+<p>推荐文章：<a href="https://iq.opengenus.org/function-pointer-in-c/">Function Pointer in C</a></p>
+]]></content>
+      <categories>
+        <category>Computer System</category>
+      </categories>
+      <tags>
+        <tag>基础学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机系统基础2. C语言拾遗(2):编程实践</title>
     <url>/2023-04-25-computer_system2/</url>
     <content><![CDATA[<p><strong>Preface:</strong></p>
@@ -262,208 +464,6 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">union</span> <span class="title">inst</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span> u8 rs  : <span class="number">2</span>, rt: <span class="number">2</span>, op: <span class="number">4</span>; &#125; rtype;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span> u8 addr: <span class="number">4</span>,        op: <span class="number">4</span>; &#125; mtype;</span><br><span class="line">&#125; <span class="type">inst_t</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RTYPE(i) u8 rt = (i)-&gt;rtype.rt, rs = (i)-&gt;rtype.rs;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MTYPE(i) u8 addr = (i)-&gt;mtype.addr;</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">idex</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">inst_t</span> *cur = (<span class="type">inst_t</span> *)&amp;M[pc];</span><br><span class="line">  <span class="keyword">switch</span> (cur-&gt;rtype.op) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b0000</span>: &#123; RTYPE(cur); R[rt]   = R[rs];   pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b0001</span>: &#123; RTYPE(cur); R[rt]  += R[rs];   pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b1110</span>: &#123; MTYPE(cur); R[RA]   = M[addr]; pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0b1111</span>: &#123; MTYPE(cur); M[addr] = R[RA];   pc++; <span class="keyword">break</span>; &#125;</span><br><span class="line">  <span class="keyword">default</span>: panic(<span class="string">&quot;invalid instruction at PC = %x&quot;</span>, pc);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>用到了 C 语言的一个特性：bit field，用一个类型的某些位来定义变量</p>
-]]></content>
-      <categories>
-        <category>Computer System</category>
-      </categories>
-      <tags>
-        <tag>基础学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机系统基础1. C语言拾遗(1):机制</title>
-    <url>/2023-04-25-computer_system1/</url>
-    <content><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>这一节主要是弥补一些程序设计基础课上不会讲到的一些关于 C 语言的比较重要的知识，帮助构筑整体知识框架，以便后续学习计算机系统能更加顺利一些。——总共学习了四个半小时。</p>
-<span id="more"></span>
-<p><strong>以下几个问题值得思考：</strong></p>
-<ul>
-<li>在IDE中，按一个建就能编译运行，中间的过程是什么？<ul>
-<li>编译、连接<ul>
-<li>.c → 预编译 → .i → 编译 → .s → 汇编 → .o → 链接 → a.out</li>
-</ul>
-</li>
-<li>加载执行<ul>
-<li>.&#x2F;a.out</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>背后是通过调用命令行工具完成的<ul>
-<li>RTFM: gcc –help; man gcc<ul>
-<li>控制行为的三个选项：-E, -S, -c</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>注意点：<ul>
-<li>预热：编译、链接、加载到底做了什么？</li>
-<li>RTFSC 时需要关注的 C 语言特性</li>
-</ul>
-</li>
-</ul>
-<h4 id="进入-C-语言之前：预编译"><a href="#进入-C-语言之前：预编译" class="headerlink" title="进入 C 语言之前：预编译"></a>进入 C 语言之前：预编译</h4><h5 id="include-lt-gt-指令"><a href="#include-lt-gt-指令" class="headerlink" title="#include &lt;&gt;指令"></a>#include &lt;&gt;指令</h5><p>以下代码有什么区别？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>为什么在没有安装库时会发生错误？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;SDL2/SDL2.h&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>很多人包括我在刚开始学习 C 语言时，肯定会问出一些问题：在引用stdio.h时到底是引用在哪里的文件？</p>
-<p>可能在书&#x2F;阅读材料上了解一些相关知识</p>
-<ul>
-<li>但更好的办法是阅读命令的日志</li>
-<li>gcc –verbose a.c</li>
-</ul>
-<p>使用gcc –verbose可以了解到很多内部的东西，例如：</p>
-<p>这张图片是我的电脑上运行gcc –verbose a.c后包含的一段，这段信息显示了gcc在编译a.c文件时头文件引用的发生，分别找的是这些路径下的文件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/gcc_verbose.png"></p>
-<p>如果我有a.c和a.inc文件放在同一个路径下</p>
-<figure class="highlight c"><figcaption><span>a.inc</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.inc&quot;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>然后使用gcc –verbose a.c后会发生什么？正确编译除了a.out，运行后输出hello world</p>
-<p>如果把a.c改变一下，再编译就出现error了</p>
-<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;a.inc&gt;</span></span></span><br><span class="line">);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090237647.png"></p>
-<p>有一个命令选项-I可以添加gcc寻找#include &lt;…&gt;的路径，如果输入这些指令，编译通过，可以正常输出hello world。用gcc –verbose查看详细信息，发现#Include &lt;…&gt;多了一个path</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090737466.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425090859148.png"></p>
-<h5 id="有趣的预编译"><a href="#有趣的预编译" class="headerlink" title="有趣的预编译"></a>有趣的预编译</h5><p>以下代码会输出什么？</p>
-<ul>
-<li>为什么？</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果是Yes，可以运行gcc -E a.c查看预编译代码，#include &lt;stdio.h&gt;中引用的内容太多了，这里只用到了其中的printf，可以用一行代码替换</p>
-<figure class="highlight c"><figcaption><span>printf</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>这是stdio.h中关于printf的定义，替换后再使用gcc -E a.c得到如下代码</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425092836183.png"></p>
-<p>其中那几行#开头的代码都被消失了，实际上是预编译先对代码进行词法上做处理，#if判断后面是否为true，如果是true则包含#if下的代码。C语言的很有意思的特性是所有预编译的变量，都不需要定义就可以使用，所以这里实际上是判断 $’’&#x3D;&#x3D;’’$ 所以返回true，预编译后的代码包含printf(“Yes\n”)</p>
-<p>还可以试试编译下面的代码，看看执行a.out后会输出什么，如果拿gcc -m32 a.c编译，又会输出什么？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __x86_64__</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86-64\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;x86\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> aa == bb</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="宏定义与展开"><a href="#宏定义与展开" class="headerlink" title="宏定义与展开"></a>宏定义与展开</h5><p>宏展开：通过复制&#x2F;粘贴改变代码的形态</p>
-<ul>
-<li><p>#include→ 粘贴文件</p>
-</li>
-<li><p>aa,bb→ 粘贴符号</p>
-</li>
-</ul>
-<p>知乎问题：如何搞垮一个OJ？</p>
-<p>下面这段代码会在一行输出$1^7$个a，会占用大量OJ资源，但是我在我们学校的OJ上试验了一下，输出超限后会被程序好像会被强制中断，所以现在搞不垮了。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A <span class="string">&quot;aaaaaaaaaa&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEN(A) A A A A A A A A A A</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> B TEN(A)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> C TEN(B)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> D TEN(C)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> E TEN(D)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> F TEN(E)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> G TEN(F)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123; <span class="built_in">puts</span>(G); &#125;</span><br></pre></td></tr></table></figure>
-
-<p>如何躲过Online Judge的关键字过滤？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> A sys ## tem</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  A(<span class="string">&quot;echo hello&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>##的作用是在去除前后的所有空格，并且把前后非空格的两个部分按照连接起来，这样OJ就检测不到<code>system</code>这个单词了，但是实际上<code>system</code>已经起作用了，编译运行输出hello</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425232043043.png"></p>
-<p>如何毁掉一个身边用C语言的同学？</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> true (__LINE__ % 16 != 0)</span></span><br></pre></td></tr></table></figure>
-
-<p>这段代码的意思是改变true的定义，true变为当代码的行数模16不等于0返回真，这就会引起非常大的歧义，如果偷偷趁同学不在，在他的电脑上的某一个头文件中插入这段代码，将在某一天对他造成毁灭性的打击！</p>
-<p>宏展开：通过复制&#x2F;粘贴改变代码的形态</p>
-<ul>
-<li>反复粘贴，直到没有宏可以展开为止</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight c"><figcaption><span>X-macro</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> NAMES(X) \</span></span><br><span class="line"><span class="meta">  X(Tom) X(Jerry) X(Tyke) X(Spike)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="meta">#<span class="keyword">define</span> PRINT(x) puts(<span class="string">&quot;Hello, &quot;</span> #x <span class="string">&quot;!&quot;</span>);</span></span><br><span class="line">  NAMES(PRINT)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><u>其中#表示字符串化，#x相当于把x转换成字符串</u></p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425233837276.png"></p>
-<p>在发生实际编译之前</p>
-<ul>
-<li>也称为元编程(meta-programming)<ul>
-<li>gcc的与处理器同样可以处理汇编代码</li>
-<li>C++中的模板元编程；Rust的macros；…（这一块我基本看不懂，元编程和macros什么意思？）</li>
-</ul>
-</li>
-</ul>
-<p>Pros</p>
-<ul>
-<li>提供灵活的用法 (X-macros)</li>
-<li>接近自然语言的写法</li>
-</ul>
-<p>Cons</p>
-<ul>
-<li>破坏可读性 <a href="https://www.ioccc.org/">IOCCC</a>、程序分析 (补全)、……</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> L (</span></span><br><span class="line"><span class="type">int</span> main L ) &#123; <span class="built_in">puts</span> L <span class="string">&quot;Hello, World&quot;</span> ); &#125;</span><br></pre></td></tr></table></figure>
-
-<p>破坏了人类的直觉，造成括号不匹配，及其影响阅读</p>
-<h4 id="编译与链接"><a href="#编译与链接" class="headerlink" title="编译与链接"></a>编译与链接</h4><h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><p>一个不带优化的简易（理想）编译器</p>
-<ul>
-<li>C代码的连续一段总能找到对应的一段连续的机器指令<ul>
-<li>因此大家说C是高级的汇编语言</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>编译之后对应的汇编语言大致如下（去除了一些不相干的代码）</p>
-<figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="title">foo</span>:</span><br><span class="line">.<span class="type">LFB0</span>:</span><br><span class="line">	pushq	%rbp</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	movl	%edi, <span class="number">-20</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">0</span>, <span class="number">-8</span>(%rbp)</span><br><span class="line">	movl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">	jmp	.<span class="type">L2</span></span><br><span class="line">.<span class="type">L3</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	addl	%eax, <span class="number">-8</span>(%rbp)</span><br><span class="line">	addl	$<span class="number">1</span>, <span class="number">-4</span>(%rbp)</span><br><span class="line">.<span class="type">L2</span>:</span><br><span class="line">	movl	<span class="number">-4</span>(%rbp), %eax</span><br><span class="line">	cmpl	<span class="number">-20</span>(%rbp), %eax</span><br><span class="line">	jle	.<span class="type">L3</span></span><br><span class="line">	movl	<span class="number">-8</span>(%rbp), %eax</span><br><span class="line">	popq	%rbp</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
-
-<p>C语言代码有一一对应的汇编代码，汇编代码对应机器代码，上面的程序用objdump转换为机器代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230425235744552.png"></p>
-<h5 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h5><p>将多个二进制目标代码拼接在一起</p>
-<ul>
-<li>C中成为编译单元(compilation unit)</li>
-<li>甚至可以连接 C++, <a href="https://rust-embedded.github.io/book/interoperability/rust-with-c.html">rust</a>, … 代码（不懂？_？）</li>
-</ul>
-<figure class="highlight c"><figcaption><span>a.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><figcaption><span>b.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">10</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426000753133.png"></p>
-<p>这是b.c汇编的代码，怎么把a.o和b.o中的代码合到一起？那就要用到链接，a.c中定义了foo函数，b.c中申明foo函数，并且在main函数调用foo函数输出结果</p>
-<p>输入gcc a.o b.o -static，运行.&#x2F;a.out输出结果55</p>
-<p>可以使用objdump反汇编a.out可以在其中找到main和foo的内容</p>
-<h4 id="加载：进入C语言的世界"><a href="#加载：进入C语言的世界" class="headerlink" title="加载：进入C语言的世界"></a>加载：进入C语言的世界</h4><h5 id="C程序执行的两个视角"><a href="#C程序执行的两个视角" class="headerlink" title="C程序执行的两个视角"></a>C程序执行的两个视角</h5><p>静态：C代码的连续一段总能找到一段连续的机器指令</p>
-<p>动态：C代码执行的状态总能对应到机器的状态</p>
-<ul>
-<li>源代码视角<ul>
-<li>函数、变量、指针……</li>
-</ul>
-</li>
-<li>机器指令视角<ul>
-<li>寄存器、内存、地址……</li>
-</ul>
-</li>
-</ul>
-<p>两个视角的共同之处：内存</p>
-<ul>
-<li>代码、变量（源代码视角）&#x3D;地址+长度（机器指令视角）</li>
-<li>（不太严谨地）内存&#x3D;代码+数据+堆栈<ul>
-<li>因此理解C程序执行最重要的就是<u>内存模型</u></li>
-</ul>
-</li>
-</ul>
-<p><u>本质上C语言中的所有的东西都是指针</u>，C语言的一切皆可取地址，常量、变量、函数、堆栈……在汇编中所有东西都是内存，两个刚好对应起来。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">printptr</span><span class="params">(<span class="type">void</span> *p)</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;p = %p;  *p = %016lx\n&quot;</span>, p, *(<span class="type">long</span> *)p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> x;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> *p = (<span class="type">void</span> *) <span class="number">1</span>;</span><br><span class="line">  printptr(main);  <span class="comment">// 代码</span></span><br><span class="line">  printptr(&amp;main);</span><br><span class="line">  printptr(&amp;x);    <span class="comment">// 数据</span></span><br><span class="line">  printptr(&amp;argc); <span class="comment">// 堆栈</span></span><br><span class="line">  printptr(argv);</span><br><span class="line">  printptr(&amp;argv);</span><br><span class="line">  printptr(argv[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="C-Type-System"><a href="#C-Type-System" class="headerlink" title="C Type System"></a>C Type System</h5><p><strong>类型：</strong>对一段内存的解读方式</p>
-<ul>
-<li>非常“汇编“——没有class,polymorphism,type traits,…（看不懂）</li>
-<li>C里所有的数据都可以理解成是地址（指针）+类型（对地址的解读）</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line">  <span class="keyword">if</span> (argc != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">char</span> ***a = &amp;argv, *first = argv[<span class="number">0</span>], ch = argv[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;arg = \&quot;%s\&quot;;  ch = &#x27;%c&#x27;\n&quot;</span>, first, ch);</span><br><span class="line">    assert(***a == ch);</span><br><span class="line">    f(argc - <span class="number">1</span>, argv + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这段代码可以画一张图去理解一下，其中比较有意思的是，函数作为指针、函数地址作为指针和*函数作为指针都是相同的</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, &amp;main);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, *main);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这段代码输出结果是完全相同的，说明函数的指针就是指向自身</p>
-<p>有意思的函数指针：</p>
-<ul>
-<li>当一个指针指向函数的时候，指针本身的地址没有改变，但是它指向一个指向函数的地址，函数的地址就是指向自身，所以一个上面例子中的f和(*f)甚至是(*****…*f)都起到main函数的作用，但是(&amp;f)就是取这个指针的地址。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    sum += i;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> (*f)(<span class="type">int</span>, <span class="type">char</span> *[]) = main;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;foo = %p\n&quot;</span>, &amp;foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;foo  = %p\n&quot;</span>, foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*foo = %p\n&quot;</span>, *foo);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;&amp;f   = %p\n&quot;</span>, &amp;f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;f    = %p\n&quot;</span>, f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;*f   = %p\n&quot;</span>, *f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230426230857144.png"></p>
-<p>第一节终于上完了，比第一次看要学会了不少新的细节，这周不再看计算机系统基础，遇到知识点就回来看这篇文章吸收。</p>
-<p>推荐文章：<a href="https://iq.opengenus.org/function-pointer-in-c/">Function Pointer in C</a></p>
 ]]></content>
       <categories>
         <category>Computer System</category>
@@ -972,40 +972,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PA1:The simplest computer</title>
-    <url>/PA1-The-simplest-computer/</url>
-    <content><![CDATA[<p>**Preface:**PA或许比较困难，我想记录一下途中遇到的困难，以及我是如何解决，在这个实验的过程中我希望能培养一下我先前比较弱的RTFSC能力。</p>
-<span id="more"></span>
-
-<h4 id="BUGs："><a href="#BUGs：" class="headerlink" title="BUGs："></a>BUGs：</h4><ul>
-<li>在<code>开始愉快的PA之旅之前</code>中，运行fceux-am时报错**(UNcompleted)**：</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502191442346.png"></p>
-<p>如下修改过后，fceux-am能运行，声音和游戏都能运行，如果切换成字符模式可以正常玩，但是没有画面，至今不知道怎么解决，也不知道哪里有问题。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502195059434.png"></p>
-<hr>
-<ul>
-<li>运行risv32-NEMU时发现报错如下</li>
-</ul>
-<p>![](<a href="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot">https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot</a> from 2023-04-28 23-11-19.png)</p>
-<p>看了calloc的manual，发现是给gdb_conn *指针申请空间的时候申请了sizeof(strcut gdb_conn *)大小的内存，实际上内存应该申请的是sizeof(strcut gdb_conn)大小</p>
-<p>修改后成功编译运行risv32-NEMU，欢迎界面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230428232022537.png"></p>
-<hr>
-<ul>
-<li>x86-CPU-state中寄存器部分需要修改</li>
-</ul>
-<p>做出如下修改：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502192612669.png"></p>
-<p>成功运行x86-NEMU，欢迎界面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502193010338.png"></p>
-<hr>
-]]></content>
-      <categories>
-        <category>PA实验</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Init Blog</title>
     <url>/2023-05-30-init_blog/</url>
     <content><![CDATA[<p><strong>Preface:</strong> 重载了系统，我的博客又无了，现在吸收了教训，从无到有开始记录以下创建博客的过程。</p>
@@ -1410,5 +1376,39 @@ C --&gt;|Two| E[Result 2]
       <tags>
         <tag>Blog</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>PA1:The simplest computer</title>
+    <url>/PA1-The-simplest-computer/</url>
+    <content><![CDATA[<p>**Preface:**PA或许比较困难，我想记录一下途中遇到的困难，以及我是如何解决，在这个实验的过程中我希望能培养一下我先前比较弱的RTFSC能力。</p>
+<span id="more"></span>
+
+<h4 id="BUGs："><a href="#BUGs：" class="headerlink" title="BUGs："></a>BUGs：</h4><ul>
+<li>在<code>开始愉快的PA之旅之前</code>中，运行fceux-am时报错**(UNcompleted)**：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502191442346.png"></p>
+<p>如下修改过后，fceux-am能运行，声音和游戏都能运行，如果切换成字符模式可以正常玩，但是没有画面，至今不知道怎么解决，也不知道哪里有问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502195059434.png"></p>
+<hr>
+<ul>
+<li>运行risv32-NEMU时发现报错如下</li>
+</ul>
+<p>![](<a href="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot">https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/Screenshot</a> from 2023-04-28 23-11-19.png)</p>
+<p>看了calloc的manual，发现是给gdb_conn *指针申请空间的时候申请了sizeof(strcut gdb_conn *)大小的内存，实际上内存应该申请的是sizeof(strcut gdb_conn)大小</p>
+<p>修改后成功编译运行risv32-NEMU，欢迎界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230428232022537.png"></p>
+<hr>
+<ul>
+<li>x86-CPU-state中寄存器部分需要修改</li>
+</ul>
+<p>做出如下修改：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502192612669.png"></p>
+<p>成功运行x86-NEMU，欢迎界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage@master/img/image-20230502193010338.png"></p>
+<hr>
+]]></content>
+      <categories>
+        <category>PA实验</category>
+      </categories>
   </entry>
 </search>
