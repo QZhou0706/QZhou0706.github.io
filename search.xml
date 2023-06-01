@@ -41,6 +41,155 @@
       </categories>
   </entry>
   <entry>
+    <title>操作系统06. 并发控制基础</title>
+    <url>/2023-04-27-operating_system6/</url>
+    <content><![CDATA[<p><strong>背景回顾</strong>：虽然 “线程库” 入门简单，但多处理器编程 + 编译优化会给我们带来很多意想不到的惊喜。在编写多线程程序时，们必须放弃许多对顺序程序编程时的基本假设，这也是并发编程困难的原因。</p>
+<span id="more"></span>
+
+<p>人类是 sequential creature ，大脑非常难以适应并发。但是可以创造一些新的手段让我们可以写出正确的并发程序。</p>
+<ul>
+<li>手段：让并发”回退到“顺序执行<ul>
+<li>标记若干块代码，使这些代码一定能按照某个顺序执行</li>
+<li>例如：我们可以安全地在块里记录执行的顺序</li>
+</ul>
+</li>
+</ul>
+<h4 id="回退到顺序执行：互斥"><a href="#回退到顺序执行：互斥" class="headerlink" title="回退到顺序执行：互斥"></a>回退到顺序执行：互斥</h4><p>可以插入“神秘代码”，让其他所有代码不能并发，只让现在执行的东西顺序执行</p>
+<ul>
+<li>由“神秘代码”领导的不会并发的代码（例如pure function       s）执行</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Tsum</span><span class="params">()</span> &#123;</span><br><span class="line">  stop_the_world();</span><br><span class="line">  <span class="comment">// 临界区 critical section</span></span><br><span class="line">  sum++;</span><br><span class="line">  resume_the_world();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Stop the world is possible</p>
+<ul>
+<li>Java有”stop the world GC”</li>
+<li>单个处理器可以关闭终端</li>
+<li>多处理器可以发送核间中断</li>
+</ul>
+<h5 id="失败的尝试："><a href="#失败的尝试：" class="headerlink" title="失败的尝试："></a>失败的尝试：</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> locked = UNLOCK;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">critical_section</span><span class="params">()</span> &#123;</span><br><span class="line">retry:</span><br><span class="line">  <span class="keyword">if</span> (locked != UNLOCK) &#123;</span><br><span class="line">    <span class="keyword">goto</span> retry;</span><br><span class="line">  &#125;</span><br><span class="line">  locked = LOCK;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// critical section</span></span><br><span class="line"></span><br><span class="line">  locked = UNLOCK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>并发程序不能保证load+store的原子性，可以画状态机找到一种执行顺序证明上面的代码是不可以保证互斥的。</p>
+<h5 id="更严肃地尝试：确定假设、设计算法"><a href="#更严肃地尝试：确定假设、设计算法" class="headerlink" title="更严肃地尝试：确定假设、设计算法"></a>更严肃地尝试：确定假设、设计算法</h5><p><strong>假设：内存的读&#x2F;写可以保证顺序、原子完成</strong></p>
+<ul>
+<li>val &#x3D; atomic_load(ptr)<ul>
+<li>看一眼某个地方的纸条（只能看到这个瞬间的字）</li>
+<li>刚看完可能就会被修改</li>
+</ul>
+</li>
+<li>atomic_store(ptr, val)<ul>
+<li>对应往某个地方“贴一张纸条”（闭眼盲贴，不管这个地方在发生什么）</li>
+<li>贴完一瞬间就可能被覆盖</li>
+</ul>
+</li>
+</ul>
+<p><strong>正确性不明的奇怪尝试（Peterson算法）</strong></p>
+<p>类比为 A 和 B 争用厕所的包间</p>
+<ul>
+<li>想进入包厢之前，A&#x2F;B都先举起自己的旗子<ul>
+<li>A 往厕所门上贴上“B正在使用”的标签</li>
+<li>B 往厕所门上贴上“A正在使用”的标签</li>
+</ul>
+</li>
+<li>然后，<strong>如果对方举着旗子，而且厕所门上的名字是对方</strong>，等待<ul>
+<li>否则可以进入包厢</li>
+</ul>
+</li>
+<li>出包厢后，放下自己的旗子（完全不管门上的标签）</li>
+</ul>
+<p>进入临界区的情况：</p>
+<ul>
+<li>只有一个人举旗子，就可以直接进入</li>
+<li>如果两个人同时举旗，由厕所门上的标签决定谁进<ul>
+<li>手快🈶（被另一个人覆盖）、手慢🈚</li>
+</ul>
+</li>
+</ul>
+<p>一些具体的细节情况</p>
+<ul>
+<li>A 看到 B 没有举旗<ul>
+<li>B 一定不在临界区</li>
+<li>或者 B 想进但还没来得及把“A 正在使用”贴在门上</li>
+</ul>
+</li>
+<li>A 看到 B 举旗<ul>
+<li>A 一定已经把旗子举起来了</li>
+<li>and so on ……</li>
+</ul>
+</li>
+</ul>
+<p>Prove by brute-force</p>
+<ul>
+<li>枚举状态机的全部状态（$PC_1,PC_2,x,y,trun$）CRAZY~~</li>
+<li>但是手写还是容易写错——可执行的状态机模型有用了！</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">TA</span><span class="params">()</span> &#123; <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line"><span class="comment">/* ❶ */</span>  x = <span class="number">1</span>;</span><br><span class="line"><span class="comment">/* ❷ */</span>  turn = B;</span><br><span class="line"><span class="comment">/* ❸ */</span>  <span class="keyword">while</span> (y &amp;&amp; turn == B) ;</span><br><span class="line"><span class="comment">/* ❹ */</span>  x = <span class="number">0</span>; &#125; &#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">TB</span><span class="params">()</span> &#123; <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line"><span class="comment">/* ① */</span>  y = <span class="number">1</span>;</span><br><span class="line"><span class="comment">/* ② */</span>  turn = A;</span><br><span class="line"><span class="comment">/* ③ */</span>  <span class="keyword">while</span> (x &amp;&amp; turn == A) ;</span><br><span class="line"><span class="comment">/* ④ */</span>  y = <span class="number">0</span>; &#125; &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="模型、模型检验与现实"><a href="#模型、模型检验与现实" class="headerlink" title="模型、模型检验与现实"></a>模型、模型检验与现实</h4><h5 id="自动遍历状态空间的乐趣"><a href="#自动遍历状态空间的乐趣" class="headerlink" title="自动遍历状态空间的乐趣"></a>自动遍历状态空间的乐趣</h5><p>可以帮助我们快速回答更多问题</p>
+<ul>
+<li>如果结束后把门上的字条撕掉，算法还正确吗？<ul>
+<li>在放下旗子之前撕</li>
+<li>在放下旗子之后撕</li>
+</ul>
+</li>
+<li>如果先贴标签再举旗，算法还正确吗？</li>
+<li>我们有两个 “查看” 的操作<ul>
+<li>看对方的旗有没有举起来</li>
+<li>看门上的贴纸是不是自己</li>
+<li>这两个操作的顺序影响算法的正确性吗？</li>
+</ul>
+</li>
+<li>是否存在 “两个人谁都无法进入临界区” (liveness)、“对某一方不公平” (fairness) 等行为？</li>
+</ul>
+<blockquote>
+<p>把状态机看作图的节点，从一个状态机转化到另一个状态机实际上就是两个节点之间有一条有向边，每一个帧PC从一个节点到下一个节点（一个状态机转换为下一个状态机）。</p>
+<p>因此类似上面的问题可以转换成图（状态空间）上的遍历问题了！</p>
+</blockquote>
+<h5 id="回到假设（体现在模型）"><a href="#回到假设（体现在模型）" class="headerlink" title="回到假设（体现在模型）"></a>回到假设（体现在模型）</h5><ul>
+<li><p>Atomic load &amp; store</p>
+<ul>
+<li>读&#x2F;写单个全局变量是“原子不可分割”的</li>
+<li>但这个假设在现代多处理器上并不成立</li>
+</ul>
+</li>
+<li><p>所以<strong>实际上按照模型直接写Peterson算法应该是错的</strong>？</p>
+</li>
+</ul>
+<p>“实现正确的Peterson算法”是合理需求，它一定能实现</p>
+<ul>
+<li>Compiler barrier&#x2F;volatile 保证不被优化的前提下<ul>
+<li>处理器提供特殊的指令保证可见性</li>
+<li>编译器提供 __sync_synchronize()函数<ul>
+<li>x86: mfence; ARM: dmb ish; RISC-V: fence rw, rw</li>
+<li>同时含有一个compiler barrier</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="原子指令"><a href="#原子指令" class="headerlink" title="原子指令"></a>原子指令</h4><h5 id="并发编程困难的解决"><a href="#并发编程困难的解决" class="headerlink" title="并发编程困难的解决"></a>并发编程困难的解决</h5><p>普通的变量读写在编译器+处理器的双重优化下行为变得复杂</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">retry:</span><br><span class="line">  <span class="keyword">if</span> (locked != UNLOCK) &#123;</span><br><span class="line">    <span class="keyword">goto</span> retry;</span><br><span class="line">  &#125;</span><br><span class="line">  locked = LOCK;</span><br></pre></td></tr></table></figure>
+
+<p>解决方法：编译器和硬件共同提供”不可优化、不可打断“的指令</p>
+<ul>
+<li>“原子指令” + compiler barrier</li>
+</ul>
+<p>之前的<code>sum.c</code>修改如下部分，就可以实现正确的求和</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;lock incq %0&quot;</span> : <span class="string">&quot;+m&quot;</span>(sum))</span>;</span><br></pre></td></tr></table></figure>
+
+<p>“Bus lock”——从 80386 开始引入 (bus control signal)</p>
+<p><img src="https://jyywiki.cn/pages/OS/img/80486-arch.jpg" alt="bus control signal"></p>
+<h4 id="Take-away-Messages"><a href="#Take-away-Messages" class="headerlink" title="Take-away Messages"></a>Take-away Messages</h4><p>并发编程 “很难”：想要完全理解并发程序的行为，是非常困难的——我们甚至可以利用一个 “万能” 的调度器去帮助我们求解 NP-完全问题。因此，人类应对这种复杂性的方法就是退回到不并发。通过互斥实现 stop&#x2F;resume the world，我们就可以使并发程序的执行变得更容易理解——而只要程序中 “能并行” 的部分足够多，串行化一小部分也并不会对性能带来致命的影响。</p>
+]]></content>
+      <categories>
+        <category>Operating System</category>
+      </categories>
+      <tags>
+        <tag>基础学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机系统基础1. C语言拾遗(1):机制</title>
     <url>/2023-04-25-computer_system1/</url>
     <content><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>这一节主要是弥补一些程序设计基础课上不会讲到的一些关于 C 语言的比较重要的知识，帮助构筑整体知识框架，以便后续学习计算机系统能更加顺利一些。——总共学习了四个半小时。</p>
@@ -467,155 +616,6 @@
 ]]></content>
       <categories>
         <category>Computer System</category>
-      </categories>
-      <tags>
-        <tag>基础学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>操作系统06. 并发控制基础</title>
-    <url>/2023-04-27-operating_system6/</url>
-    <content><![CDATA[<p><strong>背景回顾</strong>：虽然 “线程库” 入门简单，但多处理器编程 + 编译优化会给我们带来很多意想不到的惊喜。在编写多线程程序时，们必须放弃许多对顺序程序编程时的基本假设，这也是并发编程困难的原因。</p>
-<span id="more"></span>
-
-<p>人类是 sequential creature ，大脑非常难以适应并发。但是可以创造一些新的手段让我们可以写出正确的并发程序。</p>
-<ul>
-<li>手段：让并发”回退到“顺序执行<ul>
-<li>标记若干块代码，使这些代码一定能按照某个顺序执行</li>
-<li>例如：我们可以安全地在块里记录执行的顺序</li>
-</ul>
-</li>
-</ul>
-<h4 id="回退到顺序执行：互斥"><a href="#回退到顺序执行：互斥" class="headerlink" title="回退到顺序执行：互斥"></a>回退到顺序执行：互斥</h4><p>可以插入“神秘代码”，让其他所有代码不能并发，只让现在执行的东西顺序执行</p>
-<ul>
-<li>由“神秘代码”领导的不会并发的代码（例如pure function       s）执行</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Tsum</span><span class="params">()</span> &#123;</span><br><span class="line">  stop_the_world();</span><br><span class="line">  <span class="comment">// 临界区 critical section</span></span><br><span class="line">  sum++;</span><br><span class="line">  resume_the_world();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Stop the world is possible</p>
-<ul>
-<li>Java有”stop the world GC”</li>
-<li>单个处理器可以关闭终端</li>
-<li>多处理器可以发送核间中断</li>
-</ul>
-<h5 id="失败的尝试："><a href="#失败的尝试：" class="headerlink" title="失败的尝试："></a>失败的尝试：</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> locked = UNLOCK;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">critical_section</span><span class="params">()</span> &#123;</span><br><span class="line">retry:</span><br><span class="line">  <span class="keyword">if</span> (locked != UNLOCK) &#123;</span><br><span class="line">    <span class="keyword">goto</span> retry;</span><br><span class="line">  &#125;</span><br><span class="line">  locked = LOCK;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// critical section</span></span><br><span class="line"></span><br><span class="line">  locked = UNLOCK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>并发程序不能保证load+store的原子性，可以画状态机找到一种执行顺序证明上面的代码是不可以保证互斥的。</p>
-<h5 id="更严肃地尝试：确定假设、设计算法"><a href="#更严肃地尝试：确定假设、设计算法" class="headerlink" title="更严肃地尝试：确定假设、设计算法"></a>更严肃地尝试：确定假设、设计算法</h5><p><strong>假设：内存的读&#x2F;写可以保证顺序、原子完成</strong></p>
-<ul>
-<li>val &#x3D; atomic_load(ptr)<ul>
-<li>看一眼某个地方的纸条（只能看到这个瞬间的字）</li>
-<li>刚看完可能就会被修改</li>
-</ul>
-</li>
-<li>atomic_store(ptr, val)<ul>
-<li>对应往某个地方“贴一张纸条”（闭眼盲贴，不管这个地方在发生什么）</li>
-<li>贴完一瞬间就可能被覆盖</li>
-</ul>
-</li>
-</ul>
-<p><strong>正确性不明的奇怪尝试（Peterson算法）</strong></p>
-<p>类比为 A 和 B 争用厕所的包间</p>
-<ul>
-<li>想进入包厢之前，A&#x2F;B都先举起自己的旗子<ul>
-<li>A 往厕所门上贴上“B正在使用”的标签</li>
-<li>B 往厕所门上贴上“A正在使用”的标签</li>
-</ul>
-</li>
-<li>然后，<strong>如果对方举着旗子，而且厕所门上的名字是对方</strong>，等待<ul>
-<li>否则可以进入包厢</li>
-</ul>
-</li>
-<li>出包厢后，放下自己的旗子（完全不管门上的标签）</li>
-</ul>
-<p>进入临界区的情况：</p>
-<ul>
-<li>只有一个人举旗子，就可以直接进入</li>
-<li>如果两个人同时举旗，由厕所门上的标签决定谁进<ul>
-<li>手快🈶（被另一个人覆盖）、手慢🈚</li>
-</ul>
-</li>
-</ul>
-<p>一些具体的细节情况</p>
-<ul>
-<li>A 看到 B 没有举旗<ul>
-<li>B 一定不在临界区</li>
-<li>或者 B 想进但还没来得及把“A 正在使用”贴在门上</li>
-</ul>
-</li>
-<li>A 看到 B 举旗<ul>
-<li>A 一定已经把旗子举起来了</li>
-<li>and so on ……</li>
-</ul>
-</li>
-</ul>
-<p>Prove by brute-force</p>
-<ul>
-<li>枚举状态机的全部状态（$PC_1,PC_2,x,y,trun$）CRAZY~~</li>
-<li>但是手写还是容易写错——可执行的状态机模型有用了！</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">TA</span><span class="params">()</span> &#123; <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line"><span class="comment">/* ❶ */</span>  x = <span class="number">1</span>;</span><br><span class="line"><span class="comment">/* ❷ */</span>  turn = B;</span><br><span class="line"><span class="comment">/* ❸ */</span>  <span class="keyword">while</span> (y &amp;&amp; turn == B) ;</span><br><span class="line"><span class="comment">/* ❹ */</span>  x = <span class="number">0</span>; &#125; &#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">TB</span><span class="params">()</span> &#123; <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line"><span class="comment">/* ① */</span>  y = <span class="number">1</span>;</span><br><span class="line"><span class="comment">/* ② */</span>  turn = A;</span><br><span class="line"><span class="comment">/* ③ */</span>  <span class="keyword">while</span> (x &amp;&amp; turn == A) ;</span><br><span class="line"><span class="comment">/* ④ */</span>  y = <span class="number">0</span>; &#125; &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="模型、模型检验与现实"><a href="#模型、模型检验与现实" class="headerlink" title="模型、模型检验与现实"></a>模型、模型检验与现实</h4><h5 id="自动遍历状态空间的乐趣"><a href="#自动遍历状态空间的乐趣" class="headerlink" title="自动遍历状态空间的乐趣"></a>自动遍历状态空间的乐趣</h5><p>可以帮助我们快速回答更多问题</p>
-<ul>
-<li>如果结束后把门上的字条撕掉，算法还正确吗？<ul>
-<li>在放下旗子之前撕</li>
-<li>在放下旗子之后撕</li>
-</ul>
-</li>
-<li>如果先贴标签再举旗，算法还正确吗？</li>
-<li>我们有两个 “查看” 的操作<ul>
-<li>看对方的旗有没有举起来</li>
-<li>看门上的贴纸是不是自己</li>
-<li>这两个操作的顺序影响算法的正确性吗？</li>
-</ul>
-</li>
-<li>是否存在 “两个人谁都无法进入临界区” (liveness)、“对某一方不公平” (fairness) 等行为？</li>
-</ul>
-<blockquote>
-<p>把状态机看作图的节点，从一个状态机转化到另一个状态机实际上就是两个节点之间有一条有向边，每一个帧PC从一个节点到下一个节点（一个状态机转换为下一个状态机）。</p>
-<p>因此类似上面的问题可以转换成图（状态空间）上的遍历问题了！</p>
-</blockquote>
-<h5 id="回到假设（体现在模型）"><a href="#回到假设（体现在模型）" class="headerlink" title="回到假设（体现在模型）"></a>回到假设（体现在模型）</h5><ul>
-<li><p>Atomic load &amp; store</p>
-<ul>
-<li>读&#x2F;写单个全局变量是“原子不可分割”的</li>
-<li>但这个假设在现代多处理器上并不成立</li>
-</ul>
-</li>
-<li><p>所以<strong>实际上按照模型直接写Peterson算法应该是错的</strong>？</p>
-</li>
-</ul>
-<p>“实现正确的Peterson算法”是合理需求，它一定能实现</p>
-<ul>
-<li>Compiler barrier&#x2F;volatile 保证不被优化的前提下<ul>
-<li>处理器提供特殊的指令保证可见性</li>
-<li>编译器提供 __sync_synchronize()函数<ul>
-<li>x86: mfence; ARM: dmb ish; RISC-V: fence rw, rw</li>
-<li>同时含有一个compiler barrier</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="原子指令"><a href="#原子指令" class="headerlink" title="原子指令"></a>原子指令</h4><h5 id="并发编程困难的解决"><a href="#并发编程困难的解决" class="headerlink" title="并发编程困难的解决"></a>并发编程困难的解决</h5><p>普通的变量读写在编译器+处理器的双重优化下行为变得复杂</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">retry:</span><br><span class="line">  <span class="keyword">if</span> (locked != UNLOCK) &#123;</span><br><span class="line">    <span class="keyword">goto</span> retry;</span><br><span class="line">  &#125;</span><br><span class="line">  locked = LOCK;</span><br></pre></td></tr></table></figure>
-
-<p>解决方法：编译器和硬件共同提供”不可优化、不可打断“的指令</p>
-<ul>
-<li>“原子指令” + compiler barrier</li>
-</ul>
-<p>之前的<code>sum.c</code>修改如下部分，就可以实现正确的求和</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">  <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;lock incq %0&quot;</span> : <span class="string">&quot;+m&quot;</span>(sum))</span>;</span><br></pre></td></tr></table></figure>
-
-<p>“Bus lock”——从 80386 开始引入 (bus control signal)</p>
-<p><img src="https://jyywiki.cn/pages/OS/img/80486-arch.jpg" alt="bus control signal"></p>
-<h4 id="Take-away-Messages"><a href="#Take-away-Messages" class="headerlink" title="Take-away Messages"></a>Take-away Messages</h4><p>并发编程 “很难”：想要完全理解并发程序的行为，是非常困难的——我们甚至可以利用一个 “万能” 的调度器去帮助我们求解 NP-完全问题。因此，人类应对这种复杂性的方法就是退回到不并发。通过互斥实现 stop&#x2F;resume the world，我们就可以使并发程序的执行变得更容易理解——而只要程序中 “能并行” 的部分足够多，串行化一小部分也并不会对性能带来致命的影响。</p>
-]]></content>
-      <categories>
-        <category>Operating System</category>
       </categories>
       <tags>
         <tag>基础学习</tag>
