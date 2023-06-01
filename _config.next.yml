@@ -805,11 +805,11 @@ plausible:
 # Show number of visitors of each article.
 # You can visit https://www.leancloud.cn to get AppID and AppKey.
 leancloud_visitors:
-  enable: true
-  app_id: Y8Wsid3Gm5LZWPKWITYBicQ2-MdYXbMMI
-  app_key: 1hXshc8YneBHn3Xhs3NdO3gV
+  enable: false
+  app_id: AYY7IInUzNEl7FV2Mz00OcX7-MdYXbMMI
+  app_key: LbjcXe3LbtI7HOwHvmfVB87V
   # Required for apps from CN region
-  server_url: arickkaa.com
+  server_url: https://arickkaa.com/
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in leancloud counter and just want to use it directly
   # (without hexo-leancloud-counter-security plugin), set `security` to `false`.

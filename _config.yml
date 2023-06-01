@@ -108,14 +108,6 @@ deploy:
   repo: git@github.com:QZhou0706/QZhou0706.github.io.git
   branch: gh-pages
 
-leancloud_counter_security:
-  enable_sync: true
-  app_id: Y8Wsid3Gm5LZWPKWITYBicQ2-MdYXbMMI
-  app_key: 1hXshc8YneBHn3Xhs3NdO3gV
-  username: <your username> # Will be asked while deploying if is left blank
-  password: <your password> # Recommmended to be left blank. Will be asked while deploying if is left blank
-
-
 search:
   path: search.xml
   field: post

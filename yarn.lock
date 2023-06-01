@@ -976,14 +976,6 @@ hexo-i18n@^1.0.0:
   dependencies:
     sprintf-js "^1.0.3"
 
-hexo-leancloud-counter-security@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/hexo-leancloud-counter-security/-/hexo-leancloud-counter-security-1.5.0.tgz"
-  integrity sha512-oPQh2XK/cHG7izeq4rUhsrKKExtgpl2+BIqJXLY6E84nveMHmjvXwrX8/lYY4EUeFUOaXvkXR6i7InD2rLyZrA==
-  dependencies:
-    leancloud-storage "^4.3.0"
-    readline-sync "^1.4.10"
-
 hexo-log@^3.0.0, hexo-log@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/hexo-log/-/hexo-log-3.2.0.tgz"
@@ -1344,7 +1336,7 @@ leancloud-realtime-plugin-live-query@^1.2.0:
     protobufjs "^5.0.1"
     uuid "^3.0.0"
 
-leancloud-storage@^4.3.0:
+leancloud-storage@^4.15.0:
   version "4.15.0"
   resolved "https://registry.npmjs.org/leancloud-storage/-/leancloud-storage-4.15.0.tgz"
   integrity sha512-iEbg+xjcMBW2J0CrzmXwtnzID9uZkK+x1HBVZHGIE4xW+h1QpuPkFBVAK7CVmdLRmKiVt68OKboeUM48Rav9qQ==
@@ -1797,11 +1789,6 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
-
-readline-sync@^1.4.10:
-  version "1.4.10"
-  resolved "https://registry.npmjs.org/readline-sync/-/readline-sync-1.4.10.tgz"
-  integrity sha512-gNva8/6UAe8QYepIQH/jQ2qn91Qj0B9sYjMBBs3QOB8F2CXcKgLxQaJRP76sWVRQt+QU+8fAkCbCvjjMFu7Ycw==
 
 regenerator-runtime@^0.13.11:
   version "0.13.11"
