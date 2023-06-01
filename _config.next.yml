@@ -249,7 +249,7 @@ post_meta:
   item_text: false
   created_at: true
   updated_at:
-    enable: true
+    enable: false
     another_day: true
   categories: true
 
