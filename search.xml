@@ -1407,8 +1407,113 @@ C --&gt;|Two| E[Result 2]
 <figure class="highlight shell"><figcaption><span>Hexo config file</span></figcaption><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/&lt;username&gt;/&lt;project&gt;</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">example, https://github.com/hexojs/hexojs.github.io</span></span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
       <tags>
         <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机组成原理期末复习</title>
+    <url>/2023-06-17-computer_organization/</url>
+    <content><![CDATA[<hr>
+<h4 id="1-2-计算机的发展简史"><a href="#1-2-计算机的发展简史" class="headerlink" title="1.2 计算机的发展简史"></a>1.2 计算机的发展简史</h4><ul>
+<li><p>计算机的五代变化</p>
+<ul>
+<li>第一代 1946~1957 电子管计算机：数据处理</li>
+<li>第二代 1958~1964 晶体管计算机：工业机器</li>
+<li>第三代 1965~1971 中小规模集成电路计算机<ul>
+<li>小型计算机</li>
+</ul>
+</li>
+<li>第四代 1972~1990 (1972~1977) 大规模和超大规模集成电路计算机<ul>
+<li>微型计算机</li>
+</ul>
+</li>
+<li>第五代 1991 (1978) 至今 据大规模集成电路计算机</li>
+</ul>
+<p>括号内为两种说法</p>
+</li>
+<li><p>电子管计算机</p>
+</li>
+<li><p>1946 第一台<strong>通用</strong>电子计算机：ENIAC</p>
+<ul>
+<li>十进制表示运算</li>
+<li>手动变成，设置开关和插拔电缆实现</li>
+</ul>
+</li>
+<li><p>冯诺伊曼结构</p>
+<ul>
+<li>EDVAC报告草案中提出了“存储-程序”思想，于 46 年开始设计</li>
+<li>“存储-程序”思想<ul>
+<li>将实现编好的程序和原始数据送入主存中，然后启动执行</li>
+<li>计算机能在不需操作人员的干预下，自动完成<strong>逐条取出命令</strong>和<strong>执行命令</strong>的任务</li>
+</ul>
+</li>
+<li>计算机应由<strong>运算其、控制器、存储器、输入设备和输出设备</strong>五个基本部件组成</li>
+<li><strong>存储器</strong>不仅能存放数据，而却也能存放指令，形式上两者没有区别，但计算机应能区分数据和指令</li>
+<li><strong>控制器</strong>应能进行加减乘除四种基本算术运算，并且也能进行一些逻辑运算和附加运算</li>
+<li>操作人员可以通过<strong>输入设备和输出设备</strong>与主机进行通信</li>
+<li>早期的冯诺伊曼结构以<strong>运算器为中心</strong>，输入、输出设备通过运算器与存储器传送数据</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/QZhou0706/picGoStorage/img/image-20230617210849191.png"></p>
+<ul>
+<li><p>微处理器发展历程</p>
+<ul>
+<li>1971 Intel 公司开发出 <strong>Intel 4004</strong> 。这是第一个将 CPU 的所有元件都放入统一块芯片的产品，微处理器诞生</li>
+<li>20世纪70年代末出现强大的通用16位微处理器，<strong>8086</strong>便是其中之一</li>
+</ul>
+</li>
+<li><p>性能指标</p>
+<ul>
+<li>制造成本</li>
+<li>衡量计算机性能的基本指标<ul>
+<li>响应时间 (response time)<ul>
+<li>执行时间 (execution time)、等待时间 (latency)</li>
+</ul>
+</li>
+<li>吞吐量 (throughput)<ul>
+<li>带宽 (bandwidth)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>计算机性能测量<ul>
+<li>指令执行速度 (IPC、MIPS、MFLOPS)</li>
+</ul>
+</li>
+<li>处理器字长<ul>
+<li>处理机运算器中一次能够完成二进制数运算的位数，如32位、64位</li>
+</ul>
+</li>
+<li>总线宽度<ul>
+<li>一般指CPU中运算器与存储器之间进行互连的内部总线的二进制位数</li>
+</ul>
+</li>
+<li>响应时间<ul>
+<li>表征从输入有效到系统产生响应之间的时间度量，用时间单位来度量</li>
+</ul>
+</li>
+<li>存储器带宽<ul>
+<li>单位时间内从存储器读出的二进制数信息量 (bps, Kbps, Mbps, Gbps)</li>
+</ul>
+</li>
+<li>MIPS<ul>
+<li>每秒百万条指令数， MIPS &#x3D; 频率 x IPC</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>major</category>
+      </categories>
+      <tags>
+        <tag>基础学习</tag>
       </tags>
   </entry>
 </search>
