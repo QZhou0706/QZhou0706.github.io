@@ -26,7 +26,7 @@
     "hexo-renderer-swig": "^2.0.0",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.0.0",
-    "hexo-theme-next": "^8.16.0",
+    "hexo-theme-next": "^8.17.1",
     "leancloud-storage": "^4.15.0",
     "pjax": "^0.2.8"
   }
